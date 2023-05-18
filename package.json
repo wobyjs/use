@@ -1,6 +1,6 @@
 {
     "name": "react-voby-bridge",
-    "repository": "github:fabiospampinato/voby",
+    "repository": "https://github.com/wongchichong/react-voby-bridge.git",
     "description": "react-voby-bridge",
     "version": "0.0.1",
     "type": "module",
@@ -15,7 +15,8 @@
         "dev": "vite --config=test.vite.config.ts --force --mode dev --host",
         "prod": "vite --force",
         "build": "vite build",
-        "prepublishOnly": "pnpm run clean && pnpm run compile",
+        "clean": "rimraf ./dist/",
+        "prepublishOnly": "pnpm run clean && pnpm run build",
         "bump": "pnpm version patch"
     },
     "keywords": [

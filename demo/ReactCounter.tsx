@@ -1,4 +1,4 @@
-//pnpm add - D types_react @npm: @types/react
+//pnpm add - D types_react@npm:@types/react
 /// <reference types="types_react" />
 
 import { useReduction } from '../src/useReduction'
@@ -10,30 +10,25 @@ export const ReductionCounter = ({ initValue, ...props }: { initValue?: number }
         decrement: (count, { args }: { args: number }) => ({ count: count.count - args })
     })
 
-    return (
-        <div>
-            <h3>Reduction Counter</h3>
-            <p>{count.count}</p>
-            <button onClick={() => actions.increment({ count: 2 })}>+2</button>
-            <button onClick={() => actions.decrement(2)}>-2</button>
+    return <div>
+        <h3>Reduction Counter</h3>
+        <p>{count.count}</p>
+        <button onClick={() => actions.increment({ count: 2 })}>+2</button>
+        <button onClick={() => actions.decrement(2)}>-2</button>
 
-        </div>
-    )
+    </div>
 }
 
 export const ReactCounter = ({ initValue }: { initValue?: number } = {}) => {
     const [count, setCount] = useState(initValue ?? 0)
 
+    return <div>
+        <h3>React Counter</h3>
+        <p>{count}</p>
+        <button onClick={() => setCount(count + 2)}>+2</button>
+        <button onClick={() => setCount(count - 2)}>-2</button>
 
-    return (
-        <div>
-            <h3>React Counter</h3>
-            <p>{count}</p>
-            <button onClick={() => setCount(count + 2)}>+2</button>
-            <button onClick={() => setCount(count - 2)}>-2</button>
-
-        </div>
-    )
+    </div>
 }
 
 export const ReactAutoCounter = ({ initValue }: { initValue?: number } = {}) => {

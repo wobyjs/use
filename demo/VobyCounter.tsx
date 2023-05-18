@@ -10,15 +10,9 @@ import { $ } from 'voby'
 import type { Observable } from 'voby'
 
 const Counter = ({ increment, decrement, value }: { increment: Observable<() => number>, decrement: Observable<() => number>, value: Observable<number> }) => {
-    // const value = $(0)
-
-    // const increment = () => value(prev => prev + 1)
-    // const decrement = () => value(prev => prev - 1)
-
     return (
         <>
             <h3>Voby Counter</h3>
-            {/** @ts-ignore */}
             <p>{value}</p>
             <button onClick={increment}>+</button>
             <button onClick={decrement}>-</button>
@@ -26,19 +20,16 @@ const Counter = ({ increment, decrement, value }: { increment: Observable<() => 
     )
 }
 
-export const VobyCount = ({ initValue, ...props }: { initValue?: number } = {}) => {
+export const VobyCounter = ({ initValue, ...props }: { initValue?: number } = {}) => {
     const value = $(initValue ?? 0)
 
     const increment = $(() => value(prev => prev + 1))
     const decrement = $(() => value(prev => prev - 1))
 
-
     return <>
         <Counter {...{ value, increment, decrement }} />
-
     </>
 }
-
 
 export const VobyAutoCount = ({ initValue, ...props }: { initValue?: number } = {}) => {
     const value = $(initValue ?? 0)
@@ -60,4 +51,3 @@ export const VobyAutoCount = ({ initValue, ...props }: { initValue?: number } = 
     </div>
 
 }
-// render(<VobyComponent />, document.getElementById('app'))

@@ -47,15 +47,6 @@
         "rootDir": "./",
         "composite": true,
         "paths": {
-            // "*": [
-            //   "../voby/src"
-            // ],
-            // "voby": [
-            //   "../voby/src"
-            // ],
-            // "voby/*": [
-            //   "../voby/src/*"
-            // ],
             "voby/jsx-runtime": [
                 "../../../voby/dist/jsx"
             ],
@@ -77,7 +68,7 @@
         }
     ],
     "exclude": [
-        "./node_modules/@types/react"
+        "node_modules/*",
     ]
     // "include": [
     //   "../voby/src/jsx"

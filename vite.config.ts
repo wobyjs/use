@@ -17,7 +17,7 @@ const config = defineConfig({
         jsx: 'automatic',
     },
     plugins: [
-        dts({ entryRoot: './src', outputDir: './dist/types' })
+        dts({ entryRoot: './src', outputDir: './dist/types', exclude: './nodes_modules' })
     ],
     resolve: {
         alias: {
