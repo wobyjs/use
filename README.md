@@ -17,7 +17,7 @@ See [Demo](https://github.com/wongchichong/react-voby-bridge/tree/main/demo) fol
 
 #### <span style="color:yellow">ReactCounter.tsx</span>
 ``` ts
-//pnpm add - D types_react @npm: @types/react
+//pnpm add -D types_react@npm:@types/react
 /// <reference types="types_react" />
 
 import { useState, useEffect } from 'react'
@@ -106,7 +106,7 @@ export const VobyCounter = ({ initValue, ...props }: { initValue?: number } = {}
 
 #### <span style="color:yellow">ReactComponent.tsx</span>
 ``` ts
-//pnpm add - D types_react@npm:@types/react 
+//pnpm add -D types_react@npm:@types/react 
 /// <reference types="types_react" />
 
 import { useReduction } from '../src/useReduction'
