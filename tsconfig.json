@@ -1,0 +1,85 @@
+{
+    "compilerOptions": {
+        "allowJs": false,
+        "allowSyntheticDefaultImports": true,
+        "allowUnreachableCode": false,
+        "allowUnusedLabels": false,
+        "alwaysStrict": true,
+        "declaration": true,
+        "disableSizeLimit": true,
+        "esModuleInterop": false,
+        "forceConsistentCasingInFileNames": true,
+        "inlineSourceMap": false,
+        "inlineSources": false,
+        // "isolatedModules": true,
+        "jsx": "react-jsx",
+        "jsxImportSource": "react",
+        "lib": [
+            "dom",
+            "esnext"
+        ],
+        "module": "es2020",
+        "moduleResolution": "node",
+        "newLine": "lf",
+        "noEmitOnError": false,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitOverride": false,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noPropertyAccessFromIndexSignature": false,
+        "noUnusedLocals": true,
+        "noUnusedParameters": false,
+        "outDir": "./dist/",
+        "pretty": true,
+        "skipDefaultLibCheck": true,
+        "skipLibCheck": true,
+        "sourceMap": false,
+        "strict": true,
+        "strictBindCallApply": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": false,
+        "target": "es2020",
+        "useDefineForClassFields": false,
+        "useUnknownInCatchVariables": true,
+        "noImplicitAny": false,
+        "noUncheckedIndexedAccess": false,
+        "baseUrl": ".",
+        "rootDir": "./",
+        "composite": true,
+        "paths": {
+            // "*": [
+            //   "../voby/src"
+            // ],
+            // "voby": [
+            //   "../voby/src"
+            // ],
+            // "voby/*": [
+            //   "../voby/src/*"
+            // ],
+            "voby/jsx-runtime": [
+                "../../../voby/dist/jsx"
+            ],
+            "voby/jsx-runtime/*": [
+                "../../../voby/dist/jsx/*"
+            ],
+        },
+        "typeRoots": [
+            "voby",
+            "./node_modules/voby"
+        ],
+        "types": [
+            "jsx"
+        ]
+    },
+    "references": [
+        {
+            "path": "../woby"
+        }
+    ],
+    "exclude": [
+        "./node_modules/@types/react"
+    ]
+    // "include": [
+    //   "../voby/src/jsx"
+    // ]
+}

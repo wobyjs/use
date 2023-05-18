@@ -1,0 +1,76 @@
+/// <reference types="types_react" />
+/// <reference types="voby" />
+
+/** @jsxRuntime classic */
+/** @jsx jsx */
+/** @jsxFrag Fragment */
+import { Observable, jsx, } from "voby"
+import { jsx as rsx, jsxs as rsxs } from 'react/jsx-runtime'
+// import { ReactDOM } from "types_react"
+import { createRoot } from 'react-dom/client'
+
+
+import { $, useEffect, useMemo, $$ } from 'voby'
+import { nanoid } from 'nanoid'
+import React, { createContext, useContext } from "react"
+
+// const context = createContext("abc") as React.Context<string>
+
+export const useReactContext = <T,>(context: React.Context<T>)/* :Observable<T> */ => {
+    const cc = $()
+
+    useEffect(() => {
+        const root = createRoot(document.createDocumentFragment())
+        root.render(rsxs('div', {
+            children: [
+                rsx(() => {
+                    const c = useContext(context)
+                    /* return */ cc(c)
+                }, { key: nanoid() }),
+                // rsx(context.Provider, { value: "aaaa"/* $$(cc) */, key: nanoid() })
+            ]
+        })) //createPortal not working
+
+        // return () => root.unmount()
+    })
+
+
+    // useEffect(() => {
+    //     const root = document.createDocumentFragment()
+    //     createPortal(rsxs('div', {
+    //         children: [
+    //             // rsx(() => {
+    //             //     const c = useContext(context)
+    //             //     /* return */ cc(c)
+    //             // }, { key: nanoid() }),
+    //             rsx(context.Provider, { value: $$(cc), key: nanoid() })
+    //         ]
+    //     }), root) //createPortal not working
+    //     // root.unmount()
+
+    //     // return () => root.unmount()
+    // })
+
+
+    return (value?: T) => {
+        if (typeof value === 'undefined')
+            return cc()
+        else {
+            if (cc() === value)
+                return value
+
+            const root = createRoot(document.createDocumentFragment())
+            root.render(rsxs('div', {
+                children: [
+                    // rsx(() => {
+                    //     const c = useContext(context)
+                    //     /* return */ cc(c)
+                    // }, { key: nanoid() }),
+                    rsx(context.Provider, { value: $$(cc), key: nanoid() })
+                ]
+            })) //createPortal not working
+
+            return cc(value)
+        }
+    }
+}

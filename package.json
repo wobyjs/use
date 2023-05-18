@@ -1,0 +1,39 @@
+{
+    "name": "react-voby-bridge",
+    "repository": "github:fabiospampinato/voby",
+    "description": "react-voby-bridge",
+    "version": "0.0.1",
+    "type": "module",
+    "main": "./dist/index.cjs.js",
+    "module": "./dist/index.es.js",
+    "browser": "./dist/index.umd.js",
+    "types": "./dist/types/index.d.ts",
+    "sass": "./dist/styles.scss",
+    "sideEffects": false,
+    "scripts": {
+        "preinstall": "npx only-allow pnpm",
+        "dev": "vite --config=test.vite.config.ts --force --mode dev --host",
+        "prod": "vite --force",
+        "build": "vite build",
+        "prepublishOnly": "pnpm run clean && pnpm run compile",
+        "bump": "pnpm version patch"
+    },
+    "keywords": [
+        "ui",
+        "framework",
+        "reactive",
+        "react"
+    ],
+    "dependencies": {
+        "nanoid": "^3.3.6",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "voby": "workspace:^"
+    },
+    "devDependencies": {
+        "@types/node": "^20.1.5",
+        "types_react": "npm:@types/react@^18.2.6",
+        "vite": "^4.3.3",
+        "vite-plugin-dts": "^2.3.0"
+    }
+}
