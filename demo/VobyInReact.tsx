@@ -3,7 +3,7 @@
 
 import { useReduction } from '../src/useReduction'
 import { useOby } from '../src/useOby'
-import { VobyCounter } from './VobyCounter'
+import { VobyCounter, VobySharedCounter, VobySharedCounter2 } from './VobyCounter'
 import { $, store } from 'voby'
 import { useVoby } from '../src/useVoby'
 import { jsx as vsx } from 'voby/jsx-runtime'
@@ -44,6 +44,10 @@ export const VobyInReact = () => {
         {useVoby(VobyCounter)}
         {useVoby(VobyCounter, { initValue: 100 })}
         {useVoby(vsx(VobyCounter as any, { initValue: 200 }))}
+
+        <h2>Shared Voby in React</h2>
+        {useVoby(VobySharedCounter)}
+        {useVoby(VobySharedCounter2)}
 
         <br />
         <br />

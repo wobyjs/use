@@ -1,14 +1,14 @@
-# react-voby-bridge
+# use-voby
 Bridge for React and [Vobyjs](https://github.com/vobyjs/voby)
 
 ``` bash
-git clone https://github.com/wongchichong/react-voby-bridge
-cd react-voby-bridge
+git clone https://github.com/wongchichong/use-voby
+cd use-voby
 pnpm install
 pnpm dev
 ```
 
-See [Demo](https://github.com/wongchichong/react-voby-bridge/tree/main/demo) folder for more sample.
+See [Demo](https://github.com/wongchichong/use-voby/tree/main/demo) folder for more sample.
 
 
 # Examples
@@ -47,7 +47,7 @@ export const ReactCounter = ({ initValue }: { initValue?: number } = {}) => {
 import { jsx, Fragment, jsxs, $ } from "voby"
 
 import { ReactCounter } from './ReactCounter'
-import { useReact } from "react-voby-bridge"
+import { useReact } from "use-voby"
 
 export const ReactInVoby = () => {
     const o = $(0)
