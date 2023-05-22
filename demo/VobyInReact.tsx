@@ -10,6 +10,30 @@ import { jsx as vsx } from 'voby/jsx-runtime'
 import { useStore } from '../src/useStore'
 import { useState } from 'react'
 
+
+const sharedStore = store({ value: 100, inc: function () { this.value++ }, dec: function () { this.value-- } })
+
+const Shared1 = () => {
+    const s = useStore(sharedStore)
+
+    return <>
+        <br />
+        <h3>useStore shared 1: {s.value}</h3>
+        <button onClick={() => s.value += 2}>+2</button>
+        <button onClick={() => s.dec()}>-1</button>
+    </>
+}
+const Shared2 = () => {
+    const s = useStore(sharedStore)
+
+    return <>
+        <br />
+        <h3>useStore shared 2: {s.value}</h3>
+        <button onClick={() => s.value += 2}>+2</button>
+        <button onClick={() => s.dec()}>-1</button>
+    </>
+}
+
 export const VobyInReact = () => {
     const [count, actions] = useReduction({ count: 0 }, {
         increment: (count, { args }: { args: { count: number } }) => ({ count: count.count + args.count }),
@@ -18,7 +42,7 @@ export const VobyInReact = () => {
     const [c, setCount] = useState(0)
 
     const o = useOby($(10))
-    const s = useStore(store({ value: 100 }))
+    const s = useStore(store({ value: 100, inc: function () { this.value++ }, dec: function () { this.value-- } }))
 
     return <div>
         <h1>React Component</h1>
@@ -38,7 +62,13 @@ export const VobyInReact = () => {
         <br />
         <h3>useStore: {s.value}</h3>
         <button onClick={() => s.value += 2}>+2</button>
-        <button onClick={() => s.value -= 2}>-2</button>
+        <button onClick={() => s.dec()}>-1</button>
+
+        <br />
+        <Shared1 />
+        <br />
+        <Shared2 />
+        <br />
 
         <h2>Voby in React</h2>
         {useVoby(VobyCounter)}

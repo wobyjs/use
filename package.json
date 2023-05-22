@@ -1,22 +1,21 @@
 {
-    "name": "react-voby-bridge",
-    "repository": "https://github.com/wongchichong/react-voby-bridge.git",
-    "description": "react-voby-bridge",
-    "version": "0.0.1",
-    "type": "module",
+    "name": "use-voby",
+    "repository": "https://github.com/wongchichong/use-voby.git",
+    "description": "use-voby",
+    "version": "0.0.5",
     "main": "./dist/index.cjs.js",
     "module": "./dist/index.es.js",
-    "browser": "./dist/index.umd.js",
     "types": "./dist/types/index.d.ts",
     "sass": "./dist/styles.scss",
     "sideEffects": false,
+    "type": "module",
     "scripts": {
         "preinstall": "npx only-allow pnpm",
         "dev": "vite --config=test.vite.config.ts --force --mode dev --host",
         "prod": "vite --force",
         "build": "vite build",
         "clean": "rimraf ./dist/",
-        "prepublishOnly": "pnpm run clean && pnpm run build",
+        "prepublishOnly1": "pnpm run clean && pnpm run build",
         "bump": "pnpm version patch"
     },
     "keywords": [
