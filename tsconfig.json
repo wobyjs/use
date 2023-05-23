@@ -12,8 +12,8 @@
         "inlineSourceMap": false,
         "inlineSources": false,
         // "isolatedModules": true,
-        "jsx": "react-jsx",
-        "jsxImportSource": "react",
+        "jsx": "preserve",
+        "jsxImportSource": "voby",
         "lib": [
             "dom",
             "esnext"
@@ -55,11 +55,12 @@
             ],
         },
         "typeRoots": [
-            "voby",
-            "./node_modules/voby"
+            "./node_modules/oby/dist/types/types",
+            "./node_modules/oby/dist/types/objects",
+            "./node_modules/voby/dist/types"
         ],
         "types": [
-            "jsx"
+            "jsx",
         ]
     },
     "references": [
@@ -69,6 +70,8 @@
     ],
     "exclude": [
         "node_modules/*",
+        "*.test.ts*",
+        "vite.config.*.ts"
     ]
     // "include": [
     //   "../voby/src/jsx"

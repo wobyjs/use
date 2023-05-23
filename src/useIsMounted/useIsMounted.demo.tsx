@@ -1,0 +1,33 @@
+import { useEffect, $ } from 'voby'
+
+import { useIsMounted } from './useIsMounted'
+
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+
+function Child() {
+    const data = $('loading')
+    const isMounted = useIsMounted()
+
+    // simulate an api call and update state
+    useEffect(() => {
+        void delay(3000).then(() => {
+            if (isMounted()) data('OK')
+        })
+    })
+
+    return <p>{data}</p>
+}
+
+export default function Component() {
+    const isVisible = $<boolean>(false)
+
+    const toggleVisibility = () => isVisible(state => !state)
+
+    return (
+        <>
+            <button onClick={toggleVisibility}>{isVisible ? 'Hide' : 'Show'}</button>
+
+            {isVisible && <Child />}
+        </>
+    )
+}

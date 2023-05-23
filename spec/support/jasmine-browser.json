@@ -1,0 +1,12 @@
+{
+    "srcDir": "src",
+    "srcFiles": [],
+    "specDir": "test",
+    "specFiles": [
+        "test.es.js"
+    ],
+    "helpers": [],
+    "browser": {
+        "name": "firefox"
+    }
+}
