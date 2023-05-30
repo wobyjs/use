@@ -1,5 +1,5 @@
 import { Console } from 'console'
-import { isStore, store } from 'voby'
+import { isStore, store, batch } from 'voby'
 
 export type MapOrEntries = Map<any,any> | [any, any][] | Object
 
@@ -54,7 +54,7 @@ export function useMap<T extends MapOrEntries>(initialState?: T,): [T extends  M
 
         remove: (key => delete map[key as any]),
 
-        reset: () => Object.getOwnPropertyNames(map).forEach(prop => delete map[prop]),
+        reset: () => batch(()=>Object.getOwnPropertyNames(map).forEach(prop => delete map[prop])),
 
         entries: () => Object.entries(map) as any
     }

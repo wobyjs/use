@@ -1,4 +1,4 @@
-import { x as store, w as isStore } from "../../../woby/dist/setters-0ed3c7f1.mjs";
+import { x as store, w as isStore, q as batch } from "../../../woby/dist/setters-0ed3c7f1.mjs";
 function isPrimitive(test) {
   return test !== Object(test);
 }
@@ -27,7 +27,7 @@ function useMap(initialState) {
       }
     },
     remove: (key) => delete map[key],
-    reset: () => Object.getOwnPropertyNames(map).forEach((prop) => delete map[prop]),
+    reset: () => batch(() => Object.getOwnPropertyNames(map).forEach((prop) => delete map[prop])),
     entries: () => Object.entries(map)
   };
   if (initialState instanceof Map || Array.isArray(initialState) || isPrimitive(initialState)) {

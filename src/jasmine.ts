@@ -1,29 +1,26 @@
 import { render } from "voby"
 
 const test2 = document.createElement("div")
-export function act<T extends (...args: any) => any>(fn: T){
+export function act<T extends (...args: any) => any>(fn: T) {
     let fnReturn 
     const Test = ()=>{
         fnReturn = fn()
+        // return(
+        //   <></>
+        // )
     }
-    const dispose = render(Test,test2)
+    let dispose = render(Test as any,test2)
     return {
-        result: { current: render(fn()) },
+        result: { get current(){return fnReturn} },
         rerender: function () {
-             this.result.current = fnReturn
+             dispose = render(Test as any,test2)
+
              },
         unmount: function () {
-            if (typeof this.current === "function") {
-                this.current()
-            }
-            else if (this.current instanceof HTMLElement){
-                this.current.remove()
-            }
-            // dispose()
+            dispose()
         }
     }
 }
-
 
     export const renderHook = act
 

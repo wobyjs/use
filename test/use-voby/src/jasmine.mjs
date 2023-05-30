@@ -5,18 +5,16 @@ function act(fn) {
   const Test = () => {
     fnReturn = fn();
   };
-  render(Test, test2);
+  let dispose = render(Test, test2);
   return {
-    result: { current: render(fn()) },
+    result: { get current() {
+      return fnReturn;
+    } },
     rerender: function() {
-      this.result.current = fnReturn;
+      dispose = render(Test, test2);
     },
     unmount: function() {
-      if (typeof this.current === "function") {
-        this.current();
-      } else if (this.current instanceof HTMLElement) {
-        this.current.remove();
-      }
+      dispose();
     }
   };
 }
