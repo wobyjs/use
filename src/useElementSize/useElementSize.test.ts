@@ -1,6 +1,6 @@
-import { act, renderHook } from '@testing-library/react-hooks'
+import { act, renderHook } from '../jasmine'
 
-import { useElementSize } from '..'
+import { useElementSize } from './useElementSize'
 
 const setupHook = () => renderHook(() => useElementSize())
 
@@ -54,8 +54,8 @@ describe('useElementSize()', () => {
     const { result } = setupHook()
     const [setRef, size] = result.current
 
-    expect(typeof size.height).toBe('number')
-    expect(typeof size.width).toBe('number')
+    expect(typeof size().height).toBe('number')
+    expect(typeof size().width).toBe('number')
     expect(setRef).toBeInstanceOf(Function)
   })
 
@@ -71,21 +71,21 @@ describe('useElementSize()', () => {
       setRef(dom)
       resizeElement(dom, 'height', height_1)
     })
-    expect(result.current[1].height).toEqual(height_1)
+    expect(result.current[1]().height).toEqual(height_1)
 
     /* 2 */
     act(() => {
       resizeElement(dom, 'height', height_2)
     })
     rerender()
-    expect(result.current[1].height).toEqual(height_2)
+    expect(result.current[1]().height).toEqual(height_2)
 
     /* 3 */
     act(() => {
       resizeElement(dom, 'height', height_3)
     })
     rerender()
-    expect(result.current[1].height).toEqual(height_3)
+    expect(result.current[1]().height).toEqual(height_3)
   })
 
   it('should match the corresponding width', () => {

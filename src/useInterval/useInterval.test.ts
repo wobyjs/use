@@ -1,14 +1,10 @@
-import { renderHook } from '@testing-library/react-hooks/dom'
+import { renderHook, test, jest } from '../jasmine'
 
-import useInterval from './useInterval'
+import {useInterval} from './useInterval'
 
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
-describe('useInterval()', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
-
+describe('useInterval()', () => {  
   test('should fire the callback function (1)', async () => {
     const timeout = 500
     const callback = jest.fn()
@@ -32,7 +28,7 @@ describe('useInterval()', () => {
     const callback = jest.fn()
     renderHook(() => useInterval(callback, timeout))
     expect(setInterval).toHaveBeenCalledTimes(1)
-    expect(setInterval).toHaveBeenCalledWith(expect.any(Function), timeout)
+    expect(setInterval).toHaveBeenCalledWith(jasmine.any(Function), timeout)
   })
 
   test('should call clearTimeout on unmount', () => {
@@ -45,11 +41,9 @@ describe('useInterval()', () => {
 })
 
 function mockSetInterval() {
-  jest.useFakeTimers()
-  jest.spyOn(global, 'setInterval')
+  spyOn(globalThis, 'setInterval')
 }
 
 function mockClearInterval() {
-  jest.useFakeTimers()
-  jest.spyOn(global, 'clearInterval')
+  spyOn(globalThis, 'clearInterval')
 }

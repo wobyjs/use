@@ -1,7 +1,7 @@
 import { fireEvent } from '@testing-library/react'
-import { renderHook } from '@testing-library/react-hooks/dom'
+import { renderHook, jest} from '../jasmine'
 
-import useEventListener from './useEventListener'
+import {useEventListener} from './useEventListener'
 
 declare global {
   interface WindowEventMap {
@@ -17,16 +17,16 @@ declare global {
   }
 }
 
-const windowAddEventListenerSpy = jest.spyOn(window, 'addEventListener')
-const windowRemoveEventListenerSpy = jest.spyOn(window, 'removeEventListener')
+const windowAddEventListenerSpy = spyOn(window, 'addEventListener')
+const windowRemoveEventListenerSpy = spyOn(window, 'removeEventListener')
 
 const ref = { current: document.createElement('div') }
-const refAddEventListenerSpy = jest.spyOn(ref.current, 'addEventListener')
-const refRemoveEventListenerSpy = jest.spyOn(ref.current, 'removeEventListener')
+const refAddEventListenerSpy = spyOn(ref.current, 'addEventListener')
+const refRemoveEventListenerSpy = spyOn(ref.current, 'removeEventListener')
 
 const docRef = { current: window.document }
-const docAddEventListenerSpy = jest.spyOn(docRef.current, 'addEventListener')
-const docRemoveEventListenerSpy = jest.spyOn(
+const docAddEventListenerSpy = spyOn(docRef.current, 'addEventListener')
+const docRemoveEventListenerSpy = spyOn(
   docRef.current,
   'removeEventListener',
 )
@@ -45,7 +45,7 @@ describe('useEventListener()', () => {
 
     expect(windowAddEventListenerSpy).toHaveBeenCalledWith(
       eventName,
-      expect.any(Function),
+      jasmine.any(Function),
       options,
     )
 
@@ -53,7 +53,7 @@ describe('useEventListener()', () => {
 
     expect(windowRemoveEventListenerSpy).toHaveBeenCalledWith(
       eventName,
-      expect.any(Function),
+      jasmine.any(Function),
       options,
     )
   })
@@ -64,13 +64,13 @@ describe('useEventListener()', () => {
     const options = undefined
 
     const { unmount } = renderHook(() =>
-      useEventListener(eventName, handler, ref, options),
+      useEventListener(eventName, handler, ref.current[0], options),
     )
 
     expect(refAddEventListenerSpy).toHaveBeenCalledTimes(1)
     expect(refAddEventListenerSpy).toHaveBeenCalledWith(
       eventName,
-      expect.any(Function),
+      jasmine.any(Function),
       options,
     )
 
@@ -78,7 +78,7 @@ describe('useEventListener()', () => {
 
     expect(refRemoveEventListenerSpy).toHaveBeenCalledWith(
       eventName,
-      expect.any(Function),
+      jasmine.any(Function),
       options,
     )
   })
@@ -89,13 +89,13 @@ describe('useEventListener()', () => {
     const options = undefined
 
     const { unmount } = renderHook(() =>
-      useEventListener(eventName, handler, docRef, options),
+      useEventListener(eventName, handler, docRef.current[0], options),
     )
 
     expect(docAddEventListenerSpy).toHaveBeenCalledTimes(1)
     expect(docAddEventListenerSpy).toHaveBeenCalledWith(
       eventName,
-      expect.any(Function),
+      jasmine.any(Function),
       options,
     )
 
@@ -103,7 +103,7 @@ describe('useEventListener()', () => {
 
     expect(docRemoveEventListenerSpy).toHaveBeenCalledWith(
       eventName,
-      expect.any(Function),
+      jasmine.any(Function),
       options,
     )
   })
@@ -121,7 +121,7 @@ describe('useEventListener()', () => {
 
     expect(windowAddEventListenerSpy).toHaveBeenCalledWith(
       eventName,
-      expect.any(Function),
+      jasmine.any(Function),
       options,
     )
   })
@@ -130,7 +130,7 @@ describe('useEventListener()', () => {
     const eventName = 'click'
     const handler = jest.fn()
 
-    renderHook(() => useEventListener(eventName, handler, ref))
+    renderHook(() => useEventListener(eventName, handler, ref.current[0]))
 
     fireEvent.click(ref.current)
 
@@ -141,13 +141,13 @@ describe('useEventListener()', () => {
     const clickHandler = jest.fn()
     const keydownHandler = jest.fn()
 
-    renderHook(() => useEventListener('click', clickHandler, ref))
-    renderHook(() => useEventListener('keydown', keydownHandler, ref))
+    renderHook(() => useEventListener('click', clickHandler, ref.current[0]))
+    renderHook(() => useEventListener('keydown', keydownHandler, ref.current[0]))
 
     fireEvent.click(ref.current)
     fireEvent.keyDown(ref.current)
 
-    expect(clickHandler).toHaveBeenCalledWith(expect.any(MouseEvent))
-    expect(keydownHandler).toHaveBeenCalledWith(expect.any(KeyboardEvent))
+    expect(clickHandler).toHaveBeenCalledWith(jasmine.any(MouseEvent))
+    expect(keydownHandler).toHaveBeenCalledWith(jasmine.any(KeyboardEvent))
   })
 })

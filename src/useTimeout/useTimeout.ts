@@ -6,11 +6,6 @@ type EF = () => (() => void) | void
 export function useTimeout(callback: () => void, delay: number | null) {
     const savedCallback = $(callback)
 
-    // Remember the latest callback if it changes.
-    useIsomorphicLayoutEffect(() => {
-        savedCallback(callback)
-    })
-
     // Set up the timeout.
     useEffect((() => {
         // Don't schedule if no delay is specified.

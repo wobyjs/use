@@ -57,11 +57,9 @@ export function useEventListener<
     // Create a ref that stores handler
     const savedHandler = $(handler)
 
-    useIsomorphicLayoutEffect(() => {
-        savedHandler(handler)
-    })
 
-    useEffect(() => {
+
+     return  useEffect(() => {
         // Define the listening target
         const targetElement: T | Window = element?.() ?? window
 

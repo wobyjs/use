@@ -1,7 +1,7 @@
 import { fireEvent } from '@testing-library/react'
-import { act, renderHook } from '@testing-library/react-hooks'
+import { act, renderHook } from '../jasmine'
 
-import useHover from './useHover'
+import {useHover} from './useHover'
 
 describe('useHover()', () => {
   const el = {

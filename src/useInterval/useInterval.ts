@@ -5,10 +5,6 @@ import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect/useIsomo
 export function useInterval(callback: () => void, delay: number | null) {
     const savedCallback = $(callback)
 
-    // Remember the latest callback if it changes.
-    useIsomorphicLayoutEffect(() => {
-        savedCallback(callback)
-    })
 
     // Set up the interval.
     useEffect(() => {

@@ -8,16 +8,15 @@
     "types": "./dist/types/index.d.ts",
     "sass": "./dist/styles.scss",
     "sideEffects": false,
-    "type": "module",
     "scripts": {
         "preinstall": "npx only-allow pnpm",
-        "test:build": "cross-env NODE_ENV=test && vite build --config=vite.config.test.ts",
+        "test:build": "cross-env NODE_ENV=test && vite build --config vite.config.test.ts",
         "test:watch": "cross-env NODE_ENV=test && vite --config=vite.config.test.ts --force --host --mode dev",
         "test": "npm run test:build && jasmine-browser-runner runSpecs",
         "test:serve": "npm run test:build && jasmine-browser-runner",
         "dev": "vite --config=vite.config.web.ts --force --mode dev --host",
         "prod": "vite --force",
-        "build": "vite build",
+        "build": "vite build src --emptyOutDir",
         "clean": "rimraf ./dist/",
         "prepublishOnly1": "pnpm run clean && pnpm run build",
         "bump": "pnpm version patch"
@@ -30,14 +29,15 @@
     ],
     "dependencies": {
         "nanoid": "^3.3.6",
-        "oby": "workspace:^",
+        "oby": "workspace:../oby",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
-        "voby": "workspace:^"
+        "voby": "workspace:../woby"
     },
     "devDependencies": {
         "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
         "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
+        "@testing-library/react": "^14.0.0",
         "@types/jasmine": "^4.3.1",
         "@types/node": "^20.1.5",
         "cross-env": "^7.0.3",
