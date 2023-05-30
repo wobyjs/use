@@ -26,7 +26,6 @@ function useLocalStorage(key, initialValue) {
     }
     try {
       const newValue = storedValue();
-      console.log("storedValue", storedValue());
       window.localStorage.setItem(key, JSON.stringify(newValue));
       window.dispatchEvent(new Event("local-storage"));
     } catch (error) {

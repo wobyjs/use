@@ -120,8 +120,8 @@ describe('useCountdown()', () => {
     expect(typeof result.current[1].stopCountdown).toBe('function')
     expect(typeof result.current[1].resetCountdown).toBe('function')
 
+    result.current[1].startCountdown()
     act(() => {
-      result.current[1].startCountdown()
       jasmine.clock().tick(1000)
     })
 

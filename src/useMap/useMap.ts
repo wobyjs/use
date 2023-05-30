@@ -1,5 +1,4 @@
-import { Console } from 'console'
-import { isStore, store, batch } from 'voby'
+import { isStore, store } from 'voby'
 
 export type MapOrEntries = Map<any,any> | [any, any][] | Object
 
@@ -8,7 +7,7 @@ export interface Actions {
     set: (key, value) => void
     setAll: (entries: Object | Map<any,any> | [any,any][]) => void
     remove: (key: string) => void
-    reset: Map<any,any>['clear']
+    reset: (Map<any,any>['clear'])
     entries: () => [any, any][]
 }
 
@@ -20,8 +19,31 @@ function isPrimitive(test) {
 };
 
 export function useMap<T extends MapOrEntries>(initialState?: T,): [T extends  Map<any, any> | [any,any][]? any:T, Actions]  {   
-    const map = initialState instanceof Map || Array.isArray(initialState) || isPrimitive(initialState) ? store({}) : 
+    function addElements(entries){
+        const map ={}
+        if (entries instanceof Map){
+            entries.forEach((value, key)=>{
+                map[key] = value
+            })
+
+        }
+        else if(Array.isArray(entries)){
+            for (let value of entries){
+                map[value[0]] = value[1]
+            }
+        }
+        else if (isPrimitive(entries) == true){
+            return store({})
+        }
+        else{
+            Object.assign(map, entries)
+        }
+        return store(map)
+    }
+    
+    const map = initialState instanceof Map || Array.isArray(initialState) || isPrimitive(initialState) ? addElements(initialState) : 
     isStore(initialState) ? initialState : store(initialState)
+
 
     const actions: Actions = {
         set: (function(key, value){
@@ -29,15 +51,14 @@ export function useMap<T extends MapOrEntries>(initialState?: T,): [T extends  M
         }),
 
         setAll: function (entries) {
+            this.reset()
             if (entries instanceof Map){
-                this.reset()
                 entries.forEach((value, key)=>{
                     map[key] = value
                 })
 
             }
             else if(Array.isArray(entries)){
-                this.reset()
                 for (let value of entries){
                     map[value[0]] = value[1]
                 }
@@ -54,13 +75,12 @@ export function useMap<T extends MapOrEntries>(initialState?: T,): [T extends  M
 
         remove: (key => delete map[key as any]),
 
-        reset: () => batch(()=>Object.getOwnPropertyNames(map).forEach(prop => delete map[prop])),
+        reset: function(){
+            Object.getOwnPropertyNames(map).forEach(prop => delete map[prop])
+            
+        },
 
         entries: () => Object.entries(map) as any
-    }
-
-    if (initialState instanceof Map || Array.isArray(initialState) || isPrimitive(initialState)){
-        actions.setAll(initialState)
     }
 
     return [map as any, actions]

@@ -1,6 +1,6 @@
 import { r as render } from "../../woby/dist/render_to_string-ab3755f2.mjs";
 const test2 = document.createElement("div");
-function act(fn) {
+function renderHook(fn) {
   let fnReturn;
   const Test = () => {
     fnReturn = fn();
@@ -18,7 +18,9 @@ function act(fn) {
     }
   };
 }
-const renderHook = act;
+function act(fn) {
+  fn();
+}
 const test = it;
 const jest = { fn: jasmine.createSpy, resetAllMocks: () => {
 }, clearAllMocks: () => {

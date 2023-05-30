@@ -1,4 +1,4 @@
-var ansiStyles = { exports: {} };
+var scheduler = { exports: {} };
 export {
-  ansiStyles as __module
+  scheduler as __module
 };

@@ -11,6 +11,23 @@ describe("useMap()", () => {
     const { result } = renderHook(() => useMap(initialArray));
     expect(result.current[0][1]).toBe("initial");
   });
+  it("should be ok when initiated without nothing", () => {
+    const { result } = renderHook(() => useMap());
+    expect(result.current[0]).toEqual({});
+  });
+  it("should add new value", () => {
+    const { result } = renderHook(() => useMap());
+    const [, actions] = result.current;
+    act(() => actions.set(1, "added"));
+    expect(result.current[0][1]).toBe("added");
+  });
+  it("should update existing value", () => {
+    const initialMap = /* @__PURE__ */ new Map([[1, "initial"]]);
+    const { result } = renderHook(() => useMap(initialMap));
+    const [, actions] = result.current;
+    act(() => actions.set(1, "edited"));
+    expect(result.current[0][1]).toBe("edited");
+  });
   it("should setAll replaces all existing values", () => {
     const initialMap = /* @__PURE__ */ new Map([
       [1, "initial"],
@@ -46,7 +63,7 @@ describe("useMap()", () => {
     const [originalMapRef, actions] = result.current;
     act(() => actions.set(1, 1));
     expect(originalMapRef).toEqual(result.current[0]);
-    expect(originalMapRef[1]).toBeUndefined();
+    expect(originalMapRef[1]).toBe(1);
     expect(result.current[0][1]).toBe(1);
   });
   it("should keep actions reference equality after value change", () => {

@@ -48,7 +48,6 @@ export function useLocalStorage<T>(key: string, initialValue: ObservableMaybe <T
         try {
             // Allow value to be a function so we have the same API as useState
             const newValue = storedValue() //value instanceof Function ? value(storedValue()) : value
-            console.log("storedValue", storedValue())
 
             // Save to local storage
             window.localStorage.setItem(key, JSON.stringify(newValue))
