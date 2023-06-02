@@ -1,12 +1,10 @@
-import { useEffect, $, Observable } from 'voby'
-
-import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect/useIsomorphicLayoutEffect'
+import { useEffect, $,$$, ObservableMaybe } from 'voby'
 
 // MediaQueryList Event based useEventListener interface
 export function useEventListener<K extends keyof MediaQueryListEventMap>(
     eventName: K,
     handler: (event: MediaQueryListEventMap[K]) => void,
-    element: Observable<MediaQueryList>,
+    element: ObservableMaybe<MediaQueryList>,
     options?: boolean | AddEventListenerOptions,
 ): void
 
@@ -25,7 +23,7 @@ export function useEventListener<
 >(
     eventName: K,
     handler: (event: HTMLElementEventMap[K]) => void,
-    element: Observable<T>,
+    element: ObservableMaybe<T>,
     options?: boolean | AddEventListenerOptions,
 ): void
 
@@ -33,7 +31,7 @@ export function useEventListener<
 export function useEventListener<K extends keyof DocumentEventMap>(
     eventName: K,
     handler: (event: DocumentEventMap[K]) => void,
-    element: Observable<Document>,
+    element: ObservableMaybe<Document>,
     options?: boolean | AddEventListenerOptions,
 ): void
 
@@ -51,17 +49,15 @@ export function useEventListener<
             | MediaQueryListEventMap[KM]
             | Event,
     ) => void,
-    element?: Observable<T>,
+    element?: ObservableMaybe<T>,
     options?: boolean | AddEventListenerOptions,
 ) {
     // Create a ref that stores handler
     const savedHandler = $(handler)
 
-
-
      return  useEffect(() => {
         // Define the listening target
-        const targetElement: T | Window = element?.() ?? window
+        const targetElement: T | Window = $$(element) ?? window
 
         if (!(targetElement && targetElement.addEventListener)) return undefined
 
@@ -69,7 +65,6 @@ export function useEventListener<
         const listener: typeof handler = event => savedHandler()(event)
 
         targetElement.addEventListener(eventName, listener, options)
-
         // Remove event listener on cleanup
         return () => {
             targetElement.removeEventListener(eventName, listener, options)

@@ -1,8 +1,8 @@
-import { p as observable, h as effect } from "../../../woby/dist/setters-0ed3c7f1.mjs";
+import { p as observable, h as effect, g as get } from "../../../woby/dist/setters-0ed3c7f1.mjs";
 function useEventListener(eventName, handler, element, options) {
   const savedHandler = observable(handler);
   return effect(() => {
-    const targetElement = (element == null ? void 0 : element()) ?? window;
+    const targetElement = get(element) ?? window;
     if (!(targetElement && targetElement.addEventListener))
       return void 0;
     const listener = (event) => savedHandler()(event);

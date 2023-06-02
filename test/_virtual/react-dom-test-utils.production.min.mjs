@@ -1,4 +1,0 @@
-var reactDomTestUtils_production_min = {};
-export {
-  reactDomTestUtils_production_min as __exports
-};

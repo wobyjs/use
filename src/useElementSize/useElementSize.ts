@@ -1,4 +1,4 @@
-import { $, Observable } from 'voby'
+import { $, Observable, useEffect } from 'voby'
 
 import { useEventListener } from '../useEventListener/useEventListener'
 import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect/useIsomorphicLayoutEffect'
@@ -27,13 +27,15 @@ export function useElementSize<T extends HTMLElement = HTMLDivElement>(): [Obser
 
 
     })
-
-    useEventListener('resize', handleSize)
-
-    useIsomorphicLayoutEffect(() => {
-        handleSize()
-
+    useEffect(()=>{
+        console.log(ref())
     })
+    useEventListener('resize', handleSize, ref)
+
+    // useIsomorphicLayoutEffect(() => {
+    //     handleSize()
+
+    // })
 
     return [ref, size]
 }

@@ -1,8 +1,8 @@
-import { Observable, $ } from 'voby'
+import { ObservableMaybe, $} from 'voby'
 
 import { useEventListener } from '../useEventListener/useEventListener'
 
-export function useHover<T extends HTMLElement = HTMLElement>(elementRef: Observable<T>,) {
+export function useHover<T extends HTMLElement = HTMLElement>(elementRef: ObservableMaybe<T>,) {
     const value = $<boolean>(false)
 
     const handleMouseEnter = () => value(true)

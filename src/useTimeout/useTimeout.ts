@@ -1,7 +1,5 @@
 import { useEffect, $ } from 'voby'
 
-import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect/useIsomorphicLayoutEffect'
-
 type EF = () => (() => void) | void
 export function useTimeout(callback: () => void, delay: number | null) {
     const savedCallback = $(callback)

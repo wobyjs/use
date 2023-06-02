@@ -2,7 +2,7 @@ import { defineConfig } from 'vite'
 import * as  glob from "glob"
 
 const fileArr = glob.globSync(["./src/**/*.[sS]pec.ts?(x)", "./src/**/*.[tT]est.ts?(x)"])
-// const Arr2 = glob.globSync(["**/*[sS]pec.?(m)js","**/*[tT]est.?(m)js"])
+
 console.log("", fileArr)
 const config = defineConfig({
     build: {

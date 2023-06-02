@@ -15,11 +15,9 @@ describe('useTimeout()', () => {
   test('should call the callback after 1 min', () => {
 
     const delay = 60000
-    const callback = jest.fn()
-
+    const callback = jest.fn("callbackSpy")
     renderHook(() => useTimeout(callback, delay))
-
-    expect(callback).toHaveBeenCalled()
+    expect(callback).not.toHaveBeenCalled()
 
     act(() => {
       jasmine.clock().tick(delay)

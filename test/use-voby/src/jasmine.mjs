@@ -22,12 +22,64 @@ function act(fn) {
   fn();
 }
 const test = it;
-const jest = { fn: jasmine.createSpy, resetAllMocks: () => {
-}, clearAllMocks: () => {
-} };
+const jest = {
+  fn: jasmine.createSpy,
+  resetAllMocks: () => {
+  },
+  clearAllMocks: () => {
+  }
+};
+function mockSetInterval() {
+  spyOn(globalThis, "setInterval");
+}
+function mockClearInterval() {
+  spyOn(globalThis, "clearInterval");
+}
+function installClock() {
+  const clearInterval = spyOn(globalThis, "clearInterval");
+  const fn = spyOn(globalThis, "setInterval").and.returnValues(Math.floor(Math.random() * 1e3), Math.floor(Math.random() * 1e3));
+  const tick = (ms) => {
+    if (!fn.calls.any()) {
+      return;
+    }
+    const callback = fn.calls.mostRecent().args[0];
+    const milli = fn.calls.mostRecent().args[1];
+    for (let ids of clearInterval.calls.all()) {
+      if (fn.calls.mostRecent().returnValue !== ids.args[0]) {
+        break;
+      } else {
+        return;
+      }
+    }
+    if (ms >= milli) {
+      for (let i = 0; i < ms / milli; i++) {
+        callback();
+      }
+    }
+  };
+  return { tick };
+}
+const fireEvent = {
+  click: (e) => {
+    e.dispatchEvent(new MouseEvent("click"));
+  },
+  keyDown: (e) => {
+    e.dispatchEvent(new KeyboardEvent("keydown", { "key": "a" }));
+  },
+  mouseEnter: (e) => {
+    e.dispatchEvent(new MouseEvent("mouseenter"));
+  },
+  mouseLeave: (e) => {
+    e.dispatchEvent(new MouseEvent("mouseleave"));
+  }
+};
 export {
   act,
+  fireEvent,
+  installClock,
   jest,
+  mockClearInterval,
+  mockSetInterval,
   renderHook,
   test
 };

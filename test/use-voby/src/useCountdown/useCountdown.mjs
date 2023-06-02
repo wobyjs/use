@@ -1,4 +1,4 @@
-import { g as get } from "../../../woby/dist/setters-0ed3c7f1.mjs";
+import { m as memo, g as get } from "../../../woby/dist/setters-0ed3c7f1.mjs";
 import { useBoolean } from "../useBoolean/useBoolean.mjs";
 import { useCounter } from "../useCounter/useCounter.mjs";
 import { useInterval } from "../useInterval/useInterval.mjs";
@@ -45,7 +45,8 @@ function useCountdown(countdownOption) {
       decrement();
     }
   };
-  useInterval(countdownCallback, get(isCountdownRunning) ? get(intervalMs) : null);
+  const delay = memo(() => get(isCountdownRunning) ? get(intervalMs) : null);
+  useInterval(countdownCallback, delay);
   return isDeprecated ? [
     count,
     {

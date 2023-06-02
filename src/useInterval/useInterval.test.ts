@@ -1,24 +1,24 @@
-import { renderHook, test, jest } from '../jasmine'
-
+import { renderHook, test, jest, mockSetInterval, mockClearInterval , installClock} from '../jasmine'
+import {$, $$} from "voby"
 import {useInterval} from './useInterval'
-
-const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
 describe('useInterval()', () => {  
   test('should fire the callback function (1)', async () => {
+    const {tick} = installClock()
     const timeout = 500
     const callback = jest.fn()
     renderHook(() => useInterval(callback, timeout))
-    await sleep(timeout)
+    tick(timeout)
     expect(callback).toHaveBeenCalledTimes(1)
   })
 
   test('should fire the callback function (2)', async () => {
+    const {tick} = installClock()
     const timeout = 500
     const earlyTimeout = 400
     const callback = jest.fn()
     renderHook(() => useInterval(callback, timeout))
-    await sleep(earlyTimeout)
+    tick(earlyTimeout)
     expect(callback).not.toHaveBeenCalled()
   })
 
@@ -38,12 +38,22 @@ describe('useInterval()', () => {
     unmount()
     expect(clearInterval).toHaveBeenCalledTimes(1)
   })
+
+  test('should change delay', () => {
+    const delay = $(1200)
+    const {tick} = installClock()
+    const callback = jest.fn("callbackSpy")
+    renderHook(() => useInterval(callback, delay))
+    tick(1200)
+    expect(setInterval).toHaveBeenCalledTimes(1)
+    expect(setInterval).toHaveBeenCalledWith(jasmine.any(Function),$$(delay))
+
+
+    delay(100)
+    tick(1000)
+    expect(setInterval).toHaveBeenCalledTimes(2)
+    expect(callback).toHaveBeenCalledTimes(11)
+  })
+
 })
 
-function mockSetInterval() {
-  spyOn(globalThis, 'setInterval')
-}
-
-function mockClearInterval() {
-  spyOn(globalThis, 'clearInterval')
-}

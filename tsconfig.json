@@ -1,86 +1,83 @@
-// {
-//     "compilerOptions": {
-//         "allowJs": false,
-//         "allowSyntheticDefaultImports": true,
-//         "allowUnreachableCode": false,
-//         "allowUnusedLabels": false,
-//         "alwaysStrict": true,
-//         "declaration": true,
-//         "disableSizeLimit": true,
-//         "esModuleInterop": false,
-//         "forceConsistentCasingInFileNames": true,
-//         "inlineSourceMap": false,
-//         "inlineSources": false,
-//         // "isolatedModules": true,
-//         "jsx": "react-jsx",
-//         // "jsxImportSource": "voby",
-//         "lib": [
-//             "dom",
-//             "esnext"
-//         ],
-//         "module": "es2020",
-//         "moduleResolution": "node",
-//         "newLine": "lf",
-//         "noEmitOnError": false,
-//         "noFallthroughCasesInSwitch": true,
-//         "noImplicitOverride": false,
-//         "noImplicitReturns": true,
-//         "noImplicitThis": true,
-//         "noPropertyAccessFromIndexSignature": false,
-//         "noUnusedLocals": true,
-//         "noUnusedParameters": false,
-//         "outDir": "./dist/",
-//         "pretty": true,
-//         "skipDefaultLibCheck": true,
-//         "skipLibCheck": true,
-//         "sourceMap": false,
-//         "strict": true,
-//         "strictBindCallApply": true,
-//         "strictFunctionTypes": true,
-//         "strictNullChecks": false,
-//         "target": "es2020",
-//         "useDefineForClassFields": false,
-//         "useUnknownInCatchVariables": true,
-//         "noImplicitAny": false,
-//         "noUncheckedIndexedAccess": false,
-//         "baseUrl": ".",
-//         "rootDir": "./",
-//         "composite": true,
-//         "paths": {
-//             "voby/jsx-runtime": [
-//                 "../../../voby/dist/jsx"
-//             ],
-//             "voby/jsx-runtime/*": [
-//                 "../../../voby/dist/jsx/*"
-//             ],
-//         },
-//         "typeRoots": [
-//             "./node_modules/oby/dist/types/types",
-//             "./node_modules/oby/dist/types/objects",
-//             "./node_modules/voby/dist/types"
-//         ],
-//         "types": [
-//             "jsx",
-//         ]
-//     },
-//     "references": [
-//         {
-//             "path": "../woby"
-//         }
-//     ],
-//     "exclude": [
-//         "node_modules/*",
-//         "vite.config.*.ts"
-//     ]
-//     // "include": [
-//     //   "../voby/src/jsx"
-//     // ]
-// }
-
 {
     "compilerOptions": {
-      "target": "ES2015",
-      "module": "ES2015",
-      "moduleResolution": "node"
-    }
-  }
+        "allowJs": false,
+        "allowSyntheticDefaultImports": true,
+        "allowUnreachableCode": false,
+        "allowUnusedLabels": false,
+        "alwaysStrict": true,
+        "declaration": true,
+        "disableSizeLimit": true,
+        "esModuleInterop": false,
+        "forceConsistentCasingInFileNames": true,
+        "inlineSourceMap": false,
+        "inlineSources": false,
+        // "isolatedModules": true,
+        "jsx": "preserve",
+        "jsxImportSource": "voby",
+        "lib": [
+            "dom",
+            "esnext"
+        ],
+        "module": "es2020",
+        "moduleResolution": "node",
+        "newLine": "lf",
+        "noEmitOnError": false,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitOverride": false,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noPropertyAccessFromIndexSignature": false,
+        "noUnusedLocals": true,
+        "noUnusedParameters": false,
+        "outDir": "./dist/",
+        "pretty": true,
+        "skipDefaultLibCheck": true,
+        "skipLibCheck": true,
+        "sourceMap": false,
+        "strict": true,
+        "strictBindCallApply": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": false,
+        "target": "es2020",
+        "useDefineForClassFields": false,
+        "useUnknownInCatchVariables": true,
+        "noImplicitAny": false,
+        "noUncheckedIndexedAccess": false,
+        "baseUrl": ".",
+        "rootDir": "./",
+        "composite": true,
+        "paths": {
+            "voby/jsx-runtime": [
+                "../../../voby/dist/jsx"
+            ],
+            "voby/jsx-runtime/*": [
+                "../../../voby/dist/jsx/*"
+            ],
+        },
+        "typeRoots": [
+            // "./node_modules/oby/dist/types/types",
+            // "./node_modules/oby/dist/types/objects",
+            "./node_modules/voby/node_modules/oby/dist/types/types",
+            "./node_modules/voby/node_modules/oby/dist/types/objects",
+            "./node_modules/voby/dist/types"
+        ],
+        "types": [
+            "./node_modules/voby/dist/types/jsx/jsx",
+            "./node_modules/oby/dist/types"
+        ]
+    },
+    "references": [
+        {
+            "path": "../woby"
+        }
+    ],
+    "exclude": [
+        "node_modules/*",
+        "*.test.ts*",
+        "vite.config.ts",
+        "vite.config.*.ts",
+    ]
+    // "include": [
+    //   "../voby/src/jsx"
+    // ]
+}
