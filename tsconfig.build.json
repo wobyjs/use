@@ -44,7 +44,7 @@
         "noImplicitAny": false,
         "noUncheckedIndexedAccess": false,
         "baseUrl": ".",
-        "rootDir": "./",
+        "rootDir": "./src",
         "composite": true,
         "paths": {
             "voby/jsx-runtime": [
@@ -62,7 +62,7 @@
             "./node_modules/voby/dist/types"
         ],
         "types": [
-            "./node_modules/oby/dist/types/jsx",
+            "./node_modules/voby/dist/types/jsx/jsx",
             "./node_modules/oby/types"
         ]
     },
@@ -76,6 +76,11 @@
         "*.test.ts*",
         "vite.config.ts",
         "vite.config.*.ts",
+        "demo",
+        "**/*.test.ts*",
+        "**/*.demo.ts*",
+        "**/tests.ts",
+        "**/test.tsx",
     ]
     // "include": [
     //   "../voby/src/jsx"

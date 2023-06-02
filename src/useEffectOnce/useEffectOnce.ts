@@ -1,7 +1,6 @@
-import { EffectFunction } from 'oby/dist/types/types'
 import { useEffect } from 'voby'
 
-export function useEffectOnce(effect: EffectFunction) {
+export function useEffectOnce(effect: Parameters<typeof useEffect>[0]) {
 
     useEffect(effect)
 }

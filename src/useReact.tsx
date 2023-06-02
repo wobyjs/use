@@ -10,6 +10,7 @@ import * as React from 'react'
 import { $, useEffect } from 'voby'
 import { nanoid } from 'nanoid'
 
+/** Use in Voby */
 export const useReact = <P,>(children: React.ReactNode | React.FunctionComponent | React.ClassicComponent, props?: P, container: string = 'div') => {
     const ref = $<HTMLDivElement>()
 

@@ -13,6 +13,7 @@ type ReducerMap<S, A> = {
     [K in keyof A]: Reducer<S, Action<K, A[K]>>
 }
 
+/** Use in React */
 export function useReduction<S, A>(
     initialState: S,
     reducerMap: ReducerMap<S, A>,
