@@ -2,6 +2,7 @@ export * from './useOby'
 export * from './useReact'
 export * from './useReduction'
 export * from './useStore'
+export * from './useArray'
 export * from './useVoby'
 
 export * from './useBoolean/useBoolean'

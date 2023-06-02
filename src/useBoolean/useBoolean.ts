@@ -1,7 +1,4 @@
-/// <reference types="oby/dist/types/types" />
-
 import { $, $$ } from 'voby'
-
 
 export function useBoolean(defaultValue?: ObservableMaybe<boolean>) {
     const value = $<boolean>(!!$$(defaultValue))

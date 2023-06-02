@@ -1,9 +1,8 @@
 import { useEffect } from 'voby'
-import { EffectFunction } from 'oby/dist/types/types'
 
 import { useIsFirstRender } from '../useIsFirstRender/useIsFirstRender'
 
-export function useUpdateEffect(effect: EffectFunction) {
+export function useUpdateEffect(effect: Parameters<typeof useEffect>[0]) {
     const isFirst = useIsFirstRender()
 
     useEffect(() => {

@@ -8,10 +8,21 @@ const config = defineConfig({
         lib: {
             entry: ["./src/index.tsx"],
             name: "use-voby",
-            formats: ['cjs', 'es', 'umd'],
+            formats: ['es', 'cjs', 'umd'],
             fileName: (format: string, entryName: string) => `${entryName}.${format}.js`
         },
         sourcemap: true,
+        rollupOptions: {
+            external: ['react', 'react-dom', 'voby', 'oby'],
+            output: {
+                globals: {
+                    'react': 'React',
+                    'react-dom': 'ReactDOM',
+                    'voby': 'voby',
+                    'oby': 'oby',
+                }
+            }
+        },
     },
     esbuild: {
         jsx: 'automatic',

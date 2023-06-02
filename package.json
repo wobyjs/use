@@ -17,6 +17,7 @@
         "dev": "vite --config=vite.config.web.ts --force --mode dev --host",
         "prod": "vite --force",
         "build": "vite build src --emptyOutDir",
+        "build:tsc": "rimraf dist && tsc -p tsconfig.build.json",
         "clean": "rimraf ./dist/",
         "prepublishOnly1": "pnpm run clean && pnpm run build",
         "bump": "pnpm version patch"
@@ -49,5 +50,11 @@
         "types_react": "npm:@types/react@^18.2.6",
         "vite": "^4.3.3",
         "vite-plugin-dts": "^2.3.0"
+    },
+    "peerDependencies": {
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "voby": "workspace:../woby",
+        "oby": "workspace:../oby"
     }
 }

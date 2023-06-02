@@ -1,0 +1,88 @@
+{
+    "compilerOptions": {
+        "allowJs": false,
+        "allowSyntheticDefaultImports": true,
+        "allowUnreachableCode": false,
+        "allowUnusedLabels": false,
+        "alwaysStrict": true,
+        "declaration": true,
+        "disableSizeLimit": true,
+        "esModuleInterop": false,
+        "forceConsistentCasingInFileNames": true,
+        "inlineSourceMap": false,
+        "inlineSources": false,
+        // "isolatedModules": true,
+        "jsx": "preserve",
+        "jsxImportSource": "voby",
+        "lib": [
+            "dom",
+            "esnext"
+        ],
+        "module": "es2020",
+        "moduleResolution": "node",
+        "newLine": "lf",
+        "noEmitOnError": false,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitOverride": false,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noPropertyAccessFromIndexSignature": false,
+        "noUnusedLocals": true,
+        "noUnusedParameters": false,
+        "outDir": "./dist/",
+        "pretty": true,
+        "skipDefaultLibCheck": true,
+        "skipLibCheck": true,
+        "sourceMap": false,
+        "strict": true,
+        "strictBindCallApply": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": false,
+        "target": "es2020",
+        "useDefineForClassFields": false,
+        "useUnknownInCatchVariables": true,
+        "noImplicitAny": false,
+        "noUncheckedIndexedAccess": false,
+        "baseUrl": ".",
+        "rootDir": "./src",
+        "composite": true,
+        "paths": {
+            "voby/jsx-runtime": [
+                "../../../voby/dist/jsx"
+            ],
+            "voby/jsx-runtime/*": [
+                "../../../voby/dist/jsx/*"
+            ],
+        },
+        "typeRoots": [
+            // "./node_modules/oby/dist/types/types",
+            // "./node_modules/oby/dist/types/objects",
+            "./node_modules/voby/node_modules/oby/dist/types/types",
+            "./node_modules/voby/node_modules/oby/dist/types/objects",
+            "./node_modules/voby/dist/types"
+        ],
+        "types": [
+            "./node_modules/voby/dist/types/jsx/jsx",
+            "./node_modules/oby/types"
+        ]
+    },
+    "references": [
+        {
+            "path": "../woby"
+        }
+    ],
+    "exclude": [
+        "node_modules/*",
+        "*.test.ts*",
+        "vite.config.ts",
+        "vite.config.*.ts",
+        "demo",
+        "**/*.test.ts*",
+        "**/*.demo.ts*",
+        "**/tests.ts",
+        "**/test.tsx",
+    ]
+    // "include": [
+    //   "../voby/src/jsx"
+    // ]
+}

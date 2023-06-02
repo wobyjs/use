@@ -1,4 +1,8 @@
+///// <reference types="voby/node_modules/oby/dist/types/types" />
+
 import { $, $$ } from 'voby'
+// import type { ObservableMaybe } from 'voby'
+// import type { ObservableMaybe } from 'voby/node_modules/oby/dist/types/types'
 
 export function useCounter(initialValue?: ObservableMaybe<number>) {
     const count = $($$(initialValue) || 0)
