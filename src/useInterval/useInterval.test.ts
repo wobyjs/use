@@ -1,28 +1,24 @@
-import { renderHook } from '@testing-library/react-hooks/dom'
+import { renderHook, test, jest, mockSetInterval, mockClearInterval , installClock} from '../jasmine'
+import {$, $$} from "voby"
+import {useInterval} from './useInterval'
 
-import useInterval from './useInterval'
-
-const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
-
-describe('useInterval()', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
-
+describe('useInterval()', () => {  
   test('should fire the callback function (1)', async () => {
+    const {tick} = installClock()
     const timeout = 500
     const callback = jest.fn()
     renderHook(() => useInterval(callback, timeout))
-    await sleep(timeout)
+    tick(timeout)
     expect(callback).toHaveBeenCalledTimes(1)
   })
 
   test('should fire the callback function (2)', async () => {
+    const {tick} = installClock()
     const timeout = 500
     const earlyTimeout = 400
     const callback = jest.fn()
     renderHook(() => useInterval(callback, timeout))
-    await sleep(earlyTimeout)
+    tick(earlyTimeout)
     expect(callback).not.toHaveBeenCalled()
   })
 
@@ -32,7 +28,7 @@ describe('useInterval()', () => {
     const callback = jest.fn()
     renderHook(() => useInterval(callback, timeout))
     expect(setInterval).toHaveBeenCalledTimes(1)
-    expect(setInterval).toHaveBeenCalledWith(expect.any(Function), timeout)
+    expect(setInterval).toHaveBeenCalledWith(jasmine.any(Function), timeout)
   })
 
   test('should call clearTimeout on unmount', () => {
@@ -42,14 +38,22 @@ describe('useInterval()', () => {
     unmount()
     expect(clearInterval).toHaveBeenCalledTimes(1)
   })
+
+  test('should change delay', () => {
+    const delay = $(1200)
+    const {tick} = installClock()
+    const callback = jest.fn("callbackSpy")
+    renderHook(() => useInterval(callback, delay))
+    tick(1200)
+    expect(setInterval).toHaveBeenCalledTimes(1)
+    expect(setInterval).toHaveBeenCalledWith(jasmine.any(Function),$$(delay))
+
+
+    delay(100)
+    tick(1000)
+    expect(setInterval).toHaveBeenCalledTimes(2)
+    expect(callback).toHaveBeenCalledTimes(11)
+  })
+
 })
 
-function mockSetInterval() {
-  jest.useFakeTimers()
-  jest.spyOn(global, 'setInterval')
-}
-
-function mockClearInterval() {
-  jest.useFakeTimers()
-  jest.spyOn(global, 'clearInterval')
-}

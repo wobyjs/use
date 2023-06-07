@@ -1,12 +1,22 @@
 {
-    "srcDir": "src",
-    "srcFiles": [],
-    "specDir": "test",
-    "specFiles": [
-        "test.es.js"
-    ],
-    "helpers": [],
-    "browser": {
-        "name": "firefox"
-    }
+  "srcDir": "src",
+  "srcFiles": [],
+  "specDir": "test",
+  "specFiles": [
+    "**/*[sS]pec.?(m)js",
+    "**/*[tT]est.?(m)js"
+  ],
+  "helpers": [
+    "spec/helpers/**/*.?(m)js"
+  ],
+  "esmFilenameExtension": ".mjs",
+  "enableTopLevelAwait": false,
+  "env": {
+    "stopSpecOnExpectationFailure": false,
+    "stopOnSpecFailure": false,
+    "random": true
+  },
+  "browser": {
+    "name": "chrome"
+  }
 }

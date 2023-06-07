@@ -1,16 +1,16 @@
-import { act, renderHook } from '@testing-library/react-hooks/dom'
+import { act, renderHook, test } from '../jasmine'
 
-import useCounter from './useCounter'
+import {useCounter} from './useCounter'
 
 describe('useCounter()', () => {
   test('should use counter', () => {
     const { result } = renderHook(() => useCounter())
 
-    expect(result.current.count).toBe(0)
+    expect(result.current.count()).toBe(0)
     expect(typeof result.current.increment).toBe('function')
     expect(typeof result.current.decrement).toBe('function')
     expect(typeof result.current.reset).toBe('function')
-    expect(typeof result.current.setCount).toBe('function')
+    expect(typeof result.current.count).toBe('function')
   })
 
   test('should increment counter', () => {
@@ -20,7 +20,7 @@ describe('useCounter()', () => {
       result.current.increment()
     })
 
-    expect(result.current.count).toBe(1)
+    expect(result.current.count()).toBe(1)
   })
 
   test('should decrement counter', () => {
@@ -30,13 +30,13 @@ describe('useCounter()', () => {
       result.current.decrement()
     })
 
-    expect(result.current.count).toBe(-1)
+    expect(result.current.count()).toBe(-1)
   })
 
   test('should default value works', () => {
     const { result } = renderHook(() => useCounter(3))
 
-    expect(result.current.count).toBe(3)
+    expect(result.current.count()).toBe(3)
   })
 
   test('should reset counter', () => {
@@ -46,26 +46,26 @@ describe('useCounter()', () => {
       result.current.decrement()
     })
 
-    expect(result.current.count).toBe(2)
+    expect(result.current.count()).toBe(2)
   })
 
   test('should set counter', () => {
     const { result } = renderHook(() => useCounter())
 
     act(() => {
-      result.current.setCount(5)
+      result.current.count(5)
     })
 
-    expect(result.current.count).toBe(5)
+    expect(result.current.count()).toBe(5)
   })
 
   test('should set counter with prev value', () => {
     const { result } = renderHook(() => useCounter(5))
 
     act(() => {
-      result.current.setCount(x => x + 2)
+      result.current.count(x => x + 2)
     })
 
-    expect(result.current.count).toBe(7)
+    expect(result.current.count()).toBe(7)
   })
 })

@@ -1,6 +1,6 @@
-import { act, renderHook } from '@testing-library/react-hooks/dom'
+import { act, renderHook, test,jest} from '../jasmine'
 
-import useSessionStorage from './useSessionStorage'
+import {useSessionStorage} from './useSessionStorage'
 
 class SessionStorageMock {
   store: Record<string, unknown> = {}
@@ -32,43 +32,44 @@ describe('useSessionStorage()', () => {
   })
 
   afterEach(() => {
-    jest.clearAllMocks()
+    window.sessionStorage.clear()
+
   })
 
   test('initial state is in the returned state', () => {
     const { result } = renderHook(() => useSessionStorage('key', 'value'))
 
-    expect(result.current[0]).toBe('value')
+    expect(result.current()).toBe('value')
   })
 
   test('Initial state is a callback function', () => {
     const { result } = renderHook(() => useSessionStorage('key', () => 'value'))
 
-    expect(result.current[0]).toBe('value')
+    expect(result.current()()).toBe('value')
   })
 
   test('Initial state is an array', () => {
     const { result } = renderHook(() => useSessionStorage('digits', [1, 2]))
 
-    expect(result.current[0]).toEqual([1, 2])
+    expect(result.current()).toEqual([1, 2])
   })
 
   test('Update the state', () => {
     const { result } = renderHook(() => useSessionStorage('key', 'value'))
 
     act(() => {
-      const setState = result.current[1]
+      const setState = result.current
       setState('edited')
     })
 
-    expect(result.current[0]).toBe('edited')
+    expect(result.current()).toBe('edited')
   })
 
   test('Update the state writes sessionStorage', () => {
     const { result } = renderHook(() => useSessionStorage('key', 'value'))
 
     act(() => {
-      const setState = result.current[1]
+      const setState = result.current
       setState('edited')
     })
 
@@ -81,22 +82,22 @@ describe('useSessionStorage()', () => {
     )
 
     act(() => {
-      const setState = result.current[1]
+      const setState = result.current
       setState(undefined)
     })
 
-    expect(result.current[0]).toBeUndefined()
+    expect(result.current()).toBeUndefined()
   })
 
   test('Update the state with a callback function', () => {
     const { result } = renderHook(() => useSessionStorage('count', 2))
 
     act(() => {
-      const setState = result.current[1]
+      const setState = result.current
       setState(prev => prev + 1)
     })
 
-    expect(result.current[0]).toBe(3)
+    expect(result.current()).toBe(3)
     expect(window.sessionStorage.getItem('count')).toEqual('3')
   })
 
@@ -106,26 +107,26 @@ describe('useSessionStorage()', () => {
     const { result: B } = renderHook(() => useSessionStorage(...initialValues))
 
     act(() => {
-      const setState = A.current[1]
+      const setState = A.current
       setState('edited')
     })
 
-    expect(B.current[0]).toBe('edited')
+    expect(B.current()).toBe('edited')
   })
 
   test('setValue is referentially stable', () => {
     const { result } = renderHook(() => useSessionStorage('count', 1))
 
     // Store a reference to the original setValue
-    const originalCallback = result.current[1]
+    const originalCallback = result.current
 
     // Now invoke a state update, if setValue is not referentially stable then this will cause the originalCallback
     // reference to not be equal to the new setValue function
     act(() => {
-      const setState = result.current[1]
+      const setState = result.current
       setState(prev => prev + 1)
     })
 
-    expect(result.current[1] === originalCallback).toBe(true)
+    expect(result.current === originalCallback).toBe(true)
   })
 })

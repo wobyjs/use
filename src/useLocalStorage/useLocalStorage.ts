@@ -1,4 +1,4 @@
-import { $, useEffect, Observable } from 'voby'
+import { $, $$, useEffect, Observable, ObservableMaybe } from 'voby'
 
 // import { useEventCallback } from '../useEventCallback/useEventCallback'
 import { useEventListener } from '../useEventListener/useEventListener'
@@ -11,7 +11,7 @@ declare global {
 
 export const localStoreDic: Record<string, Observable> = {}
 
-export function useLocalStorage<T>(key: string, initialValue: T): Observable<T> {
+export function useLocalStorage<T>(key: string, initialValue: ObservableMaybe <T>): Observable<T> {
     if (localStoreDic[key])
         return localStoreDic[key] as any
 
@@ -20,15 +20,15 @@ export function useLocalStorage<T>(key: string, initialValue: T): Observable<T> 
     const readValue = ((): T => {
         // Prevent build error "window is undefined" but keeps working
         if (typeof window === 'undefined') {
-            return initialValue
+            return $$(initialValue)
         }
 
         try {
             const item = window.localStorage.getItem(key)
-            return item ? (parseJSON(item) as T) : initialValue
+            return item ? (parseJSON(item) as T) : $$(initialValue)
         } catch (error) {
             console.warn(`Error reading localStorage key “${key}”:`, error)
-            return initialValue
+            return $$(initialValue)
         }
     })
 

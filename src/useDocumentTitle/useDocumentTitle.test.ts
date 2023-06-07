@@ -1,6 +1,6 @@
-import { renderHook } from '@testing-library/react-hooks/dom'
+import { renderHook, test } from '../jasmine'
 
-import useDocumentTitle from './useDocumentTitle'
+import {useDocumentTitle} from './useDocumentTitle'
 
 describe('useDocumentTitle()', () => {
   test('title should be in the document', () => {

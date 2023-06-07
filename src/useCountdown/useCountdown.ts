@@ -1,5 +1,5 @@
 // TODO: example and test
-import { $$, Observable } from 'voby'
+import { $$, Observable, useMemo } from 'voby'
 
 import { useBoolean } from '../useBoolean/useBoolean'
 import { useCounter } from '../useCounter/useCounter'
@@ -123,8 +123,9 @@ export function useCountdown(countdownOption: UseCountdownType | CountdownOption
             decrement()
         }
     })
-
-    useInterval(countdownCallback, $$(isCountdownRunning) ? $$(intervalMs) : null)
+    const delay = useMemo(()=> $$(isCountdownRunning) ? $$(intervalMs) : null)
+    
+    useInterval(countdownCallback, delay)
 
     return isDeprecated
         ? [
@@ -135,7 +136,8 @@ export function useCountdown(countdownOption: UseCountdownType | CountdownOption
                 reset: resetCountdown,
             } as CountdownHelpers,
         ]
-        : [
+        : 
+        [
             count,
             {
                 startCountdown,
