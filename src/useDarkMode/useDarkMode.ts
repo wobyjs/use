@@ -1,7 +1,6 @@
-import { $$ } from 'voby'
+import { $$, useEffect } from 'voby'
 import { useLocalStorage } from '../useLocalStorage/useLocalStorage'
 import { useMediaQuery } from '../useMediaQuery/useMediaQuery'
-import { useUpdateEffect } from '../useUpdateEffect/useUpdateEffect'
 
 const COLOR_SCHEME_QUERY = '(prefers-color-scheme: dark)'
 
@@ -13,7 +12,7 @@ export function useDarkMode(defaultValue?: ObservableMaybe<boolean>) {
     )
 
     // Update darkMode if os prefers changes
-    useUpdateEffect(() => {
+    useEffect(() => {
         darkmode(isDarkOS())
 
     })

@@ -13,13 +13,15 @@ const config = defineConfig({
         },
         sourcemap: true,
         rollupOptions: {
-            external: ['react', 'react-dom', 'voby', 'oby'],
+            external: ['react', 'react-dom', 'voby', 'oby', "react/jsx-runtime", "react-dom/client"],
             output: {
                 globals: {
                     'react': 'React',
                     'react-dom': 'ReactDOM',
                     'voby': 'voby',
                     'oby': 'oby',
+                    "react/jsx-runtime": "jsxRuntime",
+                    "react-dom/client": "client"
                 }
             }
         },

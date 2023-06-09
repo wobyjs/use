@@ -12,7 +12,7 @@ export interface Actions {
 }
 
 // We hide some setters from the returned map to disable autocompletion
-type Return<K extends string | number | symbol, V> = [Record<K, V>, Actions]
+// type Return<K extends string | number | symbol, V> = [Record<K, V>, Actions]
 
 function isPrimitive(test) {
     return (test !== Object(test));
