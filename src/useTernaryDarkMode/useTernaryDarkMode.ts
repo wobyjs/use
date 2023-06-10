@@ -2,7 +2,6 @@ import { useEffect, $, Observable } from 'voby'
 
 import { useLocalStorage } from '../useLocalStorage/useLocalStorage'
 import { useMediaQuery } from '../useMediaQuery/useMediaQuery'
-import { useUpdateEffect } from '../useUpdateEffect/useUpdateEffect'
 
 const COLOR_SCHEME_QUERY = '(prefers-color-scheme: dark)'
 
@@ -19,7 +18,7 @@ export function useTernaryDarkMode(): UseTernaryDarkModeOutput {
     const isDarkMode = $<boolean>(isDarkOS())
 
     // Update darkMode if os prefers changes
-    useUpdateEffect(() => {
+    useEffect(() => {
         if (ternaryDarkMode() === 'system') {
             isDarkMode(isDarkOS())
         }

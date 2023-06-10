@@ -1,7 +1,6 @@
 import { $, Observable, useEffect } from 'voby'
 
 import { useEventListener } from '../useEventListener/useEventListener'
-import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect/useIsomorphicLayoutEffect'
 
 interface Size {
     width: number
