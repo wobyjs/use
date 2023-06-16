@@ -1,9 +1,10 @@
-import { test, installClock, jest, renderHook, mockSetInterval, mockClearInterval } from "../jasmine.mjs";
-import { p as observable, g as get } from "../../../woby/dist/setters-0ed3c7f1.mjs";
+import { test, installInterval, jest, renderHook, mockSetInterval, mockClearInterval } from "../../../voby-jasmine/dist/jasmine.es.mjs";
+import "../../../woby/dist/index.es.mjs";
 import { useInterval } from "./useInterval.mjs";
+import { z as observable, g as get } from "../../../woby/dist/use_microtask-10cd6273.mjs";
 describe("useInterval()", () => {
   test("should fire the callback function (1)", async () => {
-    const { tick } = installClock();
+    const { tick } = installInterval();
     const timeout = 500;
     const callback = jest.fn();
     renderHook(() => useInterval(callback, timeout));
@@ -11,7 +12,7 @@ describe("useInterval()", () => {
     expect(callback).toHaveBeenCalledTimes(1);
   });
   test("should fire the callback function (2)", async () => {
-    const { tick } = installClock();
+    const { tick } = installInterval();
     const timeout = 500;
     const earlyTimeout = 400;
     const callback = jest.fn();
@@ -36,7 +37,7 @@ describe("useInterval()", () => {
   });
   test("should change delay", () => {
     const delay = observable(1200);
-    const { tick } = installClock();
+    const { tick } = installInterval();
     const callback = jest.fn("callbackSpy");
     renderHook(() => useInterval(callback, delay));
     tick(1200);

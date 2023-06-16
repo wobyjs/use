@@ -1,4 +1,4 @@
-import { test, renderHook, installClock, act } from "../jasmine.mjs";
+import { test, renderHook, installInterval, act } from "../../../voby-jasmine/dist/jasmine.es.mjs";
 import { useCountdown } from "./useCountdown.mjs";
 describe("useCountdown()", () => {
   test("should return callable functions", () => {
@@ -18,7 +18,7 @@ describe("useCountdown()", () => {
     expect(typeof result.current[1].resetCountdown).toBe("function");
   });
   test("should accept intervalMs", () => {
-    const { tick } = installClock();
+    const { tick } = installInterval();
     const { result } = renderHook(
       () => useCountdown({ countStart: 60, intervalMs: 500 })
     );
@@ -31,7 +31,7 @@ describe("useCountdown()", () => {
     expect(result.current[0]()).toBe(59);
   });
   test("should stop at countStop (default: 0)", () => {
-    const { tick } = installClock();
+    const { tick } = installInterval();
     const { result } = renderHook(
       () => useCountdown({ countStart: 60, intervalMs: 1e3 })
     );
@@ -46,7 +46,7 @@ describe("useCountdown()", () => {
     expect(result.current[0]()).toBe(0);
   });
   test("should stop at custom countStop", () => {
-    const { tick } = installClock();
+    const { tick } = installInterval();
     const { result } = renderHook(
       () => useCountdown({ countStart: 60, intervalMs: 1e3, countStop: 30 })
     );
@@ -61,7 +61,7 @@ describe("useCountdown()", () => {
     expect(result.current[0]()).toBe(30);
   });
   test("should stop countdown", () => {
-    const { tick } = installClock();
+    const { tick } = installInterval();
     const { result } = renderHook(
       () => useCountdown({ countStart: 60, intervalMs: 1e3 })
     );
@@ -74,7 +74,7 @@ describe("useCountdown()", () => {
     expect(result.current[0]()).toBe(58);
   });
   test("should stop reversed countdown", () => {
-    const { tick } = installClock();
+    const { tick } = installInterval();
     const { result } = renderHook(
       () => useCountdown({
         countStart: 10,
@@ -93,7 +93,7 @@ describe("useCountdown()", () => {
     expect(result.current[0]()).toBe(20);
   });
   test("should reset count", () => {
-    const { tick } = installClock();
+    const { tick } = installInterval();
     const { result } = renderHook(
       () => useCountdown({ countStart: 60, intervalMs: 1e3 })
     );

@@ -1,4 +1,4 @@
-import { test, jest, renderHook, act } from "../jasmine.mjs";
+import { test, jest, renderHook, act } from "../../../voby-jasmine/dist/jasmine.es.mjs";
 import { useTimeout } from "./useTimeout.mjs";
 describe("useTimeout()", () => {
   beforeEach(function() {

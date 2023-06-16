@@ -1,4 +1,4 @@
-import { renderHook, act, fireEvent } from "../jasmine.mjs";
+import { renderHook, act, fireEvent } from "../../../voby-jasmine/dist/jasmine.es.mjs";
 import { useHover } from "./useHover.mjs";
 describe("useHover()", () => {
   const el = document.createElement("div");

@@ -1,4 +1,4 @@
-import { test, renderHook, act } from "../jasmine.mjs";
+import { test, renderHook, act } from "../../../voby-jasmine/dist/jasmine.es.mjs";
 import { useSessionStorage } from "./useSessionStorage.mjs";
 class SessionStorageMock {
   constructor() {

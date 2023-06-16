@@ -1,4 +1,4 @@
-import { act, renderHook, test, jest} from '../jasmine'
+import { act, renderHook, test, jest} from 'voby-jasmine'
 
 import {useTimeout} from './useTimeout'
 

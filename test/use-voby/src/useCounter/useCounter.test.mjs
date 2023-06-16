@@ -1,4 +1,4 @@
-import { test, renderHook, act } from "../jasmine.mjs";
+import { test, renderHook, act } from "../../../voby-jasmine/dist/jasmine.es.mjs";
 import { useCounter } from "./useCounter.mjs";
 describe("useCounter()", () => {
   test("should use counter", () => {

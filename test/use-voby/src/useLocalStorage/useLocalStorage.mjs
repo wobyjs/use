@@ -1,5 +1,6 @@
-import { p as observable, h as effect, g as get } from "../../../woby/dist/setters-0ed3c7f1.mjs";
+import "../../../woby/dist/index.es.mjs";
 import { useEventListener } from "../useEventListener/useEventListener.mjs";
+import { z as observable, h as effect, g as get } from "../../../woby/dist/use_microtask-10cd6273.mjs";
 const localStoreDic = {};
 function useLocalStorage(key, initialValue) {
   if (localStoreDic[key])

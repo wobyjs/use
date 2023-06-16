@@ -1,4 +1,4 @@
-import { jest, test, renderHook, act } from "../jasmine.mjs";
+import { jest, test, renderHook, act } from "../../../voby-jasmine/dist/jasmine.es.mjs";
 import { useCopyToClipboard } from "./useCopyToClipboard.mjs";
 describe("useClipboard()", () => {
   const originalClipboard = globalThis.navigator.clipboard.writeText;

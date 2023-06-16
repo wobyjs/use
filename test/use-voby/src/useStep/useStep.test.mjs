@@ -1,4 +1,4 @@
-import { test, renderHook, act } from "../jasmine.mjs";
+import { test, renderHook, act } from "../../../voby-jasmine/dist/jasmine.es.mjs";
 import { useStep } from "./useStep.mjs";
 describe("useStep()", () => {
   test("should use step", () => {

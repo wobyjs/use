@@ -1,10 +1,10 @@
-import { renderHook, test, jest, mockSetInterval, mockClearInterval , installClock} from '../jasmine'
+import { renderHook, test, jest, mockSetInterval, mockClearInterval , installInterval} from 'voby-jasmine'
 import {$, $$} from "voby"
 import {useInterval} from './useInterval'
 
 describe('useInterval()', () => {  
   test('should fire the callback function (1)', async () => {
-    const {tick} = installClock()
+    const {tick} = installInterval()
     const timeout = 500
     const callback = jest.fn()
     renderHook(() => useInterval(callback, timeout))
@@ -13,7 +13,7 @@ describe('useInterval()', () => {
   })
 
   test('should fire the callback function (2)', async () => {
-    const {tick} = installClock()
+    const {tick} = installInterval()
     const timeout = 500
     const earlyTimeout = 400
     const callback = jest.fn()
@@ -41,7 +41,7 @@ describe('useInterval()', () => {
 
   test('should change delay', () => {
     const delay = $(1200)
-    const {tick} = installClock()
+    const {tick} = installInterval()
     const callback = jest.fn("callbackSpy")
     renderHook(() => useInterval(callback, delay))
     tick(1200)
