@@ -1,8 +1,15 @@
-import { act, installInterval, renderHook, test } from 'voby-jasmine'
+import { act, renderHook, test } from 'voby-jasmine'
 
 import { useCountdown } from './useCountdown'
 
 describe('useCountdown()', () => {
+  beforeEach(function() {
+    jasmine.clock().install();
+  });
+
+  afterEach(function() {
+    jasmine.clock().uninstall();
+  });
   test('should return callable functions', () => {
     const { result } = renderHook(() =>
       useCountdown({ countStart: 60, intervalMs: 500, isIncrement: false }),
@@ -24,7 +31,6 @@ describe('useCountdown()', () => {
   })
 
   test('should accept intervalMs', () => {
-    const { tick } = installInterval()
     const { result } = renderHook(() =>
       useCountdown({ countStart: 60, intervalMs: 500 }),
     )
@@ -35,12 +41,11 @@ describe('useCountdown()', () => {
 
     act(() => result.current[1].startCountdown())
 
-    tick(500)
+    jasmine.clock().tick(500)
     expect(result.current[0]()).toBe(59)
   })
 
   test('should stop at countStop (default: 0)', () => {
-    const { tick } = installInterval()
     const { result } = renderHook(() =>
       useCountdown({ countStart: 60, intervalMs: 1000 }),
     )
@@ -51,15 +56,14 @@ describe('useCountdown()', () => {
     expect(typeof result.current[1].resetCountdown).toBe('function')
 
     act(result.current[1].startCountdown)
-    tick(60 * 1000)
+    jasmine.clock().tick(60 * 1000)
     expect(result.current[0]()).toBe(0)
 
-    tick(1000)
+    jasmine.clock().tick(1000)
     expect(result.current[0]()).toBe(0)
   })
 
   test('should stop at custom countStop', () => {
-    const { tick } = installInterval()
     const { result } = renderHook(() =>
       useCountdown({ countStart: 60, intervalMs: 1000, countStop: 30 }),
     )
@@ -70,32 +74,30 @@ describe('useCountdown()', () => {
     expect(typeof result.current[1].resetCountdown).toBe('function')
 
     act(result.current[1].startCountdown)
-    tick(30 * 1000)
+    jasmine.clock().tick(30 * 1000)
     expect(result.current[0]()).toBe(30)
 
-    tick(1000)
+    jasmine.clock().tick(1000)
     expect(result.current[0]()).toBe(30)
   })
 
   test('should stop countdown', () => {
-    const { tick } = installInterval()
     const { result } = renderHook(() =>
       useCountdown({ countStart: 60, intervalMs: 1000 }),
     )
 
     expect(result.current[0]()).toBe(60)
     act(result.current[1].startCountdown)
-    tick(2000)
+    jasmine.clock().tick(2000)
 
     expect(result.current[0]()).toBe(58)
     act(result.current[1].stopCountdown)
-    tick(3000)
+    jasmine.clock().tick(3000)
 
     expect(result.current[0]()).toBe(58)
   })
 
   test('should stop reversed countdown', () => {
-    const { tick } = installInterval()
     const { result } = renderHook(() =>
       useCountdown({
         countStart: 10,
@@ -108,23 +110,22 @@ describe('useCountdown()', () => {
     expect(result.current[0]()).toBe(10)
     act(result.current[1].startCountdown)
 
-    tick(2 * 1000)
+    jasmine.clock().tick(2 * 1000)
     expect(result.current[0]()).toBe(12)
 
-    tick(8 * 1000)
+    jasmine.clock().tick(8 * 1000)
     expect(result.current[0]()).toBe(20)
 
-    tick(3 * 1000)
+    jasmine.clock().tick(3 * 1000)
     expect(result.current[0]()).toBe(20)
   })
 
   test('should reset count', () => {
-    const { tick } = installInterval()
     const { result } = renderHook(() =>
       useCountdown({ countStart: 60, intervalMs: 1000 }),
     )
     act(result.current[1].startCountdown)
-    tick(1000)
+    jasmine.clock().tick(1000)
     act(result.current[1].stopCountdown)
     expect(result.current[0]()).toBeLessThan(60)
 

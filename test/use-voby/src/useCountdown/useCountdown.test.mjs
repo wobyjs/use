@@ -1,6 +1,12 @@
-import { test, renderHook, installInterval, act } from "../../../voby-jasmine/dist/jasmine.es.mjs";
+import { test, renderHook, act } from "../../../voby-jasmine/dist/jasmine.es.mjs";
 import { useCountdown } from "./useCountdown.mjs";
 describe("useCountdown()", () => {
+  beforeEach(function() {
+    jasmine.clock().install();
+  });
+  afterEach(function() {
+    jasmine.clock().uninstall();
+  });
   test("should return callable functions", () => {
     const { result } = renderHook(
       () => useCountdown({ countStart: 60, intervalMs: 500, isIncrement: false })
@@ -18,7 +24,6 @@ describe("useCountdown()", () => {
     expect(typeof result.current[1].resetCountdown).toBe("function");
   });
   test("should accept intervalMs", () => {
-    const { tick } = installInterval();
     const { result } = renderHook(
       () => useCountdown({ countStart: 60, intervalMs: 500 })
     );
@@ -27,11 +32,10 @@ describe("useCountdown()", () => {
     expect(typeof result.current[1].stopCountdown).toBe("function");
     expect(typeof result.current[1].resetCountdown).toBe("function");
     act(() => result.current[1].startCountdown());
-    tick(500);
+    jasmine.clock().tick(500);
     expect(result.current[0]()).toBe(59);
   });
   test("should stop at countStop (default: 0)", () => {
-    const { tick } = installInterval();
     const { result } = renderHook(
       () => useCountdown({ countStart: 60, intervalMs: 1e3 })
     );
@@ -40,13 +44,12 @@ describe("useCountdown()", () => {
     expect(typeof result.current[1].stopCountdown).toBe("function");
     expect(typeof result.current[1].resetCountdown).toBe("function");
     act(result.current[1].startCountdown);
-    tick(60 * 1e3);
+    jasmine.clock().tick(60 * 1e3);
     expect(result.current[0]()).toBe(0);
-    tick(1e3);
+    jasmine.clock().tick(1e3);
     expect(result.current[0]()).toBe(0);
   });
   test("should stop at custom countStop", () => {
-    const { tick } = installInterval();
     const { result } = renderHook(
       () => useCountdown({ countStart: 60, intervalMs: 1e3, countStop: 30 })
     );
@@ -55,26 +58,24 @@ describe("useCountdown()", () => {
     expect(typeof result.current[1].stopCountdown).toBe("function");
     expect(typeof result.current[1].resetCountdown).toBe("function");
     act(result.current[1].startCountdown);
-    tick(30 * 1e3);
+    jasmine.clock().tick(30 * 1e3);
     expect(result.current[0]()).toBe(30);
-    tick(1e3);
+    jasmine.clock().tick(1e3);
     expect(result.current[0]()).toBe(30);
   });
   test("should stop countdown", () => {
-    const { tick } = installInterval();
     const { result } = renderHook(
       () => useCountdown({ countStart: 60, intervalMs: 1e3 })
     );
     expect(result.current[0]()).toBe(60);
     act(result.current[1].startCountdown);
-    tick(2e3);
+    jasmine.clock().tick(2e3);
     expect(result.current[0]()).toBe(58);
     act(result.current[1].stopCountdown);
-    tick(3e3);
+    jasmine.clock().tick(3e3);
     expect(result.current[0]()).toBe(58);
   });
   test("should stop reversed countdown", () => {
-    const { tick } = installInterval();
     const { result } = renderHook(
       () => useCountdown({
         countStart: 10,
@@ -85,20 +86,19 @@ describe("useCountdown()", () => {
     );
     expect(result.current[0]()).toBe(10);
     act(result.current[1].startCountdown);
-    tick(2 * 1e3);
+    jasmine.clock().tick(2 * 1e3);
     expect(result.current[0]()).toBe(12);
-    tick(8 * 1e3);
+    jasmine.clock().tick(8 * 1e3);
     expect(result.current[0]()).toBe(20);
-    tick(3 * 1e3);
+    jasmine.clock().tick(3 * 1e3);
     expect(result.current[0]()).toBe(20);
   });
   test("should reset count", () => {
-    const { tick } = installInterval();
     const { result } = renderHook(
       () => useCountdown({ countStart: 60, intervalMs: 1e3 })
     );
     act(result.current[1].startCountdown);
-    tick(1e3);
+    jasmine.clock().tick(1e3);
     act(result.current[1].stopCountdown);
     expect(result.current[0]()).toBeLessThan(60);
     act(result.current[1].resetCountdown);
