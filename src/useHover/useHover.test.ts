@@ -1,4 +1,4 @@
-import { act, renderHook, fireEvent } from '../jasmine'
+import { act, renderHook, fireEvent } from 'voby-jasmine'
 
 import {useHover} from './useHover'
 

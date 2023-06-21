@@ -1,4 +1,4 @@
-import { act, renderHook, jest, test} from '../jasmine'
+import { act, renderHook, jest, test} from 'voby-jasmine'
 
 import {useCopyToClipboard} from './useCopyToClipboard'
 describe('useClipboard()', () => {

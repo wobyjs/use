@@ -1,5 +1,6 @@
-import { p as observable } from "../../../woby/dist/setters-0ed3c7f1.mjs";
+import "../../../woby/dist/index.es.mjs";
 import { useEventListener } from "../useEventListener/useEventListener.mjs";
+import { z as observable } from "../../../woby/dist/use_microtask-10cd6273.mjs";
 function useHover(elementRef) {
   const value = observable(false);
   const handleMouseEnter = () => value(true);

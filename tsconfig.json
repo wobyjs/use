@@ -53,18 +53,7 @@
             "voby/jsx-runtime/*": [
                 "../../../voby/dist/jsx/*"
             ],
-        },
-        "typeRoots": [
-            // "./node_modules/oby/dist/types/types",
-            // "./node_modules/oby/dist/types/objects",
-            "./node_modules/voby/node_modules/oby/dist/types/types",
-            "./node_modules/voby/node_modules/oby/dist/types/objects",
-            "./node_modules/voby/dist/types"
-        ],
-        "types": [
-            "./node_modules/voby/dist/types/jsx/jsx",
-            "./node_modules/oby/dist/types"
-        ]
+        }
     },
     "references": [
         {

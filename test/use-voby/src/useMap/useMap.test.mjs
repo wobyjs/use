@@ -1,4 +1,4 @@
-import { renderHook, act } from "../jasmine.mjs";
+import { renderHook, act } from "../../../voby-jasmine/dist/jasmine.es.mjs";
 import { useMap } from "./useMap.mjs";
 describe("useMap()", () => {
   it("should be ok when initiated with a map", () => {

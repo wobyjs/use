@@ -1,4 +1,4 @@
-import { act, renderHook, test } from '../jasmine'
+import { act, renderHook, test } from 'voby-jasmine'
 
 import {useToggle} from './useToggle'
 
