@@ -1,3 +1,4 @@
+// import * as from 'react'
 import { useMemo, useState } from 'react'
 import { $, $$, isObservable, useEffect, isStore, store } from 'voby'
 

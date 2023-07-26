@@ -7,10 +7,10 @@ console.log("", fileArr)
 const config = defineConfig({
     build: {
         minify: false,
-        lib:{
+        lib: {
             entry: fileArr,
-            formats:["es"],
-            name:"123"
+            formats: ["es"],
+            name: "123"
         },
         outDir: './test',
         rollupOptions: {
@@ -19,12 +19,10 @@ const config = defineConfig({
             }
         }
     },
-    // esbuild: {
-    //     jsx: 'automatic',
-    // },
-    
-},
-)
+    esbuild: {
+        jsx: 'automatic',
+    },
+})
 
 
 

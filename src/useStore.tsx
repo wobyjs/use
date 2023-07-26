@@ -1,3 +1,10 @@
+///// <reference types="voby" />
+
+/** @jsxRuntime classic */
+/** @jsx jsx */
+/** @jsxFrag Fragment */
+//@ts-ignore
+import { jsx } from 'react/jsx-runtime'
 import { useMemo, useState } from 'react'
 import { $$, isStore, store } from 'voby'
 
@@ -13,12 +20,12 @@ import { $$, isStore, store } from 'voby'
 
 //     aa.forEach(k => {
 //         if (a[k] != b[k])
-//             console.log(k, a[k], b[k])
+//             console.log(k, a[k], b[k])Fv
 //     })
 // }
 /** Use in React */
 export const useStore = <T,>(o: ObservableMaybe<T>): T => {
-    const [_state, setState] = useState<T>(0)
+    const [_state, setState] = useState(0)
 
     const oo = useMemo(() => {
         const o_ = $$(o)

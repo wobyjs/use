@@ -1,7 +1,8 @@
-import { m as memo, g as get } from "../../../woby/dist/setters-0ed3c7f1.mjs";
+import "../../../woby/dist/index.es.mjs";
 import { useBoolean } from "../useBoolean/useBoolean.mjs";
 import { useCounter } from "../useCounter/useCounter.mjs";
 import { useInterval } from "../useInterval/useInterval.mjs";
+import { m as memo, g as get } from "../../../woby/dist/use_microtask-e694cf95.mjs";
 function useCountdown(countdownOption) {
   let isDeprecated = false;
   let countStart, intervalMs, isIncrement, countStop;

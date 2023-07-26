@@ -1,5 +1,24 @@
 //pnpm add - D types_react @npm: @types/react 
 /// <reference types="types_react" />
+/// <reference types="voby/dist/types" />
+
+/// <reference types="voby" />
+
+/** @jsxRuntime classic */
+/** @jsx jsx */
+/** @jsxFrag Fragment */
+// import { jsxDEV } from 'react/jsx-dev-runtime'
+import { jsx as rsx } from 'react/jsx-runtime'
+import { Fragment } from 'react'
+//React 17
+//const jsx = (type, props, key, source, self) => rsx(type, props ?? {}, key, source, self)
+//React 16
+const jsx = (type, props, ...children) => {
+    console.log(type, props, ...children)
+    if (type === 'br')
+        return rsx(type, {})
+    return rsx(type, !!children ? Object.assign(props ?? {}, { children }) : props)
+}
 
 import { useReduction } from '../src/useReduction'
 import { useOby } from '../src/useOby'
@@ -40,12 +59,13 @@ export const VobyInReact = () => {
         decrement: (count, { args }: { args: number }) => ({ count: count.count - args })
     })
     const [c, setCount] = useState(0)
-
-    const o = useOby($(10))
+    const oo = $(10)
+    const o = useOby(oo)
+    //@ts-ignore
     const s = useStore(store({ value: 100, inc: function () { this.value++ }, dec: function () { this.value-- } }))
 
-    return <div>
-        <h1>React Component</h1>
+    const r = <div>
+        <h1>React Component...</h1>
         <h3>Reducer State: {count.count}</h3>
         <button onClick={() => actions.increment({ count: 2 })}>+2</button>
         <button onClick={() => actions.decrement(2)}>-2</button>
@@ -55,13 +75,19 @@ export const VobyInReact = () => {
         <button onClick={() => setCount(p => p - 3)}>-3</button>
 
         <br />
-        <h3>useOby: {o()}</h3>
-        <button onClick={() => o(o() + 2)}>+2</button>
-        <button onClick={() => o(p => p -= 2)}>-2</button>
+        {/** @ts-ignore */}
+        <h3>useOby: {o}</h3>
+        {/** @ts-ignore */}
+        <button onClick={() => oo(o + 2)}>+2</button>
+        {/** @ts-ignore */}
+        <button onClick={() => oo(p => p -= 2)}>-2</button>
 
         <br />
+        {/** @ts-ignore */}
         <h3>useStore: {s.value}</h3>
+        {/** @ts-ignore */}
         <button onClick={() => s.value += 2}>+2</button>
+        {/** @ts-ignore */}
         <button onClick={() => s.dec()}>-1</button>
 
         <br />
@@ -82,4 +108,6 @@ export const VobyInReact = () => {
         <br />
         <br />
     </div>
+
+    return r
 }

@@ -1,7 +1,9 @@
 /// <reference types="voby" />
+/// <reference types="voby/dist/types" />
 
 /** @jsxRuntime classic */
 /** @jsx jsx */
+/** @jsxFactory jsx */
 /** @jsxFrag Fragment */
 //@ts-ignore
 import { jsx, Fragment, jsxs, } from "voby"

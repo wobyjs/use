@@ -4,6 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Counter</title>
+
+    <script>
+        if (!window.process) window.process = { env: {} }
+        if (!window.process.env) window.process.env = {}
+        window.process.env.NODE_ENV === 'production'
+    </script>
 </head>
 
 <body>

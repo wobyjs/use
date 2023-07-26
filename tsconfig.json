@@ -12,8 +12,8 @@
         "inlineSourceMap": false,
         "inlineSources": false,
         // "isolatedModules": true,
-        "jsx": "preserve",
-        "jsxImportSource": "voby",
+        "jsx": "react",
+        // "jsxImportSource": "voby",
         "lib": [
             "dom",
             "esnext"

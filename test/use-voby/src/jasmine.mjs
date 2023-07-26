@@ -1,17 +1,18 @@
-import { r as render } from "../../woby/dist/render_to_string-ab3755f2.mjs";
+import "../../woby/dist/index.es.mjs";
+import { r as render$1 } from "../../woby/dist/render_to_string-0e4682a5.mjs";
 const test2 = document.createElement("div");
 function renderHook(fn) {
   let fnReturn;
   const Test = () => {
     fnReturn = fn();
   };
-  let dispose = render(Test, test2);
+  let dispose = render$1(Test, test2);
   return {
     result: { get current() {
       return fnReturn;
     } },
     rerender: function() {
-      dispose = render(Test, test2);
+      dispose = render$1(Test, test2);
     },
     unmount: function() {
       dispose();

@@ -1,6 +1,7 @@
 import { test, installClock, jest, renderHook, mockSetInterval, mockClearInterval } from "../jasmine.mjs";
-import { p as observable, g as get } from "../../../woby/dist/setters-0ed3c7f1.mjs";
+import "../../../woby/dist/index.es.mjs";
 import { useInterval } from "./useInterval.mjs";
+import { p as observable, g as get } from "../../../woby/dist/use_microtask-e694cf95.mjs";
 describe("useInterval()", () => {
   test("should fire the callback function (1)", async () => {
     const { tick } = installClock();

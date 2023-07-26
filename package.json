@@ -10,10 +10,13 @@
     "sideEffects": false,
     "scripts": {
         "preinstall": "npx only-allow pnpm",
-        "test:build": "cross-env NODE_ENV=test && vite build --config vite.config.test.ts",
-        "test:watch": "cross-env NODE_ENV=test && vite --config=vite.config.test.ts --force --host --mode dev",
+        "build:test": "cross-env NODE_ENV=test && vite build --config vite.config.test.ts",
+        "watch:test": "cross-env NODE_ENV=test && vite --config=vite.config.test.ts --force --host --mode dev",
+        "watch:prod": "cross-env NODE_ENV=production && vite --config=vite.config.test.ts --force --host --mode production",
         "test": "npm run test:build && jasmine-browser-runner runSpecs",
         "test:serve": "npm run test:build && jasmine-browser-runner",
+        "build:web": "vite build --config=vite.config.web.ts --force --mode production",
+        "web": "vite preview --config=vite.config.web.ts --host",
         "dev": "vite --config=vite.config.web.ts --force --mode dev --host",
         "prod": "vite --force",
         "build": "vite build",
@@ -35,22 +38,23 @@
         "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
         "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
         "@testing-library/react": "^14.0.0",
-        "@types/jasmine": "^4.3.1",
-        "@types/node": "^20.1.5",
+        "@types/jasmine": "^4.3.5",
+        "@types/node": "^20.4.2",
+        "@vitejs/plugin-react": "^4.0.3",
         "cross-env": "^7.0.3",
-        "glob": "^10.2.6",
-        "jasmine-browser-runner": "^2.0.0",
-        "jasmine-core": "^5.0.0",
+        "glob": "^10.3.3",
+        "jasmine-browser-runner": "^2.1.0",
+        "jasmine-core": "^5.0.1",
         "rollup-plugin-node-polyfills": "^0.2.1",
         "rxjs": "^7.8.1",
         "types_react": "npm:@types/react@^18.2.6",
-        "vite": "^4.3.3",
+        "vite": "^4.4.4",
         "vite-plugin-dts": "^2.3.0"
     },
     "peerDependencies": {
+        "oby": "workspace:../oby",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
-        "voby": "workspace:../woby",
-        "oby": "workspace:../oby"
+        "voby": "workspace:../woby"
     }
 }
