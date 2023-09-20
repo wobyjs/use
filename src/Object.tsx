@@ -40,8 +40,10 @@ export type Unobservant<T> = T extends object
 
 
 export type Observant<T> = T extends object
-    ? { [K in keyof T]: T[K] extends ObservableMaybe<infer U> ? Observable<U> : Observable<T[K]> }
-    : T
+    ? { [K in keyof T]: T[K] extends Function ? T[K] :
+        T[K] extends ObservableMaybe<infer U> ? Observable<U> : Observable<T[K]> } : T
+
+export type ObservantMaybe<T> = Observant<T> | T
 
 export type UnobservantMaybe<T> = Unobservant<T> | T
 
@@ -56,4 +58,3 @@ export const $$$ = <T,>(o: ObservableMaybe<T>): Unobservant<T> => {
 
     return no as any
 }
-
