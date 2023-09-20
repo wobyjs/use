@@ -134,7 +134,7 @@ export const VobyInReact = () => {
     })
     const [c, setCount] = useState(0)
 
-    const o = useOby($(10))
+    const [O, setO] = useOby($(10))
     const s = useStore(store({ value: 100 }))
 
     return <div>
@@ -148,9 +148,9 @@ export const VobyInReact = () => {
         <button onClick={() => setCount(p => p - 3)}>-3</button>
 
         <br />
-        <h3>useOby: {o()}</h3>
-        <button onClick={() => o(o() + 2)}>+2</button>
-        <button onClick={() => o(p => p -= 2)}>-2</button>
+        <h3>useOby: {o}</h3>
+        <button onClick={() => setO(o + 2)}>+2</button>
+        <button onClick={() => setO(o - 2)}>-2</button>
 
         <br />
         <h3>useStore: {s.value}</h3>

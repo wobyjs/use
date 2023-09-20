@@ -1,4 +1,4 @@
-import { test, renderHook, act } from "../jasmine.mjs";
+import { test, renderHook, act } from "../../../voby-jasmine/dist/jasmine.es.mjs";
 import { useToggle } from "./useToggle.mjs";
 describe("use toggle()", () => {
   test("should use toggle be ok", () => {

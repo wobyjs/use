@@ -1,4 +1,4 @@
-import { renderHook, jest, fireEvent } from '../jasmine'
+import { renderHook, jest, fireEvent } from 'voby-jasmine'
 
 import { useEventListener } from './useEventListener'
 import { $ } from "voby"

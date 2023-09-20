@@ -1,4 +1,4 @@
-import { act, renderHook } from "../jasmine.mjs";
+import { act, renderHook } from "../../../voby-jasmine/dist/jasmine.es.mjs";
 import { useWindowSize } from "./useWindowSize.mjs";
 const setupHook = () => renderHook(() => useWindowSize());
 const windowResize = (dimension, value) => {

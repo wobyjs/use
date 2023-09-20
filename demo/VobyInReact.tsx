@@ -14,7 +14,7 @@ import { Fragment } from 'react'
 //const jsx = (type, props, key, source, self) => rsx(type, props ?? {}, key, source, self)
 //React 16
 const jsx = (type, props, ...children) => {
-    console.log(type, props, ...children)
+    // console.log(type, props, ...children)
     if (type === 'br')
         return rsx(type, {})
     return rsx(type, !!children ? Object.assign(props ?? {}, { children }) : props)
@@ -29,27 +29,28 @@ import { jsx as vsx } from 'voby/jsx-runtime'
 import { useStore } from '../src/useStore'
 import { useState } from 'react'
 
-
+// const ss = store({ value: 100 })
+// const sharedStore = Object.assign(ss, { inc: function () { ss.value++ }, dec: function () { ss.value-- } })
 const sharedStore = store({ value: 100, inc: function () { this.value++ }, dec: function () { this.value-- } })
 
 const Shared1 = () => {
-    const s = useStore(sharedStore)
+    const [s, ss] = useStore(sharedStore)
 
     return <>
         <br />
         <h3>useStore shared 1: {s.value}</h3>
-        <button onClick={() => s.value += 2}>+2</button>
-        <button onClick={() => s.dec()}>-1</button>
+        <button onClick={() => ss.value += 2}>+2</button>
+        <button onClick={() => ss.dec()}>-1</button>
     </>
 }
 const Shared2 = () => {
-    const s = useStore(sharedStore)
+    const [s, ss] = useStore(sharedStore)
 
     return <>
         <br />
         <h3>useStore shared 2: {s.value}</h3>
-        <button onClick={() => s.value += 2}>+2</button>
-        <button onClick={() => s.dec()}>-1</button>
+        <button onClick={() => sharedStore.value += 2}>+2</button>
+        <button onClick={() => ss.dec()}>-1</button>
     </>
 }
 
@@ -58,11 +59,10 @@ export const VobyInReact = () => {
         increment: (count, { args }: { args: { count: number } }) => ({ count: count.count + args.count }),
         decrement: (count, { args }: { args: number }) => ({ count: count.count - args })
     })
+
     const [c, setCount] = useState(0)
-    const oo = $(10)
-    const o = useOby(oo)
-    //@ts-ignore
-    const s = useStore(store({ value: 100, inc: function () { this.value++ }, dec: function () { this.value-- } }))
+    const [O, oo] = useOby($(10))
+    const [s, sto] = useStore(store({ value: 100, inc: function () { this.value++ }, dec: function () { this.value-- } }))
 
     const r = <div>
         <h1>React Component...</h1>
@@ -75,20 +75,15 @@ export const VobyInReact = () => {
         <button onClick={() => setCount(p => p - 3)}>-3</button>
 
         <br />
-        {/** @ts-ignore */}
-        <h3>useOby: {o}</h3>
-        {/** @ts-ignore */}
-        <button onClick={() => oo(o + 2)}>+2</button>
+        <h3>useOby: {O}</h3>
+        <button onClick={() => oo(oo() + 2)}>+2</button>
         {/** @ts-ignore */}
         <button onClick={() => oo(p => p -= 2)}>-2</button>
 
         <br />
-        {/** @ts-ignore */}
         <h3>useStore: {s.value}</h3>
-        {/** @ts-ignore */}
-        <button onClick={() => s.value += 2}>+2</button>
-        {/** @ts-ignore */}
-        <button onClick={() => s.dec()}>-1</button>
+        <button onClick={() => sto.value += 2}>+2</button>
+        <button onClick={() => sto.dec()}>-1</button>
 
         <br />
         <Shared1 />

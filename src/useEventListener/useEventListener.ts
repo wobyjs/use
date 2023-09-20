@@ -1,4 +1,4 @@
-import { useEffect, $,$$, ObservableMaybe } from 'voby'
+import { useEffect, $, $$, ObservableMaybe } from 'voby'
 
 // MediaQueryList Event based useEventListener interface
 export function useEventListener<K extends keyof MediaQueryListEventMap>(
@@ -16,7 +16,7 @@ export function useEventListener<K extends keyof WindowEventMap>(
     options?: boolean | AddEventListenerOptions,
 ): void
 
-// Element Event based useEventListener interface
+// JSX.Element Event based useEventListener interface
 export function useEventListener<
     K extends keyof HTMLElementEventMap,
     T extends HTMLElement = HTMLDivElement,
@@ -55,7 +55,7 @@ export function useEventListener<
     // Create a ref that stores handler
     const savedHandler = $(handler)
 
-     return  useEffect(() => {
+    return useEffect(() => {
         // Define the listening target
         const targetElement: T | Window = $$(element) ?? window
 

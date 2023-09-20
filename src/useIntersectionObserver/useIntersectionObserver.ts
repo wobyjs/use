@@ -4,7 +4,7 @@ interface Args extends IntersectionObserverInit {
     freezeOnceVisible?: boolean
 }
 
-export function useIntersectionObserver<T extends Element>(elementRef: Observable<T>,
+export function useIntersectionObserver<T extends JSX.Element>(elementRef: Observable<T>,
     {
         threshold = 0,
         root = null,
@@ -31,7 +31,7 @@ export function useIntersectionObserver<T extends Element>(elementRef: Observabl
         const observerParams = { threshold, root, rootMargin }
         const observer = new IntersectionObserver(updateEntry, observerParams)
 
-        observer.observe(node)
+        observer.observe(node as any)
 
         return () => observer.disconnect()
 

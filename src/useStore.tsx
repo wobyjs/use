@@ -5,8 +5,8 @@
 /** @jsxFrag Fragment */
 //@ts-ignore
 import { jsx } from 'react/jsx-runtime'
-import { useMemo, useState } from 'react'
-import { $$, isStore, store } from 'voby'
+import { useEffect, useState } from 'react'
+import { isStore, store } from 'voby'
 
 // const objDiff = <T,>(a, b) => {
 //     const aa = Object.keys(a)
@@ -23,22 +23,26 @@ import { $$, isStore, store } from 'voby'
 //             console.log(k, a[k], b[k])Fv
 //     })
 // }
-/** Use in React */
-export const useStore = <T,>(o: ObservableMaybe<T>): T => {
-    const [_state, setState] = useState(0)
 
-    const oo = useMemo(() => {
-        const o_ = $$(o)
-        const oo = isStore(o_) ? o_ : store(o_)
+/** Use in React
+ * @param o voby.store
+ * @returns [freezedObject(for React), storeObject(voby - for dynamic update), for]
+ */
+export const useStore = <T,>(o: T): [/** Freezed */T, /** Store */T, (o: T) => T] => {
+    const [obj, setObj] = useState(() => isStore(o) ? o : store(o))
+    // const [_state, setState] = useState(0)
+    const [oo, setOo] = useState<T>(Object.freeze({ ...obj }))
 
-        store.on(oo, () => {
+    useEffect(() => {
+        setOo(Object.freeze({ ...obj }))
+
+        return store.on(obj, () => {
             // //@ts-ignore
             // console.log(oo)
-            setState(Math.random())
+            // setState(Math.random())
+            setOo(Object.freeze({ ...obj }))
         })
+    }, [obj])
 
-        return oo
-    }, [])
-
-    return oo as any
+    return [oo, obj, setObj]
 }

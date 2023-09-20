@@ -11,7 +11,7 @@ declare global {
 
 export const localStoreDic: Record<string, Observable> = {}
 
-export function useLocalStorage<T>(key: string, initialValue: ObservableMaybe <T>): Observable<T> {
+export function useLocalStorage<T>(key: string, initialValue?: ObservableMaybe<T>): Observable<T> {
     if (localStoreDic[key])
         return localStoreDic[key] as any
 

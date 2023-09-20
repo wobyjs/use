@@ -1,4 +1,4 @@
-import { test, renderHook } from "../jasmine.mjs";
+import { test, renderHook } from "../../../voby-jasmine/dist/jasmine.es.mjs";
 import { useDebounce } from "./useDebounce.mjs";
 describe("useDebounce()", () => {
   test("should return debounce value", () => {

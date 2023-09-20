@@ -1,4 +1,4 @@
-import { test, renderHook } from "../jasmine.mjs";
+import { test, renderHook } from "../../../voby-jasmine/dist/jasmine.es.mjs";
 import { useDocumentTitle } from "./useDocumentTitle.mjs";
 describe("useDocumentTitle()", () => {
   test("title should be in the document", () => {

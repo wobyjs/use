@@ -1,5 +1,4 @@
-import { Console } from 'console'
-import { act, renderHook, test, jest} from '../jasmine'
+import { act, renderHook, test} from 'voby-jasmine'
 
 import {useLocalStorage, localStoreDic} from './useLocalStorage'
 

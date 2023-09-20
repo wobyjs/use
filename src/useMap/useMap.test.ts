@@ -1,6 +1,6 @@
-import { act, renderHook } from '../jasmine'
+import { act, renderHook } from 'voby-jasmine'
 
-import {useMap, MapOrEntries } from './useMap'
+import {useMap } from './useMap'
 
 describe('useMap()', () => {
   it('should be ok when initiated with a map', () => {

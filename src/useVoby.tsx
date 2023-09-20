@@ -5,11 +5,11 @@
 import { useRef, useState, useEffect } from 'react'
 import { jsx } from "react/jsx-runtime"
 // import {  jsx } from 'react/jsx-runtime'
-import { render, jsx as vsx } from 'voby'
+import { Child, Component, render, jsx as vsx } from 'voby'
 // import { jsx as vsx } from 'voby/jsx-runtime'
 
 /** Use in React */
-export const useVoby = <P,>(child: Child | Component<P>  /** |((props?: P) => Element)voby */ | ((props?: P) => JSX.Element)/** react */, props?: P) => {
+export const useVoby = <P,>(child: Child | Component<P>  /** |((props?: P) => JSX.Element)voby */ | ((props?: P) => JSX.Element)/** react */, props?: P) => {
     const app = useRef<HTMLDivElement>()
     const [current, setCurrent] = useState(null)
 

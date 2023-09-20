@@ -1,4 +1,4 @@
-import { renderHook, test} from '../jasmine'
+import { renderHook, test} from 'voby-jasmine'
 
 import {useReadLocalStorage} from './useReadLocalStorage'
 

@@ -1,4 +1,4 @@
-import { renderHook, test} from "../jasmine"
+import { renderHook, test} from "voby-jasmine"
 
 import {useDebounce} from './useDebounce'
 
