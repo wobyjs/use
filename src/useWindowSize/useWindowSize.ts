@@ -1,24 +1,20 @@
-import { $ } from 'voby'
+import { $, Observable } from 'voby'
 
 import { useEventListener } from '../useEventListener/useEventListener'
 import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect/useIsomorphicLayoutEffect'
 
 interface WindowSize {
-    width: number
-    height: number
+    width: Observable<number>
+    height: Observable<number>
 }
 
 export function useWindowSize(): WindowSize {
-    const windowSize = $<WindowSize>({
-        width: 0,
-        height: 0,
-    })
+    const width = $(0)
+    const height = $(0)
 
     const handleSize = () => {
-        windowSize({
-            width: window.innerWidth,
-            height: window.innerHeight,
-        })
+        width(window.innerWidth)
+        height(window.innerHeight)
     }
 
     useEventListener('resize', handleSize)
@@ -29,5 +25,5 @@ export function useWindowSize(): WindowSize {
 
     })
 
-    return windowSize()
+    return { width, height }
 }

@@ -6,7 +6,8 @@ export default function Component() {
     return (
         <div>
             The current window dimensions are:{' '}
-            <code>{JSON.stringify({ width, height })}</code>
+            <code>{width}</code>
+            <code>{height}</code>
         </div>
     )
 }

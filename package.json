@@ -2,7 +2,7 @@
     "name": "use-voby",
     "repository": "https://github.com/wongchichong/use-voby.git",
     "description": "use-voby",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "main": "./dist/index.cjs.js",
     "module": "./dist/index.es.js",
     "types": "./dist/types/index.d.ts",
@@ -35,12 +35,6 @@
         "nanoid": "^3.3.6"
     },
     "devDependencies": {
-        "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
-        "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
-        "@testing-library/react": "^14.0.0",
-        "@types/jasmine": "^4.3.5",
-        "@types/node": "^20.4.2",
-        "@vitejs/plugin-react": "^4.0.3",
         "cross-env": "^7.0.3",
         "glob": "^10.3.3",
         "jasmine-browser-runner": "^2.1.0",

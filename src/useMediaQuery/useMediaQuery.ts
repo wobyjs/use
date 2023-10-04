@@ -1,4 +1,5 @@
-import { useEffect, $ } from 'voby'
+//@ts-ignore
+import { useEffect, $, Observable, ObservableMaybe } from 'voby'
 
 export function useMediaQuery(query: string) {
     const getMatches = (query: string): boolean => {

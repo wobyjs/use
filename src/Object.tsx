@@ -5,13 +5,14 @@ const isPrimitive = (value: unknown): value is string | number | boolean | symbo
     return !(t === 'object' || t === 'function')
 }
 
+
 export const assign = <S, T>(s: S, t: T): S & T => {
     if (!t)
         return s as any
 
     Object.keys(t).forEach(k => {
         if (!isObservable(s[k]))
-            s[k] = (isObservable(t[k])) ? t[k] : $(t[k])
+            s[k] = $($$(t[k]))
         else
             s[k]($(t[k]))
     })
@@ -42,6 +43,9 @@ export type Unobservant<T> = T extends object
 export type Observant<T> = T extends object
     ? { [K in keyof T]: T[K] extends Function ? T[K] :
         T[K] extends ObservableMaybe<infer U> ? Observable<U> : Observable<T[K]> } : T
+
+export type ObservantAll<T> = T extends object
+    ? { [K in keyof T]: T[K] extends ObservableMaybe<infer U> ? Observable<U> : Observable<T[K]> } : T
 
 export type ObservantMaybe<T> = Observant<T> | T
 
