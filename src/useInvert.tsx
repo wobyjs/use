@@ -1,19 +1,20 @@
-import { useEffect } from 'types_react'
-import { $, $$, Observable, useMemo, ObservableMaybe } from 'voby'
+import { $, $$, useEffect, Observable, useMemo, ObservableMaybe, isObservable } from 'woby'
 
-export const useInvertReadonly = (o: ObservableMaybe<boolean>) => {
-    return useMemo(() => !$$(o))
-}
+// export const useInvertReadonly = (o: ObservableMaybe<boolean>) => {
+//     return useMemo(() => !$$(o))
+// }
 
-export const useInvert = (o: Observable<boolean>) => {
-    const oo = $(!$$(o))
+export const useInvert = (ori: Observable<boolean>) => {
+    const inv = $(!$$(ori))
 
     useEffect(() => {
-        o(!$$(oo))
+        if (isObservable(ori))
+            ori(!$$(inv))
     })
 
     useEffect(() => {
-        oo(!$$(o))
+        inv(!$$(ori))
     })
-    return oo
+
+    return inv
 }

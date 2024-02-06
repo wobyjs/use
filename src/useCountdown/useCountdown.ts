@@ -1,5 +1,5 @@
 // TODO: example and test
-import { $$, Observable, useMemo } from 'voby'
+import { $$, Observable, useMemo, ObservableMaybe } from 'woby'
 
 import { useBoolean } from '../useBoolean/useBoolean'
 import { useCounter } from '../useCounter/useCounter'
@@ -38,7 +38,7 @@ interface CountdownControllers {
  * @param  {?boolean} countdownOption.isIncrement false by default, determine the countdown is increment, otherwise is decrement
  * @returns [counter, CountdownControllers]
  *
- * @deprecated new useCountdown interface is already available (see https://usehooks-ts.com/react-hook/use-countdown), the old version will retire on usehooks-ts@3
+ * @deprecated new useCountdown interface is already available (see https://use-woby.com/react-hook/use-countdown), the old version will retire on use-woby@3
  */
 export function useCountdown(countdownOption: UseCountdownType,): [Observable<number>, CountdownHelpers]
 
@@ -67,7 +67,7 @@ export function useCountdown(countdownOption: UseCountdownType | CountdownOption
 
     if ('seconds' in countdownOption) {
         console.warn(
-            '[useCountdown:DEPRECATED] new interface is already available (see https://usehooks-ts.com/react-hook/use-countdown), the old version will retire on usehooks-ts@3.',
+            '[useCountdown:DEPRECATED] new interface is already available (see https://use-woby.com/react-hook/use-countdown), the old version will retire on use-woby@3.',
         )
 
         isDeprecated = true
@@ -123,8 +123,8 @@ export function useCountdown(countdownOption: UseCountdownType | CountdownOption
             decrement()
         }
     })
-    const delay = useMemo(()=> $$(isCountdownRunning) ? $$(intervalMs) : null)
-    
+    const delay = useMemo(() => $$(isCountdownRunning) ? $$(intervalMs) : null)
+
     useInterval(countdownCallback, delay)
 
     return isDeprecated
@@ -136,7 +136,7 @@ export function useCountdown(countdownOption: UseCountdownType | CountdownOption
                 reset: resetCountdown,
             } as CountdownHelpers,
         ]
-        : 
+        :
         [
             count,
             {

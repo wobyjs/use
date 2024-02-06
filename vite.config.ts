@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite'
 import path from 'path'
-import dts from 'vite-plugin-dts'
+// import dts from 'vite-plugin-dts'
 
 const config = defineConfig({
     build: {
@@ -13,24 +13,21 @@ const config = defineConfig({
         },
         sourcemap: true,
         rollupOptions: {
-            external: ['react', 'react-dom', 'voby', 'oby', "react/jsx-runtime", "react-dom/client"],
+            external: ['woby', 'woby/jsx-runtime', 'oby', '**/*.text.ts*'/* , 'oby/dist/types/types' */],
             output: {
                 globals: {
-                    'react': 'React',
-                    'react-dom': 'ReactDOM',
-                    'voby': 'voby',
+                    'woby': 'woby',
                     'oby': 'oby',
-                    "react/jsx-runtime": "jsxRuntime",
-                    "react-dom/client": "client"
+                    'woby/jsx-runtime': 'jsxRuntime'
                 }
-            }
+            },
         },
     },
     esbuild: {
         jsx: 'automatic',
     },
     plugins: [
-        dts({ entryRoot: './src', outputDir: './dist/types', exclude: './nodes_modules' })
+        // dts({ entryRoot: './src', outputDir: './dist/types', exclude: './nodes_modules' })
     ],
     resolve: {
         alias: {

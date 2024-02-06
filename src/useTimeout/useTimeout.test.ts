@@ -1,29 +1,29 @@
-import { renderHook, test, jest} from 'voby-jasmine'
+import { renderHook, test, jest } from 'woby-jasmine'
 
-import {useTimeout} from './useTimeout'
+import { useTimeout } from './useTimeout'
 
 describe('useTimeout()', () => {
-  test('should call the callback after 1 min', () => {
-    jasmine.clock().install();
-    const delay = 60000
-    const callback = jest.fn("callbackSpy")
-    renderHook(() => useTimeout(callback, delay))
-    expect(callback).not.toHaveBeenCalled()
+    test('should call the callback after 1 min', () => {
+        jasmine.clock().install()
+        const delay = 60000
+        const callback = jest.fn("callbackSpy")
+        renderHook(() => useTimeout(callback, delay))
+        expect(callback).not.toHaveBeenCalled()
 
-    jasmine.clock().tick(delay)
+        jasmine.clock().tick(delay)
 
-    expect(callback).toHaveBeenCalledTimes(1)
-    jasmine.clock().uninstall();
+        expect(callback).toHaveBeenCalledTimes(1)
+        jasmine.clock().uninstall()
 
-  })
+    })
 
-  test('should not do anything if "delay" is null', () => {
+    test('should not do anything if "delay" is null', () => {
 
-    const delay = null
-    const callback = jest.fn()
+        const delay = null
+        const callback = jest.fn()
 
-    renderHook(() => useTimeout(callback, delay))
+        renderHook(() => useTimeout(callback, delay))
 
-    expect(callback).not.toHaveBeenCalled() 
-  })
+        expect(callback).not.toHaveBeenCalled()
+    })
 })

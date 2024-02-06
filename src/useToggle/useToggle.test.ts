@@ -1,59 +1,59 @@
-import { act, renderHook, test } from 'voby-jasmine'
+import { act, renderHook, test } from 'woby-jasmine'
 
-import {useToggle} from './useToggle'
+import { useToggle } from './useToggle'
 
 describe('use toggle()', () => {
-  test('should use toggle be ok', () => {
-    const { result } = renderHook(() => useToggle())
-    const [value, toggle] = result.current
+    test('should use toggle be ok', () => {
+        const { result } = renderHook(() => useToggle())
+        const [value, toggle] = result.current
 
-    expect(value()).toBe(false)
-    expect(typeof toggle).toBe('function')
-    // expect(typeof setValue).toBe('function')
-  })
-
-  test('should default value works', () => {
-    const { result } = renderHook(() => useToggle(true))
-    const [value] = result.current
-
-    expect(value()).toBe(true)
-  })
-
-  test('setValue should mutate the value', () => {
-    const { result } = renderHook(() => useToggle())
-    const [ value, ] = result.current
-
-    expect(result.current[0]()).toBe(false)
-
-    act(() => {
-      value(true)
+        expect(value()).toBe(false)
+        expect(typeof toggle).toBe('function')
+        // expect(typeof setValue).toBe('function')
     })
 
-    expect(result.current[0]()).toBe(true)
+    test('should default value works', () => {
+        const { result } = renderHook(() => useToggle(true))
+        const [value] = result.current
 
-    act(() => {
-      value(prev => !prev)
+        expect(value()).toBe(true)
     })
 
-    expect(result.current[0]()).toBe(false)
-  })
+    test('setValue should mutate the value', () => {
+        const { result } = renderHook(() => useToggle())
+        const [value,] = result.current
 
-  test('toggle should mutate the value', () => {
-    const { result } = renderHook(() => useToggle())
-    const [, toggle] = result.current
+        expect(result.current[0]()).toBe(false)
 
-    expect(result.current[0]()).toBe(false)
+        act(() => {
+            value(true)
+        })
 
-    act(() => {
-      toggle()
+        expect(result.current[0]()).toBe(true)
+
+        act(() => {
+            value(prev => !prev)
+        })
+
+        expect(result.current[0]()).toBe(false)
     })
 
-    expect(result.current[0]()).toBe(true)
+    test('toggle should mutate the value', () => {
+        const { result } = renderHook(() => useToggle())
+        const [, toggle] = result.current
 
-    act(() => {
-      toggle()
+        expect(result.current[0]()).toBe(false)
+
+        act(() => {
+            toggle()
+        })
+
+        expect(result.current[0]()).toBe(true)
+
+        act(() => {
+            toggle()
+        })
+
+        expect(result.current[0]()).toBe(false)
     })
-
-    expect(result.current[0]()).toBe(false)
-  })
 })

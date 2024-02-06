@@ -1,4 +1,4 @@
-import { useEffect, $, $$, Observable } from 'voby'
+import { useEffect, $, $$, Observable, ObservableMaybe } from 'woby'
 
 export function useDebounce<T>(value: ObservableMaybe<T>, delay?: ObservableMaybe<number>): Observable<T> {
     const debouncedValue = $<T>($$(value))

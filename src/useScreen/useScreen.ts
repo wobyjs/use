@@ -1,4 +1,4 @@
-import { $ } from 'voby'
+import { $, Observable, type JSX } from 'woby'
 
 import { useEventListener } from '../useEventListener/useEventListener'
 import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect/useIsomorphicLayoutEffect'

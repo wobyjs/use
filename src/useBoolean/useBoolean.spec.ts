@@ -1,4 +1,4 @@
-import { act, renderHook, test } from "voby-jasmine"
+import { act, renderHook, test } from "woby-jasmine"
 import { useBoolean } from './useBoolean'
 
 describe('useBoolean()', () => {

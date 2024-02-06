@@ -1,4 +1,4 @@
-import { act, renderHook } from 'voby-jasmine'
+import { act, renderHook } from 'woby-jasmine'
 
 import {useMap } from './useMap'
 

@@ -1,4 +1,4 @@
-import { $$, useEffect } from 'voby'
+import { $$, ObservableMaybe, Observable, useEffect } from 'woby'
 import { useLocalStorage } from '../useLocalStorage/useLocalStorage'
 import { useMediaQuery } from '../useMediaQuery/useMediaQuery'
 

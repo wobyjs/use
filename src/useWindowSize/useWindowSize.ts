@@ -1,4 +1,4 @@
-import { $, Observable } from 'voby'
+import { $, Observable } from 'woby'
 
 import { useEventListener } from '../useEventListener/useEventListener'
 import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect/useIsomorphicLayoutEffect'

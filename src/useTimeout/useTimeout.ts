@@ -1,4 +1,4 @@
-import { useEffect, $ } from 'voby'
+import { useEffect, $ } from 'woby'
 
 type EF = () => (() => void) | void
 export function useTimeout(callback: () => void, delay: number | null) {

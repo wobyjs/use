@@ -1,4 +1,4 @@
-import { useEffect, $ } from 'voby'
+import { useEffect, $ } from 'woby'
 
 export function useIsClient() {
     const isClient = $(false)

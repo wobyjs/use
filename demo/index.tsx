@@ -1,7 +1,7 @@
 import { VobyInReact } from './VobyInReact'
 import { ReactInVoby } from './ReactInVoby'
 import { createRoot } from 'react-dom/client'
-import { render } from 'voby'
+import { render } from 'woby'
 import { ReactAutoCounter } from './ReactCounter'
 import { VobyAutoCount } from './VobyCounter'
 

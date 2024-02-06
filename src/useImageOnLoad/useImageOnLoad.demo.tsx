@@ -1,4 +1,4 @@
-import { CSSProperties } from 'voby'
+import { CSSProperties } from 'woby'
 
 import { useImageOnLoad } from './useImageOnLoad'
 

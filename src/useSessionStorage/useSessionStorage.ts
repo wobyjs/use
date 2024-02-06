@@ -2,7 +2,7 @@ import {
     $,
     Observable,
     useEffect,
-} from 'voby'
+} from 'woby'
 
 import { useEventListener } from '../useEventListener/useEventListener'
 

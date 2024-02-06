@@ -1,4 +1,4 @@
-import { $ } from 'voby'
+import { $ } from 'woby'
 
 export function useIsFirstRender(): boolean {
     const isFirst = $(true)

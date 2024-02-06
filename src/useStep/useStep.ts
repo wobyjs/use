@@ -1,4 +1,4 @@
-import { $, $$, Observable, ObservableReadonly, useMemo } from 'voby'
+import { $, $$, Observable, ObservableReadonly, useMemo } from 'woby'
 
 interface Helpers {
     goToNextStep: () => void

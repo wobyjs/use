@@ -1,4 +1,4 @@
-import { useEffect, $ } from 'voby'
+import { useEffect, Observable, $ } from 'woby'
 
 import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect/useIsomorphicLayoutEffect'
 

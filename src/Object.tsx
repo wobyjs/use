@@ -1,4 +1,4 @@
-import { $, $$, Observable, ObservableMaybe, isObservable } from 'voby'
+import { $, $$, Observable, ObservableMaybe, isObservable, } from 'woby'
 
 const isPrimitive = (value: unknown): value is string | number | boolean | symbol | null | undefined | bigint => {
     const t = typeof value
@@ -6,24 +6,76 @@ const isPrimitive = (value: unknown): value is string | number | boolean | symbo
 }
 
 
-export const assign = <S, T>(s: S, t: T): S & T => {
-    if (!t)
-        return s as any
+/** Assign by value, will override observable */
+export const assign = <T, S>(target: T, source: S): T & S => {
+    if (!source)
+        return target as any
 
-    Object.keys(t).forEach(k => {
-        if (!isObservable(s[k]))
-            s[k] = $($$(t[k]))
+    // await batch(async () =>
+    Object.keys(source).forEach(k => {
+        if (target[k] === source[k]) return
+
+        if (typeof source[k] === 'function' && !isObservable(source[k]))
+            target[k] = source[k]
+        else if (!isObservable(target[k]))
+            if (isObservable(source[k]))
+                target[k] = source[k]
+            else
+                try { target[k] = $(source[k]) }
+                catch (ex) {
+                    console.error(`copy error: ${k}`)
+                    console.error(ex)
+                }
+        else if (isObservable(target[k]) && isObservable(source[k]) && target[k] !== source[k])
+            throw new Error('New observable pointer')
+        // target[k] = source[k] //new reference
         else
-            s[k]($(t[k]))
+            target[k] = source[k]
     })
+    // )
 
-    return s as S & T
+    return target as T & S
 }
 
-export const clear = o => {
-    Object.keys(o).forEach(k => {
-        o[k]() //clear
+/** Copy by value, make observable if not */
+export const copy = <T, S>(target: T, source: S): T & S => {
+    if (!source)
+        return target as any
+
+    // await batch(async () =>
+    Object.keys(source).forEach(k => {
+        if (typeof source[k] === 'function' && !isObservable(source[k]))
+            target[k] = source[k]
+        else if (!isObservable(target[k]))
+            if (isObservable(source[k]))
+                target[k] = source[k]
+            else
+                target[k] = $(source[k])
+        // else if (isObservable(target[k])) // && isObservable(source[k]) && target[k] !== source[k])
+        //     target[k]($$(source[k]))
+        else
+            try {
+                if (target[k]() === $$(source[k]))
+                    return
+                target[k]($$(source[k]))
+            }
+            catch (ex) {
+                console.error(`copy error: ${k}`)
+                console.error(ex)
+            }
     })
+    // )
+
+    return target as T & S
+}
+
+
+export const clear = o => {
+    // return await batch(async () =>
+    Object.keys(o).forEach(k => {
+        o[k]?.() //clear
+    })
+    // )
 }
 
 export const make = <T,>(obj: T, inplace = false): Observant<T> => {
@@ -51,14 +103,19 @@ export type ObservantMaybe<T> = Observant<T> | T
 
 export type UnobservantMaybe<T> = Unobservant<T> | T
 
-export const $$$ = <T,>(o: ObservableMaybe<T>): Unobservant<T> => {
+export const $$$ = <T, K extends keyof T>(o: ObservableMaybe<T>, ...keys: K[]): Unobservant<T> => {
     const ro = $$(o)
-
-    if (isPrimitive(ro))
+    if (isPrimitive(ro) || typeof ro === 'undefined' || ro === null)
         return ro as any
 
     const no = {}
-    Object.keys(ro).map(k => no[k] = $$$(ro[k]))
 
+    try {
+        (keys && keys.length ? keys : Object.keys(ro)).forEach(k => no[k] = isObservable(ro[k]) ? $$(ro[k]) : no[k] = ro[k]) // 1 level only
+    }
+    catch (ex) {
+        console.error(ex)
+        debugger
+    }
     return no as any
 }

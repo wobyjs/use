@@ -1,4 +1,4 @@
-import { $, $$ } from 'voby'
+import { $, $$, Observable, ObservableMaybe, type JSX } from 'woby'
 
 export function useBoolean(defaultValue?: ObservableMaybe<boolean>) {
     const value = $<boolean>(!!$$(defaultValue))

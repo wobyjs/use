@@ -1,4 +1,4 @@
-import { $, $$, useEffect, Observable, ObservableMaybe } from 'voby'
+import { $, $$, useEffect, Observable, ObservableMaybe } from 'woby'
 
 // import { useEventCallback } from '../useEventCallback/useEventCallback'
 import { useEventListener } from '../useEventListener/useEventListener'

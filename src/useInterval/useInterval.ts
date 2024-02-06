@@ -1,4 +1,4 @@
-import { useEffect, $ , $$} from 'voby'
+import { useEffect, $, $$, ObservableMaybe } from 'woby'
 
 export function useInterval(callback: () => void, delay: ObservableMaybe<number | null>) {
     const savedCallback = $(callback)

@@ -1,150 +1,150 @@
-import { act, renderHook, test} from 'voby-jasmine'
+import { act, renderHook, test } from 'woby-jasmine'
 
-import {useLocalStorage, localStoreDic} from './useLocalStorage'
+import { useLocalStorage, localStoreDic } from './useLocalStorage'
 
 class LocalStorageMock {
-  store: Record<string, unknown> = {}
-  
-  clear() {
-    this.store = {}
-    Object.getOwnPropertyNames(localStoreDic).forEach(property => {
-      delete localStoreDic[property];
-    })
-    
-  }
+    store: Record<string, unknown> = {}
 
-  getItem(key: string) {
-    return this.store[key] || null
-  }
+    clear() {
+        this.store = {}
+        Object.getOwnPropertyNames(localStoreDic).forEach(property => {
+            delete localStoreDic[property]
+        })
 
-  setItem(key: string, value: unknown) {
-    this.store[key] = value + ''
-  }
+    }
 
-  removeItem(key: string) {
-    delete this.store[key]
-  }
+    getItem(key: string) {
+        return this.store[key] || null
+    }
+
+    setItem(key: string, value: unknown) {
+        this.store[key] = value + ''
+    }
+
+    removeItem(key: string) {
+        delete this.store[key]
+    }
 }
 
 Object.defineProperty(window, 'localStorage', {
-  value: new LocalStorageMock(),
+    value: new LocalStorageMock(),
 })
 
 describe('useLocalStorage()', () => {
-  beforeEach(() => {
-    window.localStorage.clear()
-  })
-
-  afterEach(() => {
-    window.sessionStorage.clear()
-  })
-
-  test('initial state is in the returned state', () => {
-    const { result } = renderHook(() => useLocalStorage('key', 'value'))
-
-    expect(result.current()).toBe('value')
-  })
-
-  test('Initial state is a callback function', () => {
-    const { result } = renderHook(() => useLocalStorage('key', () => 'value'))
-
-    expect(result.current()).toBe('value')
-  })
-
-  test('Initial state is an array', () => {
-    const { result } = renderHook(() => useLocalStorage('digits', [1, 2]))
-
-    expect(result.current()).toEqual([1, 2])
-  })
-
-  test('Update the state', () => {
-    const { result } = renderHook(() => useLocalStorage('key', 'value'))
-
-    act(() => {
-      const setState = result.current
-      setState('edited')
+    beforeEach(() => {
+        window.localStorage.clear()
     })
 
-    expect(result.current()).toBe('edited')
-  
-  })
-
-  test('Update the state writes localStorage', () => {
-    const { result } = renderHook(() => useLocalStorage('key', 'value'))
-
-    act(() => {
-      const setState = result.current
-      setState('edited')
-     // window.localStorage.setItem("key", setState())
+    afterEach(() => {
+        window.sessionStorage.clear()
     })
 
-    expect(window.localStorage.getItem('key')).toBe(JSON.stringify('edited'))
-  })
+    test('initial state is in the returned state', () => {
+        const { result } = renderHook(() => useLocalStorage('key', 'value'))
 
-  test('Update the state with undefined', () => {
-    const { result } = renderHook(() =>
-      useLocalStorage<string | undefined>('key', 'value'),
-    )
-
-    act(() => {
-      const setState = result.current
-      setState(undefined)
+        expect(result.current()).toBe('value')
     })
 
-    expect(result.current()).toBeUndefined()
-  })
+    test('Initial state is a callback function', () => {
+        const { result } = renderHook(() => useLocalStorage('key', () => 'value'))
 
-  test('Update the state with null', () => {
-    const { result } = renderHook(() =>
-      useLocalStorage<string | null>('key', 'value'),
-    )
-
-    act(() => {
-      const setState = result.current
-      setState(null)
+        expect(result.current()).toBe('value')
     })
 
-    expect(result.current()).toBeNull()
-  })
+    test('Initial state is an array', () => {
+        const { result } = renderHook(() => useLocalStorage('digits', [1, 2]))
 
-  test('Update the state with a callback function', () => {
-    const { result } = renderHook(() => useLocalStorage('count', 2))
-
-    act(() => {
-      const setState = result.current
-      setState(prev => prev + 1)
+        expect(result.current()).toEqual([1, 2])
     })
 
-    expect(result.current()).toBe(3)
-    expect(window.localStorage.getItem('count')).toEqual('3')
-  })
+    test('Update the state', () => {
+        const { result } = renderHook(() => useLocalStorage('key', 'value'))
 
-  test('[Event] Update one hook updates the others', () => {
-    const initialValues: [string, unknown] = ['key', 'initial']
-    const { result: A } = renderHook(() => useLocalStorage(...initialValues))
-    const { result: B } = renderHook(() => useLocalStorage(...initialValues))
+        act(() => {
+            const setState = result.current
+            setState('edited')
+        })
 
-    act(() => {
-      const setState = A.current
-      setState('edited')
+        expect(result.current()).toBe('edited')
+
     })
 
-    expect(B.current()).toBe('edited')
-  })
+    test('Update the state writes localStorage', () => {
+        const { result } = renderHook(() => useLocalStorage('key', 'value'))
 
-  test('setValue is referentially stable', () => {
-    const { result } = renderHook(() => useLocalStorage('count', 1))
+        act(() => {
+            const setState = result.current
+            setState('edited')
+            // window.localStorage.setItem("key", setState())
+        })
 
-    // Store a reference to the original setValue
-    const originalCallback = result.current
-
-    // Now invoke a state update, if setValue is not referentially stable then this will cause the originalCallback
-    // reference to not be equal to the new setValue function
-    act(() => {
-      const setState = result.current
-      setState(prev => prev + 1)
+        expect(window.localStorage.getItem('key')).toBe(JSON.stringify('edited'))
     })
 
-    expect(result.current === originalCallback).toBe(true)
-  })
+    test('Update the state with undefined', () => {
+        const { result } = renderHook(() =>
+            useLocalStorage<string | undefined>('key', 'value'),
+        )
+
+        act(() => {
+            const setState = result.current
+            setState(undefined)
+        })
+
+        expect(result.current()).toBeUndefined()
+    })
+
+    test('Update the state with null', () => {
+        const { result } = renderHook(() =>
+            useLocalStorage<string | null>('key', 'value'),
+        )
+
+        act(() => {
+            const setState = result.current
+            setState(null)
+        })
+
+        expect(result.current()).toBeNull()
+    })
+
+    test('Update the state with a callback function', () => {
+        const { result } = renderHook(() => useLocalStorage('count', 2))
+
+        act(() => {
+            const setState = result.current
+            setState(prev => prev + 1)
+        })
+
+        expect(result.current()).toBe(3)
+        expect(window.localStorage.getItem('count')).toEqual('3')
+    })
+
+    test('[Event] Update one hook updates the others', () => {
+        const initialValues: [string, unknown] = ['key', 'initial']
+        const { result: A } = renderHook(() => useLocalStorage(...initialValues))
+        const { result: B } = renderHook(() => useLocalStorage(...initialValues))
+
+        act(() => {
+            const setState = A.current
+            setState('edited')
+        })
+
+        expect(B.current()).toBe('edited')
+    })
+
+    test('setValue is referentially stable', () => {
+        const { result } = renderHook(() => useLocalStorage('count', 1))
+
+        // Store a reference to the original setValue
+        const originalCallback = result.current
+
+        // Now invoke a state update, if setValue is not referentially stable then this will cause the originalCallback
+        // reference to not be equal to the new setValue function
+        act(() => {
+            const setState = result.current
+            setState(prev => prev + 1)
+        })
+
+        expect(result.current === originalCallback).toBe(true)
+    })
 })

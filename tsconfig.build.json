@@ -13,11 +13,12 @@
         "inlineSources": false,
         // "isolatedModules": true,
         "jsx": "react-jsx",
-        "jsxImportSource": "voby",
+        "jsxImportSource": "woby",
         "lib": [
             "dom",
             "esnext"
         ],
+        "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo",
         "module": "es2020",
         "moduleResolution": "node",
         "newLine": "lf",
@@ -27,9 +28,10 @@
         "noImplicitReturns": true,
         "noImplicitThis": true,
         "noPropertyAccessFromIndexSignature": false,
-        "noUnusedLocals": true,
+        "noUnusedLocals": false,
         "noUnusedParameters": false,
         "outDir": "./dist/",
+        "declarationDir": "./dist/types/",
         "pretty": true,
         "skipDefaultLibCheck": true,
         "skipLibCheck": true,
@@ -47,42 +49,44 @@
         "rootDir": "./src",
         "composite": true,
         "paths": {
-            "voby/jsx-runtime": [
-                "../../../voby/dist/jsx"
+            "woby/jsx-runtime": [
+                "../../../woby/dist/jsx"
             ],
-            "voby/jsx-runtime/*": [
-                "../../../voby/dist/jsx/*"
+            "woby/jsx-runtime/*": [
+                "../../../woby/dist/jsx/*"
             ],
         },
         "typeRoots": [
             // "./node_modules/oby/dist/types/types",
             // "./node_modules/oby/dist/types/objects",
-            "./node_modules/voby/node_modules/oby/dist/types/types",
-            "./node_modules/voby/node_modules/oby/dist/types/objects",
-            "./node_modules/voby/dist/types"
+            "./node_modules/woby/node_modules/oby/dist/types/types",
+            "./node_modules/woby/node_modules/oby/dist/types/objects",
+            "./node_modules/woby/dist/types"
         ],
         "types": [
-            "./node_modules/voby/dist/types/jsx/jsx",
-            "./node_modules/oby/types"
+            // "./node_modules/woby/dist/types/jsx/runtime",
+            // "./node_modules/oby/types"
         ]
     },
-    "references": [
-        {
-            "path": "../woby"
-        }
-    ],
+    // "references": [
+    //     {
+    //         "path": "../woby"
+    //     }
+    // ],
     "exclude": [
         "node_modules/*",
-        "*.test.ts*",
+        "**/*.test.ts*",
+        "**/*.spec.ts*",
         "vite.config.ts",
         "vite.config.*.ts",
         "demo",
+        "dist",
         "**/*.test.ts*",
         "**/*.demo.ts*",
         "**/tests.ts",
         "**/test.tsx",
     ]
     // "include": [
-    //   "../voby/src/jsx"
+    //   "../woby/src/jsx"
     // ]
 }

@@ -1,4 +1,4 @@
-import { useEffect, $, $$, ObservableMaybe } from 'voby'
+import { useEffect, $, $$, ObservableMaybe } from 'woby'
 
 // MediaQueryList Event based useEventListener interface
 export function useEventListener<K extends keyof MediaQueryListEventMap>(

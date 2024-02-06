@@ -1,4 +1,4 @@
-import { useEffect, $, Observable } from 'voby'
+import { useEffect, $, Observable } from 'woby'
 
 import { useLocalStorage } from '../useLocalStorage/useLocalStorage'
 import { useMediaQuery } from '../useMediaQuery/useMediaQuery'
@@ -14,7 +14,7 @@ interface UseTernaryDarkModeOutput {
 
 export function useTernaryDarkMode(): UseTernaryDarkModeOutput {
     const isDarkOS = useMediaQuery(COLOR_SCHEME_QUERY)
-    const ternaryDarkMode = useLocalStorage<TernaryDarkMode>('usehooks-ts-ternary-dark-mode', 'system')
+    const ternaryDarkMode = useLocalStorage<TernaryDarkMode>('use-woby-ternary-dark-mode', 'system')
     const isDarkMode = $<boolean>(isDarkOS())
 
     // Update darkMode if os prefers changes

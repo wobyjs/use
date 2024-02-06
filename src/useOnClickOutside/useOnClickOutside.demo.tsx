@@ -1,4 +1,4 @@
-import { $ } from 'voby'
+import { $ } from 'woby'
 
 import { useOnClickOutside } from './useOnClickOutside'
 

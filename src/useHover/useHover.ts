@@ -1,4 +1,4 @@
-import { ObservableMaybe, $} from 'voby'
+import { ObservableMaybe, Observable, $ } from 'woby'
 
 import { useEventListener } from '../useEventListener/useEventListener'
 

@@ -1,21 +1,21 @@
-import { useEffect, $ } from 'voby'
+import { useEffect, $ } from 'woby'
 
 import { useUpdateEffect } from '..'
 
 export default function Component() {
-  const data = $<number>(0)
-  useEffect(() => {
-    console.log('Normal useEffect', { data() })
-  })
+    const data = $<number>(0)
+    useEffect(() => {
+        console.log('Normal useEffect', { data() })
+    })
 
-  useUpdateEffect(() => {
-    console.log('Update useEffect only', { data() })
-  }, [data()])
+    useUpdateEffect(() => {
+        console.log('Update useEffect only', { data() })
+    }, [data()])
 
-  return (
-    <div>
-      <p>Open your console</p>
-      <button onClick={() => data(Date.now())}>Update data</button>
-    </div>
-  )
+    return (
+        <div>
+            <p>Open your console</p>
+            <button onClick={() => data(Date.now())}>Update data</button>
+        </div>
+    )
 }

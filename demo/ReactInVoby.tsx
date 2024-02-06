@@ -1,10 +1,10 @@
-/// <reference types="voby" />
+/// <reference types='woby' />
 
 /** @jsxRuntime classic */
 /** @jsx jsx */
 /** @jsxFrag Fragment */
 //@ts-ignore
-import { jsx, Fragment, jsxs, $ } from "voby"
+import { jsx, Fragment, jsxs, $ } from 'woby'
 
 import { ReactCounter, ReductionCounter } from './ReactCounter'
 import { useReact } from "../src/useReact"

@@ -1,4 +1,4 @@
-import { CSSProperties, $, useMemo, ObservableReadonly } from 'voby'
+import { CSSProperties, $, useMemo, ObservableReadonly } from 'woby'
 
 interface ImageStyle {
     thumbnail: CSSProperties

@@ -1,14 +1,14 @@
-# use-voby
-Bridge for React and [Vobyjs](https://github.com/vobyjs/voby)
+# use-woby
+Bridge for React and [Vobyjs](https://github.com/vobyjs/woby)
 
 ``` bash
-git clone https://github.com/wongchichong/use-voby
-cd use-voby
+git clone https://github.com/wongchichong/use-woby
+cd use-woby
 pnpm install
 pnpm dev
 ```
 
-See [Demo](https://github.com/wongchichong/use-voby/tree/main/demo) folder for more sample.
+See [Demo](https://github.com/wongchichong/use-woby/tree/main/demo) folder for more sample.
 
 Also see [React to Voby Transformer/Playground](https://react2voby.web.app/)
 
@@ -47,16 +47,16 @@ export const ReactCounter = ({ initValue }: { initValue?: number } = {}) => {
 
 #### <span style="color:yellow">VobyComponent.tsx</span>
 ``` ts
-/// <reference types="voby" />
+/// <reference types="woby" />
 
 /** @jsxRuntime classic */
 /** @jsx jsx */
 /** @jsxFrag Fragment */
 //@ts-ignore
-import { jsx, Fragment, jsxs, $ } from "voby"
+import { jsx, Fragment, jsxs, $ } from "woby"
 
 import { ReactCounter } from './ReactCounter'
-import { useReact } from "use-voby"
+import { useReact } from "use-woby"
 
 export const ReactInVoby = () => {
     const o = $(0)
@@ -79,16 +79,16 @@ export const ReactInVoby = () => {
 
 #### <span style="color:yellow">VobyCounter.tsx</span>
 ``` ts
-/// <reference types="voby" />
+/// <reference types="woby" />
 
 /** @jsxRuntime classic */
 /** @jsx jsx */
 /** @jsxFrag Fragment */
 //@ts-ignore
-import { jsx, Fragment, jsxs, } from "voby"
+import { jsx, Fragment, jsxs, } from "woby"
 
-import { $ } from 'voby'
-import type { Observable } from 'voby'
+import { $ } from 'woby'
+import type { Observable } from 'woby'
 
 const Counter = ({ increment, decrement, value }: { increment: Observable<() => number>, decrement: Observable<() => number>, value: Observable<number> }) => {
     return (
@@ -121,9 +121,9 @@ export const VobyCounter = ({ initValue, ...props }: { initValue?: number } = {}
 import { useReduction } from '../src/useReduction'
 import { useOby } from '../src/useOby'
 import { VobyCounter } from './VobyCounter'
-import { $, store } from 'voby'
+import { $, store } from 'woby'
 import { useVoby } from '../src/useVoby'
-import { jsx as vsx } from 'voby/jsx-runtime'
+import { jsx as vsx } from 'woby/jsx-runtime'
 import { useStore } from '../src/useStore'
 import { useState } from 'react'
 

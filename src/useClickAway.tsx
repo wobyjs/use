@@ -1,4 +1,5 @@
-import React, { $, $$, Observable, useEffect, type JSX } from 'voby'
+import React, { $, $$, Observable, useEffect, type JSX } from 'woby'
+
 
 export function useClickAway<T = HTMLElement>(ref: Observable<T>, clickEvent: () => void) {
     useEffect(() => {

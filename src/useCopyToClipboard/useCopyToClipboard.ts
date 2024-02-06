@@ -1,4 +1,4 @@
-import { $, Observable } from 'voby'
+import { $, Observable } from 'woby'
 
 type CopiedValue = Observable<string>
 type CopyFn = (text: string) => Promise<boolean> // Return success

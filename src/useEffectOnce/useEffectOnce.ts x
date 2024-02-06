@@ -1,4 +1,4 @@
-import { useEffect } from 'voby'
+import { useEffect } from 'woby'
 
 export function useEffectOnce(effect: Parameters<typeof useEffect>[0]) {
 

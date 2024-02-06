@@ -65,8 +65,8 @@ devDependencies:
     specifier: ^2.3.0
     version: 2.3.0(@types/node@20.1.5)(vite@4.3.3)
   voby-jasmine:
-    specifier: workspace:../voby-jasmine
-    version: link:../voby-jasmine
+    specifier: workspace:../woby-jasmine
+    version: link:../woby-jasmine
 
 packages:
 

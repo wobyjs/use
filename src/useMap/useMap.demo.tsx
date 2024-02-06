@@ -1,4 +1,4 @@
-import { Fragment } from 'voby'
+import { Fragment } from 'woby'
 
 import { MapOrEntries, useMap } from './useMap'
 

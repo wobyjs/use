@@ -1,4 +1,4 @@
-import { $, Observable, useEffect } from 'voby'
+import { $, Observable, useEffect } from 'woby'
 
 import { useEventListener } from '../useEventListener/useEventListener'
 
@@ -26,7 +26,7 @@ export function useElementSize<T extends HTMLElement = HTMLDivElement>(): [Obser
 
 
     })
-    useEffect(()=>{
+    useEffect(() => {
         console.log(ref())
     })
     useEventListener('resize', handleSize, ref)

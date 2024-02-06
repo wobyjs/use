@@ -1,4 +1,4 @@
-import { $, Observable, useEffect } from 'voby'
+import { $, Observable, useEffect } from 'woby'
 
 import { useEventListener } from '../useEventListener/useEventListener'
 import { localStoreDic } from '../useLocalStorage/useLocalStorage'

@@ -1,7 +1,7 @@
 {
-    "name": "use-voby",
-    "repository": "https://github.com/wongchichong/use-voby.git",
-    "description": "use-voby",
+    "name": "use-woby",
+    "repository": "https://github.com/wongchichong/use-woby.git",
+    "description": "use-woby",
     "version": "0.0.6",
     "main": "./dist/index.cjs.js",
     "module": "./dist/index.es.js",
@@ -19,7 +19,12 @@
         "web": "vite preview --config=vite.config.web.ts --host",
         "dev": "vite --config=vite.config.web.ts --force --mode dev --host",
         "prod": "vite --force",
-        "build": "vite build",
+        "declaration": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly",
+        "declaration:watch": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --watch",
+        "build:only": "vite build",
+        "watch:only": "vite build --watch",
+        "watch": "run-s watch:only declaration:watch",
+        "build": "run-s build:only declaration",
         "build:tsc": "rimraf dist && tsc -p tsconfig.build.json",
         "clean": "rimraf ./dist/",
         "prepublishOnly1": "pnpm run clean && pnpm run build",
@@ -36,20 +41,17 @@
     },
     "devDependencies": {
         "cross-env": "^7.0.3",
-        "glob": "^10.3.3",
-        "jasmine-browser-runner": "^2.1.0",
-        "jasmine-core": "^5.0.1",
+        "glob": "^10.3.10",
+        "jasmine-browser-runner": "^2.3.0",
+        "jasmine-core": "^5.1.1",
         "rollup-plugin-node-polyfills": "^0.2.1",
         "rxjs": "^7.8.1",
-        "types_react": "npm:@types/react@^18.2.6",
-        "vite": "^4.3.3",
+        "vite": "^4.4.11",
         "vite-plugin-dts": "^2.3.0",
-        "voby-jasmine": "workspace:../voby-jasmine"
+        "woby-jasmine": "workspace:^"
     },
     "peerDependencies": {
-        "oby": "workspace:../oby",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "voby": "workspace:../woby"
+        "oby": "workspace:^",
+        "woby": "workspace:^"
     }
 }

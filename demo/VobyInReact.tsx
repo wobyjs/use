@@ -2,7 +2,7 @@
 /// <reference types="types_react" />
 /// <reference types="voby/dist/types" />
 
-/// <reference types="voby" />
+/// <reference types='woby' />
 
 /** @jsxRuntime classic */
 /** @jsx jsx */
@@ -23,9 +23,9 @@ const jsx = (type, props, ...children) => {
 import { useReduction } from '../src/useReduction'
 import { useOby } from '../src/useOby'
 import { VobyCounter, VobySharedCounter, VobySharedCounter2 } from './VobyCounter'
-import { $, store } from 'voby'
+import { $, store } from 'woby'
 import { useVoby } from '../src/useVoby'
-import { jsx as vsx } from 'voby/jsx-runtime'
+import { jsx as vsx } from 'woby/jsx-runtime'
 import { useStore } from '../src/useStore'
 import { useState } from 'react'
 

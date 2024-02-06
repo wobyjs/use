@@ -13,12 +13,13 @@
         "inlineSourceMap": false,
         "inlineSources": false,
         // "isolatedModules": true,
-        "jsx": "react",
-        // "jsxImportSource": "voby",
+        "jsx": "react-jsx",
+        "jsxImportSource": "woby",
         "lib": [
             "dom",
             "esnext"
         ],
+        "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo",
         "module": "es2020",
         "moduleResolution": "node",
         "newLine": "lf",
@@ -47,14 +48,14 @@
         "baseUrl": ".",
         "rootDir": "./",
         "composite": true,
-        "paths": {
-            "voby/jsx-runtime": [
-                "../../../voby/dist/jsx"
-            ],
-            "voby/jsx-runtime/*": [
-                "../../../voby/dist/jsx/*"
-            ],
-        }
+        // "paths": {
+        //     "woby/jsx-runtime": [
+        //         "../../../woby/dist/jsx"
+        //     ],
+        //     "woby/jsx-runtime/*": [
+        //         "../../../woby/dist/jsx/*"
+        //     ],
+        // }
     },
     // "references": [
     //     {
@@ -68,6 +69,6 @@
         "vite.config.*.ts",
     ]
     // "include": [
-    //   "../voby/src/jsx"
+    //   "../woby/src/jsx"
     // ]
 }

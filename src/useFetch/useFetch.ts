@@ -1,4 +1,4 @@
-import { useEffect, $, $$, store } from 'voby'
+import { useEffect, $, $$, store, ObservableMaybe } from 'woby'
 
 interface State<T> {
     data?: T

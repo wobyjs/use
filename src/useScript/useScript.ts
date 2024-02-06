@@ -1,4 +1,4 @@
-import { useEffect, $, Observable } from 'voby'
+import { useEffect, $, Observable } from 'woby'
 
 export type UseScriptStatus = 'idle' | 'loading' | 'ready' | 'error'
 export interface UseScriptOptions {

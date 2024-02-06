@@ -1,4 +1,4 @@
-import { useEffect, $, Observable } from 'voby'
+import { useEffect, $, Observable, type JSX } from 'woby'
 
 interface Args extends IntersectionObserverInit {
     freezeOnceVisible?: boolean

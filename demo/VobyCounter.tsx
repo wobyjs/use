@@ -1,4 +1,4 @@
-/// <reference types="voby" />
+/// <reference types='woby' />
 /// <reference types="voby/dist/types" />
 
 /** @jsxRuntime classic */
@@ -6,10 +6,10 @@
 /** @jsxFactory jsx */
 /** @jsxFrag Fragment */
 //@ts-ignore
-import { jsx, Fragment, jsxs, } from "voby"
+import { jsx, Fragment, jsxs, } from 'woby'
 
-import { $ } from 'voby'
-import type { Observable } from 'voby'
+import { $ } from 'woby'
+import type { Observable } from 'woby'
 
 const Counter = ({ increment, decrement, value }: { increment: Observable<() => number>, decrement: Observable<() => number>, value: Observable<number> }) => {
     return (
