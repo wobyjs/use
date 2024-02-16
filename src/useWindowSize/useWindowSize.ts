@@ -1,4 +1,4 @@
-import { $, Observable } from 'woby'
+import { $, $$, Observable } from 'woby'
 
 import { useEventListener } from '../useEventListener/useEventListener'
 import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect/useIsomorphicLayoutEffect'
@@ -22,7 +22,6 @@ export function useWindowSize(): WindowSize {
     // Set size at the first client-side load
     useIsomorphicLayoutEffect(() => {
         handleSize()
-
     })
 
     return { width, height }
