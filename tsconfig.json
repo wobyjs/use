@@ -65,7 +65,7 @@
     "exclude": [
         "node_modules/*",
         "*.test.ts*",
-        "vite.config.ts",
+        "vite.*.*ts",
         "vite.config.*.ts",
     ]
     // "include": [

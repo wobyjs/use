@@ -9,6 +9,10 @@
     "sass": "./dist/styles.scss",
     "sideEffects": false,
     "scripts": {
+        "git": "git add . && git commit -m \"Bump version\" && git push",
+        "bump": "pnpm version patch",
+        "npmjs": "pnpm publish",
+        "release": "run-s -c git bump npmjs",
         "preinstall": "npx only-allow pnpm",
         "build:test": "cross-env NODE_ENV=test && vite build --config vite.config.test.ts",
         "watch:test": "cross-env NODE_ENV=test && vite --config=vite.config.test.ts --force --host --mode dev",
@@ -19,16 +23,15 @@
         "web": "vite preview --config=vite.config.web.ts --host",
         "dev": "vite --config=vite.config.web.ts --force --mode dev --host",
         "prod": "vite --force",
-        "declaration": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly",
-        "declaration:watch": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --watch",
+        "declaration": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --declarationMap",
+        "declaration:watch": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly  --declarationMap--watch",
         "build:only": "vite build",
         "watch:only": "vite build --watch",
         "watch": "run-s watch:only declaration:watch",
         "build": "run-s build:only declaration",
         "build:tsc": "rimraf dist && tsc -p tsconfig.build.json",
         "clean": "rimraf ./dist/",
-        "prepublishOnly1": "pnpm run clean && pnpm run build",
-        "bump": "pnpm version patch"
+        "prepublishOnly1": "pnpm run clean && pnpm run build"
     },
     "keywords": [
         "ui",
@@ -37,7 +40,8 @@
         "react"
     ],
     "dependencies": {
-        "nanoid": "^3.3.6"
+        "nanoid": "^5.0.7",
+        "typescript": "5.4.5"
     },
     "devDependencies": {
         "cross-env": "^7.0.3",
@@ -46,12 +50,11 @@
         "jasmine-core": "^5.1.1",
         "rollup-plugin-node-polyfills": "^0.2.1",
         "rxjs": "^7.8.1",
-        "vite": "^4.4.11",
-        "vite-plugin-dts": "^2.3.0",
-        "woby-jasmine": "workspace:^"
+        "vite": "^5.2.8",
+        "woby-jasmine": "workspace:../woby-jasmine"
     },
     "peerDependencies": {
-        "oby": "workspace:^",
-        "woby": "workspace:^"
+        "oby": "workspace:../oby",
+        "woby": "workspace:../woby"
     }
 }
