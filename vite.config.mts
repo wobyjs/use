@@ -7,8 +7,8 @@ const config = defineConfig({
         minify: false,
         lib: {
             entry: ["./src/index.tsx"],
-            name: "use-voby",
-            formats: ['es', 'cjs'/*, 'umd'*/],
+            name: "use-woby",
+            formats: ['es', /*'cjs', */'umd'],
             fileName: (format: string, entryName: string) => `${entryName}.${format}.js`
         },
         sourcemap: true,

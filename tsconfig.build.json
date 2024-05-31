@@ -18,7 +18,7 @@
             "dom",
             "esnext"
         ],
-        "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo",
+        // "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo",
         "module": "es2020",
         "moduleResolution": "node",
         "newLine": "lf",
@@ -47,15 +47,15 @@
         "noUncheckedIndexedAccess": false,
         "baseUrl": ".",
         "rootDir": "./src",
-        "composite": true,
-        "paths": {
-            "woby/jsx-runtime": [
-                "../../../woby/dist/jsx"
-            ],
-            "woby/jsx-runtime/*": [
-                "../../../woby/dist/jsx/*"
-            ],
-        },
+        // "composite": true,
+        // "paths": {
+        //     "woby/jsx-runtime": [
+        //         "../../../woby/dist/jsx"
+        //     ],
+        //     "woby/jsx-runtime/*": [
+        //         "../../../woby/dist/jsx/*"
+        //     ],
+        // },
         "typeRoots": [
             // "./node_modules/oby/dist/types/types",
             // "./node_modules/oby/dist/types/objects",
@@ -77,8 +77,7 @@
         "node_modules/*",
         "**/*.test.ts*",
         "**/*.spec.ts*",
-        "vite.config.ts",
-        "vite.config.*.ts",
+        "vite.*.*ts",
         "demo",
         "dist",
         "**/*.test.ts*",
