@@ -1,4 +1,4 @@
-import { $, $$, Observable, ObservableMaybe, isObservable, } from 'woby'
+import { $, $$, FunctionMaybe, Observable, ObservableMaybe, isObservable, } from 'woby'
 
 const isPrimitive = (value: unknown): value is string | number | boolean | symbol | null | undefined | bigint => {
     const t = typeof value
@@ -78,6 +78,7 @@ export const clear = o => {
     // )
 }
 
+/** Make every properties Observable */
 export const make = <T,>(obj: T, inplace = false): Observant<T> => {
     const o = inplace ? obj : { ...obj }
     Object.keys(o).forEach(k => o[k] = typeof o[k] !== 'function' ? $(o[k]) : o[k])
@@ -92,9 +93,19 @@ export type Unobservant<T> = T extends object
     : T
 
 
+/** Make every properties Observable */
 export type Observant<T> = T extends object
     ? { [K in keyof T]: T[K] extends Function ? T[K] :
         T[K] extends ObservableMaybe<infer U> ? Observable<U> : Observable<T[K]> } : T
+
+/** Make every properties FunctionMayBe */
+export type Functionant<T> = T extends object
+    ? { [K in keyof T]:
+        T[K] extends ObservableMaybe<infer U> ? ObservableMaybe<U> :
+        T[K] extends FunctionMaybe<infer U> ? FunctionMaybe<U> :
+        T[K] extends Function ? T[K] : FunctionMaybe<T[K]>
+    }
+    : T
 
 export type ObservantAll<T> = T extends object
     ? { [K in keyof T]: T[K] extends ObservableMaybe<infer U> ? Observable<U> : Observable<T[K]> } : T
