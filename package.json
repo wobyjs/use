@@ -13,7 +13,6 @@
         "bump": "pnpm version patch",
         "npmjs": "pnpm publish",
         "release": "run-s -c git bump npmjs",
-        "preinstall": "npx only-allow pnpm",
         "build:test": "cross-env NODE_ENV=test && vite build --config vite.config.test.ts",
         "watch:test": "cross-env NODE_ENV=test && vite --config=vite.config.test.ts --force --host --mode dev",
         "watch:prod": "cross-env NODE_ENV=production && vite --config=vite.config.test.ts --force --host --mode production",
