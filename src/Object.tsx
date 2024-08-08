@@ -1,8 +1,6 @@
 import { $, $$, Observable, ObservableMaybe, isObservable } from "woby"
 
-const isPrimitive = (
-	value: unknown
-): value is string | number | boolean | symbol | null | undefined | bigint => {
+const isPrimitive = (value: unknown): value is string | number | boolean | symbol | null | undefined | bigint => {
 	const t = typeof value
 	return !(t === "object" || t === "function")
 }
@@ -140,8 +138,8 @@ export type ObservantMaybe<T> = T extends object
 
 export type UnobservantMaybe<T> = Unobservant<T> | T
 
-export const $$$ = <T, K extends keyof T>(o: ObservableMaybe<T>, ...keys: K[]): Unobservant<T> => {
-	const ro = $$(o)
+export const $$$ = <T, K extends keyof T>(obj: ObservableMaybe<T>, ...keys: K[]): Unobservant<T> => {
+	const ro = $$(obj)
 	if (isPrimitive(ro) || typeof ro === "undefined" || ro === null) return ro as any
 
 	const no = {}
@@ -152,7 +150,6 @@ export const $$$ = <T, K extends keyof T>(o: ObservableMaybe<T>, ...keys: K[]): 
 		) // 1 level only
 	} catch (ex) {
 		console.error(ex)
-		debugger
 	}
 	return no as any
 }
