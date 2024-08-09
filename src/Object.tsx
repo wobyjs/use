@@ -50,7 +50,12 @@ export const copy = <T, S>(target: T, source: S): T & S => {
             if (isObservable(source[k]))
                 target[k] = source[k]
             else
-                target[k] = $(source[k])
+                try {
+                    target[k] = $(source[k])
+                }
+                catch (ex) {
+                    console.error(ex)
+                }
         // else if (isObservable(target[k])) // && isObservable(source[k]) && target[k] !== source[k])
         //     target[k]($$(source[k]))
         else

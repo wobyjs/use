@@ -3,7 +3,7 @@ import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect/useIsomo
 export default function Component() {
     useIsomorphicLayoutEffect(() => {
         console.log(
-            "In the browser, I'm an `useLayoutEffect`, but in SSR, I'm an `useEffect`.",
+            "In the browser, I'm an `useEffect`, but in SSR, I'm an `useEffect`.",
         )
     })
 
