@@ -171,7 +171,7 @@ export const assign = <T, S>(target: T, source: S, options?: AssignOptions): T &
 }
 
 
-export const clone = (source: object, deepClone = false) => {
+export const clone = <T,>(source: T, deepClone = false) => {
 	const newObject = {}
 
 	Object.keys(source).forEach((key) => {
