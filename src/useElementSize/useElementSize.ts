@@ -29,7 +29,7 @@ export function useElementSize<T extends HTMLElement = HTMLDivElement>(): [Obser
     useEffect(() => {
         console.log(ref())
     })
-    useEventListener('resize', handleSize, ref)
+    useEventListener(ref, 'resize', handleSize)
 
     // useIsomorphicLayoutEffect(() => {
     //     handleSize()

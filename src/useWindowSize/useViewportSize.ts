@@ -30,8 +30,13 @@ export function useViewportSize(): Observant<Pick<VisualViewport, 'width' | 'hei
         scale(visualViewport.scale)
     }
 
-    useEventListener('resize', handleSize, visualViewport as any)
-    useEventListener('scroll', handleSize, visualViewport as any)
+    useEventListener(visualViewport, 'resize', handleSize,)
+    useEventListener(visualViewport, 'scroll', handleSize,)
+    useEventListener(window, 'pointermove', handleSize,)
+    // useEventListener('wheel', handleSize, document)
+
+    // visualViewport.addEventListener('resize', handleSize)
+    // visualViewport.addEventListener('scroll', handleSize)
 
     // Set size at the first client-side load
     useIsomorphicLayoutEffect(() => {

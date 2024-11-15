@@ -6,8 +6,8 @@ import {
 
 import { useEventListener } from '../useEventListener/useEventListener'
 
-declare global {
-    interface WindowEventMap {
+declare module '../useEventListener/useEventListener' {
+    interface ExtendedEventMap {
         'session-storage': CustomEvent
     }
 }
@@ -70,11 +70,11 @@ export function useSessionStorage<T>(key: string, initialValue: T): Observable<T
     })
 
     // this only works for other documents, not the current one
-    useEventListener('storage', handleStorageChange)
+    useEventListener(window, 'storage', handleStorageChange)
 
     // this is a custom event, triggered in writeValueTosessionStorage
     // See: useSessionStorage()
-    useEventListener('session-storage', handleStorageChange)
+    useEventListener(window, 'session-storage', handleStorageChange)
 
     return storedValue
 }

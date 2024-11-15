@@ -4,7 +4,7 @@ import { $, $$, useEffect, Observable, useMemo, ObservableMaybe, isObservable } 
 //     return useMemo(() => !$$(o))
 // }
 
-export const useInvert = (ori: Observable<boolean>) => {
+export const useInvert = (ori: ObservableMaybe<boolean>) => {
     const inv = $(!$$(ori))
 
     useEffect(() => {

@@ -23,13 +23,13 @@ export default function Component() {
     }
 
     // example with window based event
-    useEventListener('scroll', onScroll)
+    useEventListener(window, 'scroll', onScroll)
 
     // example with document based event
-    useEventListener('visibilitychange', onVisibilityChange, documentRef)
+    useEventListener(documentRef, 'visibilitychange', onVisibilityChange)
 
     // example with element based event
-    useEventListener('click', onClick, buttonRef)
+    useEventListener(buttonRef, 'click', onClick)
 
     return (
         <div style={{ minHeight: '200vh' }}>

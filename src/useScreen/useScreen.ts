@@ -17,7 +17,7 @@ export function useScreen() {
         screen(getScreen())
     }
 
-    useEventListener('resize', handleSize)
+    useEventListener(window, 'resize', handleSize)
 
     // Set size at the first client-side load
     useIsomorphicLayoutEffect(() => {

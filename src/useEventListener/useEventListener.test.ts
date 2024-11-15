@@ -47,7 +47,7 @@ describe('useEventListener()', () => {
         const handler = jest.fn()
         const options = undefined
         const { windowAddEventListenerSpy, windowRemoveEventListenerSpy } = beforeEach()
-        const { unmount } = renderHook(() => useEventListener(eventName, handler))
+        const { unmount } = renderHook(() => useEventListener(window, eventName, handler))
 
         expect(windowAddEventListenerSpy).toHaveBeenCalledWith(
             eventName,
@@ -70,7 +70,7 @@ describe('useEventListener()', () => {
         const options = undefined
         const { ref, refAddEventListenerSpy, refRemoveEventListenerSpy, unmount: um } = beforeEach()
         const { unmount } = renderHook(() =>
-            useEventListener(eventName, handler, ref, options),
+            useEventListener(ref, eventName, handler, options),
         )
 
         expect(refAddEventListenerSpy).toHaveBeenCalledTimes(1)
@@ -96,7 +96,7 @@ describe('useEventListener()', () => {
         const options = undefined
         const { docRef, docAddEventListenerSpy, docRemoveEventListenerSpy } = beforeEach()
         const { unmount } = renderHook(() =>
-            useEventListener(eventName, handler, docRef, options),
+            useEventListener(docRef, eventName, handler, options),
         )
 
         expect(docAddEventListenerSpy).toHaveBeenCalledTimes(1)
@@ -125,7 +125,7 @@ describe('useEventListener()', () => {
         }
         const { windowAddEventListenerSpy } = beforeEach()
 
-        renderHook(() => useEventListener(eventName, handler, undefined, options))
+        renderHook(() => useEventListener(window, eventName, handler, options))
 
         expect(windowAddEventListenerSpy).toHaveBeenCalledWith(
             eventName,
@@ -140,7 +140,7 @@ describe('useEventListener()', () => {
         const { ref, unmount } = beforeEach()
         ref().id = "testRef"
 
-        renderHook(() => useEventListener(eventName, handler, ref))
+        renderHook(() => useEventListener(ref, eventName, handler,))
         fireEvent.click(ref())
 
         expect(handler).toHaveBeenCalledTimes(1)
@@ -151,8 +151,8 @@ describe('useEventListener()', () => {
         const clickHandler = jest.fn("clickHandler")
         const keydownHandler = jest.fn("keydownHandler")
         const { ref, unmount } = beforeEach()
-        renderHook(() => useEventListener('click', clickHandler, ref))
-        renderHook(() => useEventListener('keydown', keydownHandler, ref))
+        renderHook(() => useEventListener(ref, 'click', clickHandler,))
+        renderHook(() => useEventListener(ref, 'keydown', keydownHandler,))
 
         fireEvent.click(ref())
         fireEvent.keyDown(ref())

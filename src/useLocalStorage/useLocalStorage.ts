@@ -3,11 +3,12 @@ import { $, $$, useEffect, Observable, ObservableMaybe } from 'woby'
 // import { useEventCallback } from '../useEventCallback/useEventCallback'
 import { useEventListener } from '../useEventListener/useEventListener'
 
-declare global {
-    interface WindowEventMap {
+declare module '../useEventListener/useEventListener' {
+    interface ExtendedEventMap {
         'local-storage': CustomEvent
     }
 }
+
 
 export const localStoreDic: Record<string, Observable> = {}
 
@@ -68,11 +69,11 @@ export function useLocalStorage<T>(key: string, initialValue?: ObservableMaybe<T
     })
 
     // this only works for other documents, not the current one
-    useEventListener('storage', handleStorageChange)
+    useEventListener(window, 'storage', handleStorageChange)
 
     // this is a custom event, triggered in writeValueToLocalStorage
     // See: useLocalStorage()
-    useEventListener('local-storage', handleStorageChange)
+    useEventListener(window, 'local-storage', handleStorageChange)
 
     return storedValue
 }

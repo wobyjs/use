@@ -46,11 +46,11 @@ export function useReadLocalStorage<T>(key: string): Observable<T> {
     })
 
     // this only works for other documents, not the current one
-    useEventListener('storage', handleStorageChange)
+    useEventListener(window, 'storage', handleStorageChange)
 
     // this is a custom event, triggered in writeValueToLocalStorage
     // See: useLocalStorage()
-    useEventListener('local-storage', handleStorageChange)
+    useEventListener(window, 'local-storage', handleStorageChange)
 
     return storedValue
 }

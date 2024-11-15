@@ -17,7 +17,7 @@ export function useWindowSize(): WindowSize {
         height(window.innerHeight)
     }
 
-    useEventListener('resize', handleSize)
+    useEventListener(window, 'resize', handleSize)
 
     // Set size at the first client-side load
     useIsomorphicLayoutEffect(() => {

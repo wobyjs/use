@@ -31,7 +31,7 @@ export const useTimer = (startImmediately = true) => {
         if ($$(startTime) !== null) {
             const endTimeValue = $$(pauseTime) !== null ? $$(pauseTime) : Date.now()
             const elapsedMs = endTimeValue - $$(startTime) - ($$(pauseTime) !== null ? Date.now() - $$(pauseTime) : 0)
-            laps([...$$(laps), { message: 'Stop' ?? message, ms: elapsedMs }])
+            laps([...$$(laps), { message: message ?? 'Stop', ms: elapsedMs }])
             total($$(total) + elapsedMs)
             startTime(null)
             pauseTime(null)
