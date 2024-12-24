@@ -1,7 +1,9 @@
-import { $$, ObservableMaybe, Observable, useMemo, ObservableReadonly, useEffect } from 'woby'
+import { $$, ObservableMaybe, Observable, useMemo, ObservableReadonly, useEffect, isObservable } from 'woby'
 
 type DestructuredObject<T, K extends keyof T> = {
-    [key in K]: Observable<T[key]>
+    [Key in K]: T[Key] extends Observable<any>
+    ? T[Key]
+    : Observable<T[Key]>; // Always wrap non-observables
 }
 
 type DestructuredArray<T extends any[]> = {
@@ -25,13 +27,25 @@ export const useDestruct = <T extends {} | [], K extends keyof T>(o: ObservableM
         //@ts-ignore
         const r = [] as DestructuredArray<T[]>
         // useEffect(() => console.log('useDestruct', $$(o)));
-        ($$(o) as T[]).forEach((k, index) => (r[index] = useMemo(() => ($$(o) as T[])[index])))
+        if (isObservable(o))
+            //@ts-ignore
+            ($$(o) as T[]).forEach((k, index) => (r[index] = useMemo(() => $$(($$(o) as T[])[index]))))
+        else
+            (o as T[]).forEach((k, index) => (r[index] = o[index]))
+
         //@ts-ignore
         return r as DestructuredArray<T>
     } else {
         const r = {} as DestructuredObject<T, K>
-        //@ts-ignore
-        keys.forEach(k => (r[k] = useMemo(() => $$(o)?.[k as keyof T] as Observable<T[keyof T]>)))
+        if (keys.length === 0)
+            keys = Object.keys($$(o)) as K[]
+
+        if (isObservable(o))
+            //@ts-ignore
+            keys.forEach(k => (r[k] = useMemo(() => $$($$(o)?.[k as keyof T]) as Observable<T[keyof T]>)))
+        else
+            keys.forEach(k => (r[k] = o?.[k as any]))
+
         //@ts-ignore
         return r as DestructuredObject<T, K>
     }

@@ -23,7 +23,7 @@ export const useRatio = <T,>() => {
 }
 
 /** refs, ref refer to parent Array index */
-export const Ratio = <T,>({ children, multiple = false, group = false, ref }: ArrayProp<T, ArrayType<T>, ItemType<T>> & {
+export const Ratio = <T,>({ children, multiple = false, group = false, ref, arrayContext, itemContext, ...props }: ArrayProp<T, ArrayType<T>, ItemType<T>> & {
     multiple?: ObservableMaybe<boolean>,
     /** toggleing the whole group */
     group?: ObservableMaybe<boolean>
@@ -44,10 +44,10 @@ export const Ratio = <T,>({ children, multiple = false, group = false, ref }: Ar
     // actives = childs.map(_c => $(false)) //1st level
 
     return <Array ref={ref}
-        arrayContext={children => ({ refs: children.map(_c => $<T>()), actives: Object.assign(children.map(_c => $(false)), { updated: $(0) }), })}
+        arrayContext={children => Object.assign(({ refs: children.map(_c => $<T>()), actives: Object.assign(children.map(_c => $(false)), { updated: $(0) }), }), arrayContext?.(children) ?? {})}
         itemContext={(item, index, ctx) => {
 
-            return ({
+            return Object.assign({
                 ref: ctx.refs[/* base + */ index], //flaten array index
                 active: ctx.actives[index],
                 item,
@@ -69,7 +69,7 @@ export const Ratio = <T,>({ children, multiple = false, group = false, ref }: Ar
                     ctx.actives.updated(Math.random())
                     return v
                 }
-            })
+            }, itemContext?.(item, index, ctx) ?? {})
         }}
         children={children} />
 }

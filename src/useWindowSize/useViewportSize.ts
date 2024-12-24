@@ -31,9 +31,10 @@ export function useViewportSize(): Observant<Pick<VisualViewport, 'width' | 'hei
     }
 
     useEventListener(visualViewport, 'resize', handleSize,)
-    useEventListener(visualViewport, 'scroll', handleSize,)
+    // useEventListener(visualViewport, 'scroll', handleSize,)
     useEventListener(window, 'pointermove', handleSize,)
-    // useEventListener('wheel', handleSize, document)
+    useEventListener(document, 'wheel', handleSize)
+    useEventListener(document, 'scroll', handleSize)
 
     // visualViewport.addEventListener('resize', handleSize)
     // visualViewport.addEventListener('scroll', handleSize)

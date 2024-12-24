@@ -1,4 +1,4 @@
-import { $, $$, useEffect, Observable, useMemo, ObservableMaybe, isObservable } from 'woby'
+import { $, $$, useEffect, ObservableMaybe, isObservable } from 'woby'
 
 // export const useInvertReadonly = (o: ObservableMaybe<boolean>) => {
 //     return useMemo(() => !$$(o))
