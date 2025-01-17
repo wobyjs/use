@@ -124,7 +124,7 @@ export const assign = <T, S, O extends AssignOptions<T>>(target: T, source: S, o
 			}
 		} else {
 			// Deep copy by value, non primitive
-			if (typeof $$(source[key]) === "object") {
+			if (typeof $$(source[key]) === "object" && isObject($$(source[key]))) {
 				if (isObservable(target[key])) {
 					if (typeof $$(target[key]) === 'object')
 						// Deep copy for observable objects recursively, object to object assignment
@@ -180,11 +180,18 @@ export const clone = <T,>(source: T, deepClone = false): T => {
 	const newObject = {}
 
 	Object.keys(source).forEach((key) => {
-		if (typeof source[key] === "function" && !isObservable(source[key]))
+		if (typeof source[key] === "function" && !isObservable(source[key])) {
 			newObject[key] = source[key]
-		else if (isObservable(source[key]))
+		}
+		else if (isObservable(source[key]) && isObject($$(source[key])) && !Array.isArray($$(source[key]))) {
+			const innerObject = clone($$(source[key]))
+			newObject[key] = innerObject
+		}
+		else if (isObservable(source[key])) {
 			newObject[key] = $($$(source[key]))
-		else if (typeof source[key] == "object" && deepClone) {
+		}
+
+		else if (isObject($$(source[key])) && deepClone) {
 			const innerObject = clone(source[key])
 			newObject[key] = innerObject
 		} else
@@ -193,6 +200,17 @@ export const clone = <T,>(source: T, deepClone = false): T => {
 
 	return newObject as T
 }
+
+export const isObject = (obj: {}) => {
+	if (obj == undefined) return false
+	if (obj.constructor.name == "Object") {
+		return true
+	}
+	else {
+		return false
+	}
+}
+
 export const clear = (o) => Object.keys(o).forEach((k) => o[k]?.())
 
 
