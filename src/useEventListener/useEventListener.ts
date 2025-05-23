@@ -82,6 +82,8 @@ export type EventMap<T> = {
     T[K] extends ((event: infer E) => any) ? E : never
 } & ExtendedEventMap
 
+const handlers = new Map<any, Map<string, any>>()
+
 // Improved useEventListener function with dynamic typing for any object with `onXXX` event handlers
 export function useEventListener<
     T extends { [key: string]: any }, // Allows any object with event handler properties
@@ -100,14 +102,25 @@ export function useEventListener<
 
         if (!(targetElement && targetElement.addEventListener)) return undefined
 
-        // Create event listener that calls handler function stored in ref
-        const listener: typeof handler = event => savedHandler()(event)
+        if (!handlers.has(targetElement)) {
+            handlers.set(targetElement, new Map())
+        }
+        const dict = handlers.get(targetElement)
 
-        targetElement.addEventListener(eventName.toLowerCase() as string, listener, options)
+        if (!dict.has(eventName.toLowerCase()) && dict.get(eventName) !== $$(savedHandler)) {
+            // Create event listener that calls handler function stored in ref
+            const listener: typeof handler = event => savedHandler()(event)
 
+            targetElement.addEventListener(eventName.toLowerCase() as string, listener, options)
+            dict.set(eventName.toLowerCase(), $$(savedHandler))
+
+            return () => {
+                targetElement.removeEventListener(eventName.toLowerCase() as string, listener, options)
+            }
+        }
         // Clean up event listener on component unmount
         return () => {
-            targetElement.removeEventListener(eventName.toLowerCase() as string, listener, options)
+
         }
     })
 }
