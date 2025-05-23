@@ -8,14 +8,16 @@ interface WindowSize {
     height: Observable<number>
 }
 
-export function useWindowSize(): WindowSize {
-    const width = $(0)
-    const height = $(0)
+const width = $(0)
+const height = $(0)
 
-    const handleSize = () => {
-        width(window.innerWidth)
-        height(window.innerHeight)
-    }
+
+const handleSize = () => {
+    width(window.innerWidth)
+    height(window.innerHeight)
+}
+
+export function useWindowSize(): WindowSize {
 
     useEventListener(window, 'resize', handleSize)
 
