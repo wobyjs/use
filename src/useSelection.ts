@@ -1,14 +1,14 @@
-import { $ } from 'woby'
+import { $, $$, ObservableMaybe, useEffect } from 'woby'
 import { useEventListener } from './useEventListener/useEventListener'
 
-export function useSelection() {
+export function useSelection(element?: ObservableMaybe<HTMLElement>) {
     const range = $(getCurrentRange())
 
     const updateSelection = () => {
         range(getCurrentRange())
     }
 
-    useEventListener(document, 'selectionchange', updateSelection)
+    useEffect(() => useEventListener($$(element) ?? document, 'selectionchange', updateSelection))
 
     return range
 }

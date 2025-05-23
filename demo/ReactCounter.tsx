@@ -3,7 +3,7 @@
 
 
 import { useReduction } from '../src/useReduction'
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'woby'
 
 export const ReductionCounter = ({ initValue, ...props }: { initValue?: number } = {}) => {
     const [count, actions] = useReduction({ count: initValue }, {

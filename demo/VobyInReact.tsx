@@ -9,7 +9,7 @@
 /** @jsxFrag Fragment */
 // import { jsxDEV } from 'react/jsx-dev-runtime'
 import { jsx as rsx } from 'react/jsx-runtime'
-import { Fragment } from 'react'
+import { Fragment } from 'woby'
 //React 17
 //const jsx = (type, props, key, source, self) => rsx(type, props ?? {}, key, source, self)
 //React 16
@@ -27,7 +27,7 @@ import { $, store } from 'woby'
 import { useVoby } from '../src/useVoby'
 import { jsx as vsx } from 'woby/jsx-runtime'
 import { useStore } from '../src/useStore'
-import { useState } from 'react'
+import { useState } from 'woby'
 
 // const ss = store({ value: 100 })
 // const sharedStore = Object.assign(ss, { inc: function () { ss.value++ }, dec: function () { ss.value-- } })

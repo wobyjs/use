@@ -29,7 +29,7 @@ Also see [React to Voby Transformer/Playground](https://react2voby.web.app/)
 //pnpm add -D types_react@npm:@types/react
 /// <reference types="types_react" />
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'woby'
 
 export const ReactCounter = ({ initValue }: { initValue?: number } = {}) => {
     const [count, setCount] = useState(initValue ?? 0)
@@ -125,7 +125,7 @@ import { $, store } from 'woby'
 import { useVoby } from '../src/useVoby'
 import { jsx as vsx } from 'woby/jsx-runtime'
 import { useStore } from '../src/useStore'
-import { useState } from 'react'
+import { useState } from 'woby'
 
 export const VobyInReact = () => {
     const [count, actions] = useReduction({ count: 0 }, {

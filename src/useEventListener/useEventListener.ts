@@ -79,7 +79,7 @@ export interface ExtendedEventMap {
 
 export type EventMap<T> = {
     [K in keyof T as K extends `on${infer Event}` ? Event : never]:
-    T[K] extends ((event: infer E) => any) ? E : never;
+    T[K] extends ((event: infer E) => any) ? E : never
 } & ExtendedEventMap
 
 // Improved useEventListener function with dynamic typing for any object with `onXXX` event handlers
@@ -91,11 +91,11 @@ export function useEventListener<
     eventName: K,
     handler: (event: EventMap<T>[K]) => void,
     options?: boolean | AddEventListenerOptions
-): void {
+) {
     // Save the handler in a ref
     const savedHandler = $(handler)
 
-    useEffect(() => {
+    return useEffect(() => {
         const targetElement: T | Window = $$(element) ?? window
 
         if (!(targetElement && targetElement.addEventListener)) return undefined
