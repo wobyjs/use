@@ -2,7 +2,7 @@
     "name": "use-woby",
     "repository": "https://github.com/wongchichong/use-woby.git",
     "description": "use-woby",
-    "version": "0.0.19",
+    "version": "0.0.20",
     "main": "./dist/index.cjs.js",
     "module": "./dist/index.es.js",
     "types": "./dist/types/index.d.ts",
