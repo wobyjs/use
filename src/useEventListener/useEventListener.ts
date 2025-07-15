@@ -1,78 +1,5 @@
 import { useEffect, $, $$, ObservableMaybe } from 'woby'
 
-// // MediaQueryList Event based useEventListener interface
-// export function useEventListener<K extends keyof MediaQueryListEventMap>(
-//     element: ObservableMaybe<MediaQueryList>,
-//     eventName: K,
-//     handler: (event: MediaQueryListEventMap[K]) => void,
-//     options?: boolean | AddEventListenerOptions,
-// ): void
-
-// // Window Event based useEventListener interface
-// export function useEventListener<K extends keyof WindowEventMap>(
-//     element: undefined,
-//     eventName: K,
-//     handler: (event: WindowEventMap[K]) => void,
-//     options?: boolean | AddEventListenerOptions,
-// ): void
-
-// // JSX.Element Event based useEventListener interface
-// export function useEventListener<
-//     K extends keyof HTMLElementEventMap,
-//     T extends (HTMLElement | VisualViewport | Window | Screen) = HTMLDivElement,
-// >(
-//     element: ObservableMaybe<T>,
-//     eventName: K,
-//     handler: (event: HTMLElementEventMap[K]) => void,
-//     options?: boolean | AddEventListenerOptions,
-// ): void
-
-// // Document Event based useEventListener interface
-// export function useEventListener<K extends keyof DocumentEventMap>(
-//     element: ObservableMaybe<Document>,
-//     eventName: K,
-//     handler: (event: DocumentEventMap[K]) => void,
-//     options?: boolean | AddEventListenerOptions,
-// ): void
-
-// export function useEventListener<
-//     KW extends keyof WindowEventMap,
-//     KH extends keyof HTMLElementEventMap,
-//     KM extends keyof MediaQueryListEventMap,
-//     T extends HTMLElement | MediaQueryList | void = void,
-// >(
-//     element: ObservableMaybe<T>,
-//     eventName: KW | KH | KM,
-//     handler: (
-//         event:
-//             | WindowEventMap[KW]
-//             | HTMLElementEventMap[KH]
-//             | MediaQueryListEventMap[KM]
-//             | Event,
-//     ) => void,
-//     options?: boolean | AddEventListenerOptions,
-// ) {
-//     // Create a ref that stores handler
-//     const savedHandler = $(handler)
-
-//     return useEffect(() => {
-//         // Define the listening target
-//         const targetElement: T | Window = $$(element) ?? window
-
-//         if (!(targetElement && targetElement.addEventListener)) return undefined
-
-//         // Create event listener that calls handler function stored in ref
-//         const listener: typeof handler = event => savedHandler()(event)
-
-//         targetElement.addEventListener(eventName, listener, options)
-//         // Remove event listener on cleanup
-//         return () => {
-//             targetElement.removeEventListener(eventName, listener, options)
-//         }
-//     })
-// }
-
-
 export interface ExtendedEventMap {
 
 }
@@ -95,7 +22,6 @@ export function useEventListener<
     options?: boolean | AddEventListenerOptions
 ) {
     // Save the handler in a ref
-    const savedHandler = $(handler)
 
     return useEffect(() => {
         const targetElement: T | Window = $$(element) ?? window
@@ -107,15 +33,15 @@ export function useEventListener<
         }
         const dict = handlers.get(targetElement)
 
-        if (!dict.has(eventName.toLowerCase()) && dict.get(eventName) !== $$(savedHandler)) {
+        if (!dict.has(eventName.toLowerCase()) && dict.get(eventName) !== handler) {
             // Create event listener that calls handler function stored in ref
-            const listener: typeof handler = event => savedHandler()(event)
+            // const listener: typeof handler = event => savedHandler()(event)
 
-            targetElement.addEventListener(eventName.toLowerCase() as string, listener, options)
-            dict.set(eventName.toLowerCase(), $$(savedHandler))
+            targetElement.addEventListener(eventName.toLowerCase() as string, handler, options)
+            dict.set(eventName.toLowerCase(), handler)
 
             return () => {
-                targetElement.removeEventListener(eventName.toLowerCase() as string, listener, options)
+                targetElement.removeEventListener(eventName.toLowerCase() as string, handler, options)
             }
         }
         // Clean up event listener on component unmount

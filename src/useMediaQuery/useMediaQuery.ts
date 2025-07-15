@@ -1,5 +1,6 @@
 //@ts-ignore
 import { useEffect, $, Observable, ObservableMaybe } from 'woby'
+import { useEventListener } from '../useEventListener/useEventListener'
 
 export function useMediaQuery(query: string) {
     const getMatches = (query: string): boolean => {
@@ -16,29 +17,12 @@ export function useMediaQuery(query: string) {
         matches(getMatches(query))
     }
 
+    useEventListener(window.matchMedia(query), 'change', handleChange)
+
+    // Triggered at the first client-side load and if query changes
     useEffect(() => {
-        const matchMedia = window.matchMedia(query)
-
-        // Triggered at the first client-side load and if query changes
         handleChange()
-
-        // Listen matchMedia
-        if (matchMedia.addListener) {
-            matchMedia.addListener(handleChange)
-        } else {
-            matchMedia.addEventListener('change', handleChange)
-        }
-
-        return () => {
-            if (matchMedia.removeListener) {
-                matchMedia.removeListener(handleChange)
-            } else {
-                matchMedia.removeEventListener('change', handleChange)
-            }
-        }
-
     })
 
     return matches
 }
-

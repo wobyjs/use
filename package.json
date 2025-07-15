@@ -54,7 +54,6 @@
         "woby-jasmine": "workspace:../woby-jasmine"
     },
     "peerDependencies": {
-        "oby": "workspace:../oby",
         "woby": "workspace:../woby"
     }
 }
