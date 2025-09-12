@@ -42,9 +42,6 @@ importers:
       vite-plugin-tsconfig:
         specifier: ^1.0.5
         version: 1.0.5(vite@6.3.5)
-      woby-jasmine:
-        specifier: workspace:../woby-jasmine
-        version: link:../woby-jasmine
 
 packages:
 

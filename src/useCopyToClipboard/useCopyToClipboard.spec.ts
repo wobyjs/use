@@ -1,4 +1,4 @@
-import { act, renderHook, jest, test } from 'woby-jasmine'
+import { act, renderHook, jest, test } from '@woby/jasmine'
 
 import { useCopyToClipboard } from './useCopyToClipboard'
 describe('useClipboard()', () => {

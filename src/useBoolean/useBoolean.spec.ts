@@ -1,87 +1,85 @@
-import { act, renderHook, test } from "woby-jasmine"
+import { $, $$ } from 'woby'
+import { test, expect } from "verifies"
 import { useBoolean } from './useBoolean'
 
-describe('useBoolean()', () => {
+test('useBoolean()', () => {
     test('should use boolean', () => {
-        const { result } = renderHook(() => useBoolean())
-        expect(result.current.value()).toBe(false)
-        expect(typeof result.current.setTrue).toBe('function')
-        expect(typeof result.current.setFalse).toBe('function')
-        expect(typeof result.current.toggle).toBe('function')
-        expect(typeof result.current.value).toBe('function')
+        const result = useBoolean()
+        expect(result.value()).toBe(false)
+        expect(typeof result.setTrue).toBe('function')
+        expect(typeof result.setFalse).toBe('function')
+        expect(typeof result.toggle).toBe('function')
+        expect(typeof result.value).toBe('function')
     })
 
     test('should default value works (1)', () => {
-        const { result } = renderHook(() => useBoolean(true))
+        const result = useBoolean(true)
 
-        expect(result.current.value()).toBe(true)
+        expect(result.value()).toBe(true)
     })
 
     test('should default value works (2)', () => {
-        const { result } = renderHook(() => useBoolean(false))
+        const result = useBoolean(false)
 
-        expect(result.current.value()).toBe(false)
+        expect(result.value()).toBe(false)
+    })
+
+    test('should default value works with observable', () => {
+        const obs = $(true)
+        const result = useBoolean(obs)
+
+        expect(result.value()).toBe(true)
+        // Should return the same observable
+        expect(result.value).toBe(obs)
     })
 
     test('should set to true (1)', () => {
-        const { result } = renderHook(() => useBoolean(false))
+        const result = useBoolean(false)
 
-        act(() => {
-            result.current.setTrue()
-        })
+        result.setTrue()
 
-        expect(result.current.value()).toBe(true)
+        expect(result.value()).toBe(true)
     })
 
     test('should set to true (2)', () => {
-        const { result } = renderHook(() => useBoolean(false))
+        const result = useBoolean(false)
 
-        act(() => {
-            result.current.setTrue()
-            result.current.setTrue()
-        })
+        result.setTrue()
+        result.setTrue()
 
-        expect(result.current.value()).toBe(true)
+        expect(result.value()).toBe(true)
     })
 
     test('should set to false (1)', () => {
-        const { result } = renderHook(() => useBoolean(true))
+        const result = useBoolean(true)
 
-        act(() => {
-            result.current.setFalse()
-        })
+        result.setFalse()
 
-        expect(result.current.value()).toBe(false)
+        expect(result.value()).toBe(false)
     })
 
     test('should set to false (2)', () => {
-        const { result } = renderHook(() => useBoolean(true))
+        const result = useBoolean(true)
 
-        act(() => {
-            result.current.setFalse()
-            result.current.setFalse()
-        })
+        result.setFalse()
+        result.setFalse()
 
-        expect(result.current.value()).toBe(false)
+        expect(result.value()).toBe(false)
     })
 
     test('should toggle value', () => {
-        const { result } = renderHook(() => useBoolean(true))
+        const result = useBoolean(true)
 
-        act(() => {
-            result.current.toggle()
-        })
+        result.toggle()
 
-        expect(result.current.value()).toBe(false)
+        expect(result.value()).toBe(false)
     })
 
     test('should toggle value from prev using setValue', () => {
-        const { result } = renderHook(() => useBoolean(true))
+        const result = useBoolean(true)
 
-        act(() => {
-            result.current.value(x => !x)
-        })
+        result.value((x) => !x)
 
-        expect(result.current.value()).toBe(false)
+        expect(result.value()).toBe(false)
     })
 })

@@ -1,4 +1,4 @@
-import { $, $$, FunctionMaybe, Observable, ObservableMaybe, isObservable, useEffect } from "woby"
+import { $, $$, FunctionMaybe, Observable, ObservableMaybe, isObservable, useEffect, } from "woby"
 
 const isPrimitive = (value: unknown): value is string | number | boolean | symbol | null | undefined | bigint => {
 	const t = typeof value
@@ -41,13 +41,13 @@ export type AssignOptions<T> = {
 
 /** merge value */
 function mv<T>(target: T, source: T): T {
-	const targetValue = target;
-	const sourceValue = source;
+	const targetValue = target
+	const sourceValue = source
 
 	if (typeof targetValue === 'string' && typeof sourceValue === 'string')
-		return `${targetValue} ${sourceValue}`.trim() as any;
+		return `${targetValue} ${sourceValue}`.trim() as any
 	else if (typeof targetValue === 'object' && typeof sourceValue === 'object')
-		return { ...targetValue, ...sourceValue } as any;
+		return { ...targetValue, ...sourceValue } as any
 
 	return source // Return the modified target for further chaining if necessary
 }
@@ -55,7 +55,7 @@ function mv<T>(target: T, source: T): T {
 const set = <T,>(target: Observable<T>, source: Observable<T>, merge: boolean) => {
 	if (merge)
 		// Merge values if key is in mergeKeys
-		target(mv($$(target), $$(source))); // Use mergeValues properly
+		target(mv($$(target), $$(source))) // Use mergeValues properly
 	else
 		target($$(source))
 }
@@ -176,6 +176,21 @@ export const assign = <T, S, O extends AssignOptions<T>>(target: T, source: S, o
 }
 
 
+/**
+ * Creates a shallow or deep clone of an object.
+ * Preserves observable properties by creating new observables with the same values.
+ * 
+ * @param source - The object to clone
+ * @param deepClone - If true, performs deep cloning of nested objects
+ * @returns A cloned copy of the source object
+ * 
+ * @example
+ * ```tsx
+ * const original = { name: 'John', age: 30, active: $(true) }
+ * const shallowClone = clone(original)
+ * const deepClone = clone(original, true)
+ * ```
+ */
 export const clone = <T,>(source: T, deepClone = false): T => {
 	const newObject = {}
 
@@ -257,39 +272,76 @@ export type ObservantMaybe<T> = T extends object
 
 export type UnobservantMaybe<T> = Unobservant<T> | T
 
-/** Object props resolver, 1 level 
- *  object literal only
+/** Object props resolver, 1 level
+ * object literal only
  * 
-*/
+ * This function unwraps observable properties of an object to get their current values.
+ * It's useful for accessing the current values of observable object properties.
+ * 
+ * @template T - The type of the object
+ * @template K - The keys of the object to unwrap
+ * @param obj - The observable object to unwrap
+ * @param keys - The specific keys to unwrap (if none provided, all keys are unwrapped)
+ * @returns An object with the unwrapped values
+ * 
+ * @example
+ * ```tsx
+ * const obj = { name: $('John'), age: $(30) }
+ * const unwrapped = $$$(obj)
+ * // unwrapped = { name: 'John', age: 30 }
+ * ```
+ * 
+ * @see {@link https://github.com/vobyjs/woby|Woby documentation} for more information about observables
+ */
 export const $$$ = <T, K extends keyof T>(obj: ObservableMaybe<T>, ...keys: K[]): Unobservant<T> => {
-	const ro = $$(obj)
-	if (isPrimitive(ro) || typeof ro === "undefined" || ro === null) return ro as any
+    const ro = $$(obj)
+    if (isPrimitive(ro) || typeof ro === "undefined" || ro === null) return ro as any
 
-	const no = {}
+    const no = {}
 
-	try {
-		(keys && keys.length ? keys : Object.keys(ro)).forEach(
-			(k) => (no[k] = isObservable(ro[k]) ? $$(ro[k]) : ro[k])
-		) // 1 level only
-	} catch (ex) {
-		console.error(ex)
-	}
-	return no as any
+    try {
+        (keys && keys.length ? keys : Object.keys(ro)).forEach(
+            (k) => (no[k] = isObservable(ro[k]) ? $$(ro[k]) : ro[k])
+        ) // 1 level only
+    } catch (ex) {
+        console.error(ex)
+    }
+    return no as any
 }
 
-/** Object props deep resolver */
+/**
+ * Object props deep resolver
+ * 
+ * This function deeply unwraps observable properties of an object to get their current values.
+ * It recursively unwraps nested objects to get their current values.
+ * 
+ * @template T - The type of the object
+ * @template K - The keys of the object to unwrap
+ * @param obj - The observable object to unwrap
+ * @param keys - The specific keys to unwrap (if none provided, all keys are unwrapped)
+ * @returns An object with the deeply unwrapped values
+ * 
+ * @example
+ * ```tsx
+ * const obj = { user: $({ name: $('John'), age: $(30) }), active: $(true) }
+ * const unwrapped = $$$$(obj)
+ * // unwrapped = { user: { name: 'John', age: 30 }, active: true }
+ * ```
+ * 
+ * @see {@link https://github.com/vobyjs/woby|Woby documentation} for more information about observables
+ */
 export const $$$$ = <T, K extends keyof T>(obj: ObservableMaybe<T>, ...keys: K[]): Unobservant<T> => {
-	const ro = $$(obj)
-	if (isPrimitive(ro) || typeof ro === "undefined" || ro === null) return ro as any
+    const ro = $$(obj)
+    if (isPrimitive(ro) || typeof ro === "undefined" || ro === null) return ro as any
 
-	const no = {}
+    const no = {}
 
-	try {
-		(keys && keys.length ? keys : Object.keys(ro)).forEach(
-			(k) => (no[k] = isObservable(ro[k]) ? $$$$(ro[k]) : ro[k])
-		) // 1 level only
-	} catch (ex) {
-		console.error(ex)
-	}
-	return no as any
+    try {
+        (keys && keys.length ? keys : Object.keys(ro)).forEach(
+            (k) => (no[k] = isObservable(ro[k]) ? $$$$(ro[k]) : ro[k])
+        ) // 1 level only
+    } catch (ex) {
+        console.error(ex)
+    }
+    return no as any
 }

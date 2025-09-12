@@ -14,6 +14,17 @@ export type ItemType<T> = {
     toggle: (val?: boolean) => boolean
 }
 
+/**
+ * A hook that provides access to the ratio context.
+ * 
+ * This hook is used within Ratio components to access the ratio context
+ * which contains information about the current item, its index, and active state.
+ * 
+ * @template T - The type of the ratio context
+ * @returns The ratio context value
+ * 
+ * @see {@link https://github.com/vobyjs/woby|Woby documentation} for more information about contexts
+ */
 export const useRatio = <T,>() => {
     const context = useContext(ArrayContext)
     // if (!context)
@@ -22,6 +33,23 @@ export const useRatio = <T,>() => {
 
 }
 
+/**
+ * A component for rendering items with ratio selection capabilities.
+ * 
+ * This component allows for single or multiple selection of items in an array,
+ * with support for group selection. Each item gets a toggle function to control
+ * its active state.
+ * 
+ * @template T - The type of array items
+ * @param props - The component props
+ * @param props.children - The array items to render
+ * @param props.multiple - Whether multiple items can be selected
+ * @param props.group - Whether toggling affects the whole group
+ * @param props.ref - Reference to the array context
+ * @returns Array of JSX elements with ratio selection context
+ * 
+ * @see {@link https://github.com/vobyjs/woby|Woby documentation} for more information about observables and contexts
+ */
 /** refs, ref refer to parent Array index */
 export const Ratio = <T,>({ children, multiple = false, group = false, ref, arrayContext, itemContext, ...props }: ArrayProp<T, ArrayType<T>, ItemType<T>> & {
     multiple?: ObservableMaybe<boolean>,
@@ -48,7 +76,7 @@ export const Ratio = <T,>({ children, multiple = false, group = false, ref, arra
         itemContext={(item, index, ctx) => {
 
             return Object.assign({
-                ref: ctx.refs[/* base + */ index], //flaten array index
+                ref: ctx.refs[/* base +  */ index], //flaten array index
                 active: ctx.actives[index],
                 item,
                 index: /* base +  */index,

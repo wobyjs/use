@@ -31,26 +31,62 @@ interface CountdownControllers {
 }
 
 /**
- *
- * @param  {UseCountdownType} countdownOption
- * @param  {number} countdownOption.seconds the countdown's number, generally time seconds
- * @param  {number} countdownOption.interval the countdown's interval, milliseconds
- * @param  {?boolean} countdownOption.isIncrement false by default, determine the countdown is increment, otherwise is decrement
- * @returns [counter, CountdownControllers]
- *
- * @deprecated new useCountdown interface is already available (see https://use-woby.com/react-hook/use-countdown), the old version will retire on use-woby@3
+ * A hook that provides countdown functionality.
+ * 
+ * This hook creates a countdown timer that can count up or down with configurable
+ * intervals. It returns the current count and controller functions to manage
+ * the countdown state.
+ * 
+ * @deprecated The old interface is deprecated. Use the new interface instead.
+ * @param countdownOption - The countdown configuration
+ * @param countdownOption.seconds - The countdown's number, generally time seconds
+ * @param countdownOption.interval - The countdown's interval, milliseconds
+ * @param countdownOption.isIncrement - false by default, determine the countdown is increment, otherwise is decrement
+ * @returns A tuple containing:
+ *   - count: An observable number representing the current count
+ *   - helpers: An object containing controller functions (start, stop, reset)
+ * 
+ * @see {@link https://use.com/react-hook/use-countdown|useCountdown documentation}
+ * @see {@link https://github.com/vobyjs/woby|Woby documentation} for more information about observables
  */
 export function useCountdown(countdownOption: UseCountdownType,): [Observable<number>, CountdownHelpers]
 
 /**
- * New interface with default value
- *D
- * @param  {CountdownOption} countdownOption
- * @param  {number} countdownOption.countStart - the countdown's starting number, initial value of the returned number.
- * @param  {?number} countdownOption.countStop -  `0` by default, the countdown's stopping number. Pass `-Infinity` to decrease forever.
- * @param  {?number} countdownOption.intervalMs - `1000` by default, the countdown's interval, in milliseconds.
- * @param  {?boolean} countdownOption.isIncrement - `false` by default, true if the countdown is increment.
- * @returns [counter, CountdownControllers]
+ * A hook that provides countdown functionality.
+ * 
+ * This hook creates a countdown timer that can count up or down with configurable
+ * intervals. It returns the current count and controller functions to manage
+ * the countdown state.
+ * 
+ * @param countdownOption - The countdown configuration
+ * @param countdownOption.countStart - The countdown's starting number, initial value of the returned number
+ * @param countdownOption.countStop - `0` by default, the countdown's stopping number. Pass `-Infinity` to decrease forever
+ * @param countdownOption.intervalMs - `1000` by default, the countdown's interval, in milliseconds
+ * @param countdownOption.isIncrement - `false` by default, true if the countdown is increment
+ * @returns A tuple containing:
+ *   - count: An observable number representing the current count
+ *   - controllers: An object containing controller functions (startCountdown, stopCountdown, resetCountdown)
+ * 
+ * @example
+ * ```tsx
+ * const [count, { startCountdown, stopCountdown, resetCountdown }] = useCountdown({
+ *   countStart: 10,
+ *   countStop: 0,
+ *   intervalMs: 1000
+ * })
+ * 
+ * return (
+ *   <div>
+ *     <p>Count: {count}</p>
+ *     <button onClick={startCountdown}>Start</button>
+ *     <button onClick={stopCountdown}>Stop</button>
+ *     <button onClick={resetCountdown}>Reset</button>
+ *   </div>
+ * )
+ * ```
+ * 
+ * @see {@link https://use.com/react-hook/use-countdown|useCountdown documentation}
+ * @see {@link https://github.com/vobyjs/woby|Woby documentation} for more information about observables
  */
 export function useCountdown(countdownOption: CountdownOption,): [Observable<number>, CountdownControllers]
 
@@ -67,7 +103,7 @@ export function useCountdown(countdownOption: UseCountdownType | CountdownOption
 
     if ('seconds' in countdownOption) {
         console.warn(
-            '[useCountdown:DEPRECATED] new interface is already available (see https://use-woby.com/react-hook/use-countdown), the old version will retire on use-woby@3.',
+            '[useCountdown:DEPRECATED] new interface is already available (see https://use.com/react-hook/use-countdown), the old version will retire on use-woby@3.',
         )
 
         isDeprecated = true
@@ -146,5 +182,3 @@ export function useCountdown(countdownOption: UseCountdownType | CountdownOption
             } as CountdownControllers,
         ]
 }
-
-

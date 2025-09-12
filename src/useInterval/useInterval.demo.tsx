@@ -1,4 +1,4 @@
-import { $ } from 'woby'
+import { $, $$ } from 'woby'
 
 import { useInterval } from '../useInterval/useInterval'
 
@@ -27,7 +27,7 @@ export default function Component() {
         <>
             <h1>{count}</h1>
             <button onClick={() => isPlaying(!isPlaying)}>
-                {isPlaying ? 'pause' : 'play'}
+                {() => $$(isPlaying) ? 'pause' : 'play'}
             </button>
             <p>
                 <label htmlFor="delay">Delay: </label>
@@ -38,6 +38,25 @@ export default function Component() {
                     value={delay}
                 />
             </p>
+
+            <h3>Example with existing observable</h3>
+            <IntervalWithObservable />
         </>
+    )
+}
+
+function IntervalWithObservable() {
+    const count = $<number>(0)
+    const delayObservable = $(500)
+
+    useInterval(() => {
+        count(count() + 1)
+    }, delayObservable)
+
+    return (
+        <div>
+            <p>Count: {count}</p>
+            <p>Delay: {() => $$(delayObservable) + 'ms'}</p>
+        </div>
     )
 }

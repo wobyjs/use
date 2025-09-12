@@ -11,14 +11,12 @@
         "forceConsistentCasingInFileNames": true,
         "inlineSourceMap": false,
         "inlineSources": false,
-        // "isolatedModules": true,
         "jsx": "react-jsx",
         "jsxImportSource": "woby",
         "lib": [
             "dom",
             "esnext"
         ],
-        // "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo",
         "module": "es2020",
         "moduleResolution": "node",
         "newLine": "lf",
@@ -46,33 +44,8 @@
         "noImplicitAny": false,
         "noUncheckedIndexedAccess": false,
         "baseUrl": ".",
-        "rootDir": "./src",
-        // "composite": true,
-        // "paths": {
-        //     "woby/jsx-runtime": [
-        //         "../../../woby/dist/jsx"
-        //     ],
-        //     "woby/jsx-runtime/*": [
-        //         "../../../woby/dist/jsx/*"
-        //     ],
-        // },
-        "typeRoots": [
-            // "./node_modules/oby/dist/types/types",
-            // "./node_modules/oby/dist/types/objects",
-            "./node_modules/woby/node_modules/oby/dist/types/types",
-            "./node_modules/woby/node_modules/oby/dist/types/objects",
-            "./node_modules/woby/dist/types"
-        ],
-        "types": [
-            // "./node_modules/woby/dist/types/jsx/runtime",
-            // "./node_modules/oby/types"
-        ]
+        "rootDir": "./src"
     },
-    // "references": [
-    //     {
-    //         "path": "../woby"
-    //     }
-    // ],
     "exclude": [
         "node_modules/*",
         "**/*.test.ts*",
@@ -80,12 +53,12 @@
         "vite.*.*ts",
         "demo",
         "dist",
-        "**/*.test.ts*",
         "**/*.demo.ts*",
         "**/tests.ts",
         "**/test.tsx",
+        "test"
+    ],
+    "include": [
+        "src/**/*"
     ]
-    // "include": [
-    //   "../woby/src/jsx"
-    // ]
 }

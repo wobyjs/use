@@ -1,6 +1,5 @@
-import { $, $$, useEffect, Observable, ObservableMaybe } from 'woby'
-
-// import { useEventCallback } from '../useEventCallback/useEventCallback'
+import { $$, useEffect, type Observable, type ObservableMaybe } from 'woby'
+import { use } from '../use'
 import { useEventListener } from '../useEventListener/useEventListener'
 
 declare module '../useEventListener/useEventListener' {
@@ -9,17 +8,42 @@ declare module '../useEventListener/useEventListener' {
     }
 }
 
-
 export const localStoreDic: Record<string, Observable> = {}
 
+/**
+ * A hook for managing localStorage values.
+ * 
+ * This hook uses use to ensure the stored value is always
+ * represented as an observable, providing a consistent interface for
+ * reactive state management with localStorage persistence.
+ * 
+ * @template T - The type of the stored value
+ * @param key - The localStorage key to use
+ * @param initialValue - The initial value to use if no value is found in localStorage
+ * @returns An observable containing the stored value
+ * 
+ * @example
+ * ```tsx
+ * const storedValue = useLocalStorage('my-key', 'default-value')
+ * 
+ * return (
+ *   <div>
+ *     <p>Stored value: {storedValue}</p>
+ *     <button onClick={() => storedValue('new-value')}>Update Value</button>
+ *   </div>
+ * )
+ * ```
+ * 
+ * @see {@link https://github.com/vobyjs/woby|Woby documentation} for more information about observables
+ */
 export function useLocalStorage<T>(key: string, initialValue?: ObservableMaybe<T>): Observable<T> {
     if (localStoreDic[key])
         return localStoreDic[key] as any
 
     // Get from local storage then
     // parse stored json or return initialValue
-    const readValue = ((): T => {
-        // Prevent build error "window is undefined" but keeps working
+    const readValue = (): T => {
+        // Prevent build error "window is undefined" but keep keep working
         if (typeof window === 'undefined') {
             return $$(initialValue)
         }
@@ -31,24 +55,24 @@ export function useLocalStorage<T>(key: string, initialValue?: ObservableMaybe<T
             console.warn(`Error reading localStorage key “${key}”:`, error)
             return $$(initialValue)
         }
-    })
+    }
 
     // State to store our value
     // Pass initial state function to useState so logic is only executed once
-    const storedValue = $<T>(readValue())
+    const storedValue = use(readValue())
 
-    localStoreDic[key] = storedValue as any
-
+    // Return a wrapped version of useState's setter function that ...
+    // ... persists the new value to localStorage.
     useEffect(() => {
-        if (typeof window === 'undefined') {
+        // Prevent build error "window is undefined" but keeps working
+        if (typeof window == 'undefined') {
             console.warn(
                 `Tried setting localStorage key “${key}” even though environment is not a client`,
             )
         }
 
         try {
-            // Allow value to be a function so we have the same API as useState
-            const newValue = storedValue() //value instanceof Function ? value(storedValue()) : value
+            const newValue = storedValue()
 
             // Save to local storage
             window.localStorage.setItem(key, JSON.stringify(newValue))
@@ -58,7 +82,6 @@ export function useLocalStorage<T>(key: string, initialValue?: ObservableMaybe<T
         } catch (error) {
             console.warn(`Error setting localStorage key “${key}”:`, error)
         }
-
     })
 
     const handleStorageChange = ((event: StorageEvent | CustomEvent) => {
@@ -77,7 +100,6 @@ export function useLocalStorage<T>(key: string, initialValue?: ObservableMaybe<T
 
     return storedValue
 }
-
 
 // A wrapper for "JSON.parse()"" to support "undefined" value
 function parseJSON<T>(value: string | null): T | undefined {

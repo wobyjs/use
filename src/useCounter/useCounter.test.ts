@@ -1,71 +1,61 @@
-import { act, renderHook, test } from 'woby-jasmine'
+import { test, expect } from 'verifies'
 
 import { useCounter } from './useCounter'
 
-describe('useCounter()', () => {
+test('useCounter()', () => {
     test('should use counter', () => {
-        const { result } = renderHook(() => useCounter())
+        const result = useCounter()
 
-        expect(result.current.count()).toBe(0)
-        expect(typeof result.current.increment).toBe('function')
-        expect(typeof result.current.decrement).toBe('function')
-        expect(typeof result.current.reset).toBe('function')
-        expect(typeof result.current.count).toBe('function')
+        expect(result.count()).toBe(0)
+        expect(typeof result.increment).toBe('function')
+        expect(typeof result.decrement).toBe('function')
+        expect(typeof result.reset).toBe('function')
+        expect(typeof result.count).toBe('function')
     })
 
     test('should increment counter', () => {
-        const { result } = renderHook(() => useCounter())
+        const result = useCounter()
 
-        act(() => {
-            result.current.increment()
-        })
+        result.increment()
 
-        expect(result.current.count()).toBe(1)
+        expect(result.count()).toBe(1)
     })
 
     test('should decrement counter', () => {
-        const { result } = renderHook(() => useCounter())
+        const result = useCounter()
 
-        act(() => {
-            result.current.decrement()
-        })
+        result.decrement()
 
-        expect(result.current.count()).toBe(-1)
+        expect(result.count()).toBe(-1)
     })
 
     test('should default value works', () => {
-        const { result } = renderHook(() => useCounter(3))
+        const result = useCounter(3)
 
-        expect(result.current.count()).toBe(3)
+        expect(result.count()).toBe(3)
     })
 
     test('should reset counter', () => {
-        const { result } = renderHook(() => useCounter(3))
+        const result = useCounter(3)
 
-        act(() => {
-            result.current.decrement()
-        })
+        result.decrement()
 
-        expect(result.current.count()).toBe(2)
+        expect(result.count()).toBe(2)
     })
 
     test('should set counter', () => {
-        const { result } = renderHook(() => useCounter())
+        const result = useCounter()
 
-        act(() => {
-            result.current.count(5)
-        })
+        result.count(5)
 
-        expect(result.current.count()).toBe(5)
+        expect(result.count()).toBe(5)
     })
 
     test('should set counter with prev value', () => {
-        const { result } = renderHook(() => useCounter(5))
+        const result = useCounter(5)
 
-        act(() => {
-            result.current.count(x => x + 2)
-        })
+        result.count(x => x + 2)
 
-        expect(result.current.count()).toBe(7)
+        expect(result.count()).toBe(7)
     })
 })

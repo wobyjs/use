@@ -1,29 +1,27 @@
 import { defineConfig } from 'vite'
-import * as  glob from "glob"
+import tsconfig from 'vite-plugin-tsconfig'
 
-const fileArr = glob.globSync(["./src/**/*.[sS]pec.ts?(x)", "./src/**/*.[tT]est.ts?(x)"])
-
-console.log("", fileArr)
-const config = defineConfig({
+export default defineConfig({
+    plugins: [
+        tsconfig({
+            filename: 'tsconfig.test.json'
+        })
+    ],
     build: {
-        minify: false,
+        outDir: 'dist/test',
         lib: {
-            entry: fileArr,
-            formats: ["es"],
-            name: "123"
+            entry: 'test/index.ts',
+            formats: ['es'],
+            fileName: 'test'
         },
-        outDir: './test',
         rollupOptions: {
+            external: ['woby'],
             output: {
-                preserveModules: true
-            }
+                globals: {
+                    woby: 'woby'
+                }
+            },
+            treeshake: false
         }
-    },
-    esbuild: {
-        jsx: 'automatic',
-    },
+    }
 })
-
-
-
-export default config

@@ -1,4 +1,4 @@
-import { $ } from 'woby'
+import { $, $$ } from 'woby'
 
 import { useHover } from './useHover'
 
@@ -8,7 +8,7 @@ export default function Component() {
 
     return (
         <div ref={hoverRef}>
-            {`The current div is ${isHover ? `hovered` : `unhovered`}`}
+            {() => `The current div is ${() => $$(isHover) ? `hovered` : `unhovered`}`}
         </div>
     )
 }

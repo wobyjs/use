@@ -1,9 +1,5 @@
-import {
-    $,
-    Observable,
-    useEffect,
-} from 'woby'
-
+import { $$, useEffect, type Observable, type ObservableMaybe } from 'woby'
+import { use } from '../use'
 import { useEventListener } from '../useEventListener/useEventListener'
 
 declare module '../useEventListener/useEventListener' {
@@ -14,7 +10,33 @@ declare module '../useEventListener/useEventListener' {
 
 export const sessionStorageDic: Record<string, Observable> = {}
 
-export function useSessionStorage<T>(key: string, initialValue: T): Observable<T> {
+/**
+ * A hook for managing sessionStorage values.
+ * 
+ * This hook uses use to ensure the stored value is always
+ * represented as an observable, providing a consistent interface for
+ * reactive state management with sessionStorage persistence.
+ * 
+ * @template T - The type of the stored value
+ * @param key - The sessionStorage key to use
+ * @param initialValue - The initial value to use if no value is found in sessionStorage
+ * @returns An observable containing the stored value
+ * 
+ * @example
+ * ```tsx
+ * const storedValue = useSessionStorage('my-key', 'default-value')
+ * 
+ * return (
+ *   <div>
+ *     <p>Stored value: {storedValue}</p>
+ *     <button onClick={() => storedValue('new-value')}>Update Value</button>
+ *   </div>
+ * )
+ * ```
+ * 
+ * @see {@link https://github.com/vobyjs/woby|Woby documentation} for more information about observables
+ */
+export function useSessionStorage<T>(key: string, initialValue?: ObservableMaybe<T>): Observable<T> {
     if (sessionStorageDic[key])
         return sessionStorageDic[key] as any
 
@@ -23,21 +45,21 @@ export function useSessionStorage<T>(key: string, initialValue: T): Observable<T
     const readValue = (): T => {
         // Prevent build error "window is undefined" but keep keep working
         if (typeof window === 'undefined') {
-            return initialValue
+            return $$(initialValue)
         }
 
         try {
             const item = window.sessionStorage.getItem(key)
-            return item ? (parseJSON(item) as T) : initialValue
+            return item ? (parseJSON(item) as T) : $$(initialValue)
         } catch (error) {
             console.warn(`Error reading sessionStorage key “${key}”:`, error)
-            return initialValue
+            return $$(initialValue)
         }
     }
 
     // State to store our value
     // Pass initial state function to useState so logic is only executed once
-    const storedValue = $<T>(readValue())
+    const storedValue = use(readValue())
 
     // Return a wrapped version of useState's setter function that ...
     // ... persists the new value to sessionStorage.
@@ -78,8 +100,6 @@ export function useSessionStorage<T>(key: string, initialValue: T): Observable<T
 
     return storedValue
 }
-
-
 
 // A wrapper for "JSON.parse()"" to support "undefined" value
 function parseJSON<T>(value: string | null): T | undefined {

@@ -1,170 +1,169 @@
-# use-woby
-Bridge for React and [Vobyjs](https://github.com/vobyjs/woby)
+# @woby/use
 
-``` bash
-git clone https://github.com/wongchichong/use-woby
-cd use-woby
-pnpm install
-pnpm dev
+A collection of essential React hooks designed for both React and Voby environments. This library provides a set of utility hooks that help you build better applications with less code.
+
+## Installation
+
+```bash
+# Using npm
+npm install @woby/use
+
+# Using yarn
+yarn add @woby/use
+
+# Using pnpm
+pnpm add @woby/use
 ```
 
-See [Demo](https://github.com/wongchichong/use-woby/tree/main/demo) folder for more sample.
+## Quick Start
 
-Also see [React to Voby Transformer/Playground](https://react2voby.web.app/)
+```javascript
+import { useToggle, useCounter, useLocalStorage } from '@woby/use';
 
-## Available API
-| Function      | Description  |
-| ------------- | ------------ |
-| useOby        | Use Voby observable mainly constructed from $( )        |
-| useReact      | Use React components in Voby environment      |
-| useStore      | Use Voby store (composite obserable object)      |
-| useVoby       | Use Voby components in React environment      |
-
-# Examples
-
-### React In Voby
-
-#### <span style="color:yellow">ReactCounter.tsx</span>
-``` ts
-//pnpm add -D types_react@npm:@types/react
-/// <reference types="types_react" />
-
-import { useState, useEffect } from 'woby'
-
-export const ReactCounter = ({ initValue }: { initValue?: number } = {}) => {
-    const [count, setCount] = useState(initValue ?? 0)
-
-    return <div>
-            <h3>React Counter</h3>
-            <p>{count}</p>
-            <button onClick={() => setCount(count + 2)}>+2</button>
-            <button onClick={() => setCount(count - 2)}>-2</button>
-
-        </div>
-}
-
-```
-
-#### <span style="color:yellow">VobyComponent.tsx</span>
-``` ts
-/// <reference types="woby" />
-
-/** @jsxRuntime classic */
-/** @jsx jsx */
-/** @jsxFrag Fragment */
-//@ts-ignore
-import { jsx, Fragment, jsxs, $ } from "woby"
-
-import { ReactCounter } from './ReactCounter'
-import { useReact } from "use-woby"
-
-export const ReactInVoby = () => {
-    const o = $(0)
-    return <>
-        <h1>Voby Component</h1>
-        <h3>Voby state: {o}</h3>
-        <button onClick={() => o(o() + 2)}>+2</button>
-        <button onClick={() => o(p => p -= 2)}>-2</button>
-
-        <h2>React in Voby</h2>
-        {useReact(ReactCounter, { initValue: 50 })}
-    </>
-}
-
-```
-
-
-
-### Voby In React
-
-#### <span style="color:yellow">VobyCounter.tsx</span>
-``` ts
-/// <reference types="woby" />
-
-/** @jsxRuntime classic */
-/** @jsx jsx */
-/** @jsxFrag Fragment */
-//@ts-ignore
-import { jsx, Fragment, jsxs, } from "woby"
-
-import { $ } from 'woby'
-import type { Observable } from 'woby'
-
-const Counter = ({ increment, decrement, value }: { increment: Observable<() => number>, decrement: Observable<() => number>, value: Observable<number> }) => {
-    return (
-        <>
-            <h3>Voby Counter</h3>
-            <p>{value}</p>
-            <button onClick={increment}>+</button>
-            <button onClick={decrement}>-</button>
-        </>
-    )
-}
-
-export const VobyCounter = ({ initValue, ...props }: { initValue?: number } = {}) => {
-    const value = $(initValue ?? 0)
-
-    const increment = $(() => value(prev => prev + 1))
-    const decrement = $(() => value(prev => prev - 1))
-
-    return <>
-        <Counter {...{ value, increment, decrement }} />
-    </>
-}
-```
-
-#### <span style="color:yellow">ReactComponent.tsx</span>
-``` ts
-//pnpm add -D types_react@npm:@types/react 
-/// <reference types="types_react" />
-
-import { useReduction } from '../src/useReduction'
-import { useOby } from '../src/useOby'
-import { VobyCounter } from './VobyCounter'
-import { $, store } from 'woby'
-import { useVoby } from '../src/useVoby'
-import { jsx as vsx } from 'woby/jsx-runtime'
-import { useStore } from '../src/useStore'
-import { useState } from 'woby'
-
-export const VobyInReact = () => {
-    const [count, actions] = useReduction({ count: 0 }, {
-        increment: (count, { args }: { args: { count: number } }) => ({ count: count.count + args.count }),
-        decrement: (count, { args }: { args: number }) => ({ count: count.count - args })
-    })
-    const [c, setCount] = useState(0)
-
-    const [O, setO] = useOby($(10))
-    const s = useStore(store({ value: 100 }))
-
-    return <div>
-        <h1>React Component</h1>
-        <h3>Reducer State: {count.count}</h3>
-        <button onClick={() => actions.increment({ count: 2 })}>+2</button>
-        <button onClick={() => actions.decrement(2)}>-2</button>
-
-        <h3>useState: {c}</h3>
-        <button onClick={() => setCount(p => p + 3)}>+3</button>
-        <button onClick={() => setCount(p => p - 3)}>-3</button>
-
-        <br />
-        <h3>useOby: {o}</h3>
-        <button onClick={() => setO(o + 2)}>+2</button>
-        <button onClick={() => setO(o - 2)}>-2</button>
-
-        <br />
-        <h3>useStore: {s.value}</h3>
-        <button onClick={() => s.value += 2}>+2</button>
-        <button onClick={() => s.value -= 2}>-2</button>
-
-        <h2>Voby in React</h2>
-        {useVoby(VobyCounter)}
-        {useVoby(VobyCounter, { initValue: 100 })}
-        {useVoby(vsx(VobyCounter as any, { initValue: 200 }))}
-
-        <br />
-        <br />
+function MyComponent() {
+  const [value, toggle] = useToggle(false);
+  const { count, increment, decrement } = useCounter(0);
+  const [name, setName] = useLocalStorage('name', '');
+  
+  return (
+    <div>
+      <p>Toggle value: {() => $(value) ? 'ON' : 'OFF'}</p>
+      <button onClick={toggle}>Toggle</button>
+      
+      <p>Count: {count}</p>
+      <button onClick={increment}>+</button>
+      <button onClick={decrement}>-</button>
+      
+      <input 
+        value={name} 
+        onChange={(e) => setName(e.target.value)} 
+        placeholder="Enter your name" 
+      />
     </div>
+  );
 }
-
 ```
+
+## Available Hooks
+
+### Core
+- `use` - Convert values to observables with optional cloning
+
+### State Management
+- `useBoolean` - Tracks state of a boolean value
+- `useCounter` - Tracks numerical state with increment/decrement functions
+- `useToggle` - Toggles between two values
+- `useMap` - Tracks state of a Map
+- `useSet` - Tracks state of a Set
+- `useStep` - Manages step navigation
+- `useCountdown` - Manages countdown timers
+
+### Browser Utilities
+- `useLocalStorage` - Manages localStorage values
+- `useSessionStorage` - Manages sessionStorage values
+- `useReadLocalStorage` - Reads localStorage values
+- `useWindowSize` - Tracks window size changes
+- `useAspect` - Calculates window aspect ratio
+- `useViewportSize` - Accesses visual viewport properties
+- `useDarkMode` - Tracks and toggles dark mode state
+- `useTernaryDarkMode` - Advanced dark mode management
+- `useMediaQuery` - Tracks media query matches
+- `useCopyToClipboard` - Copies text to clipboard
+- `useDocumentTitle` - Sets the document title
+- `useLockedBody` - Locks body scrolling
+- `useElementSize` - Tracks element size
+- `useIntersectionObserver` - Observes element intersections
+- `useImageOnLoad` - Handles image loading
+- `useScreen` - Accesses screen information
+- `useGpsLocation` - Accesses GPS location
+- `useLocation` - Accesses browser location
+- `useScreenOrientation` - Accesses screen orientation
+- `useSelection` - Accesses text selection
+
+### Events
+- `useEventListener` - Subscribes to events
+- `useClickAnyWhere` - Subscribes a callback to clicks anywhere on the page
+- `useClickAway` - Detects clicks outside an element
+- `useOnClickOutside` - Detects clicks outside an element
+
+### Effects
+- `useDebounce` - Debounces a value or function
+- `useTimeout` - Sets up a timeout that runs a callback
+- `useInterval` - Sets up an interval that runs a callback
+- `useIsomorphicLayoutEffect` - useLayoutEffect in browser, useEffect in server
+- `useEffectOnce` - Runs an effect only once
+- `useUpdateEffect` - Runs an effect on updates only
+
+### Utility
+- `useFetch` - Fetches data from a URL
+- `useScript` - Loads external scripts
+- `useHover` - Tracks hover state of an element
+- `useDestruct` - Destructures objects and arrays
+- `useEventCallback` - Creates stable event callbacks
+- `useId` - Generates unique IDs
+- `useInvert` - Inverts boolean values
+- `usePause` - Creates timed delays
+- `useTimer` - Creates timers
+- `useTry` - Executes functions with error handling
+
+### Environment
+- `useSsr` - Handles server-side rendering
+- `useIsClient` - Checks if running on client
+- `useIsFirstRender` - Checks if it's the first render
+- `useIsMounted` - Checks if component is mounted
+
+## Documentation
+
+Check out our [full documentation](./docs) for detailed information about each hook:
+
+- [Getting Started Guide](./docs/getting-started.md)
+- [API Reference](./docs/api-reference.md)
+- [Hook Documentation](./docs/hooks/)
+- [Examples](./docs/examples.md)
+- [Contributing Guide](./docs/contributing.md)
+
+## Development
+
+```bash
+# Clone the repository
+git clone https://github.com/wongchichong/use
+cd use-woby
+
+# Install dependencies
+pnpm install
+
+# Start development server
+pnpm dev
+
+# Build for production
+pnpm build:web
+
+# Run tests
+pnpm test
+
+# Serve documentation
+pnpm docs
+```
+
+## Framework Compatibility
+
+The hooks in this library are designed to work with:
+- React (16.8+)
+- Voby (with appropriate JSX configuration)
+
+## TypeScript Support
+
+All hooks come with full TypeScript support and type definitions included.
+
+## Contributing
+
+Contributions are welcome! Please read our [contributing guide](./docs/contributing.md) to get started.
+
+## License
+
+MIT
+
+## Related Projects
+
+- [Voby](https://github.com/vobyjs/woby) - A reactive JavaScript framework
+- [React](https://reactjs.org/) - A JavaScript library for building user interfaces

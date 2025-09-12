@@ -1,12 +1,35 @@
-import { $, Observable, useEffect } from 'woby'
-
+import { useEffect, type Observable } from 'woby'
+import { use } from '../use'
 import { useEventListener } from '../useEventListener/useEventListener'
 import { localStoreDic } from '../useLocalStorage/useLocalStorage'
 
 type Value<T> = T | null
 
-
-export function useReadLocalStorage<T>(key: string): Observable<T> {
+/**
+ * A hook for reading localStorage values.
+ * 
+ * This hook uses use to ensure the stored value is always
+ * represented as an observable, providing a consistent interface for
+ * reactive state management with localStorage persistence.
+ * 
+ * @template T - The type of the stored value
+ * @param key - The localStorage key to read from
+ * @returns An observable containing the current value from localStorage
+ * 
+ * @example
+ * ```tsx
+ * const storedValue = useReadLocalStorage('my-key')
+ * 
+ * return (
+ *   <div>
+ *     <p>Stored value: {storedValue}</p>
+ *   </div>
+ * )
+ * ```
+ * 
+ * @see {@link https://github.com/vobyjs/woby|Woby documentation} for more information about observables
+ */
+export function useReadLocalStorage<T>(key: string): Observable<Value<T>> {
     if (localStoreDic[key])
         return localStoreDic[key] as any
 
@@ -29,7 +52,7 @@ export function useReadLocalStorage<T>(key: string): Observable<T> {
 
     // State to store our value
     // Pass initial state function to useState so logic is only executed once
-    const storedValue = $<Value<T>>(readValue())
+    const storedValue = use(readValue())
 
     localStoreDic[key] = storedValue as any
 
@@ -54,4 +77,3 @@ export function useReadLocalStorage<T>(key: string): Observable<T> {
 
     return storedValue
 }
-

@@ -1,4 +1,4 @@
-import { CSSProperties, $ } from 'woby'
+import { CSSProperties, $, $$ } from 'woby'
 
 import { useLockedBody } from './useLockedBody'
 
@@ -25,7 +25,7 @@ export default function App() {
     return (
         <div style={fakeScrollableStyle}>
             <button style={fixedCenterStyle} onClick={toggleLocked}>
-                {locked ? 'unlock scroll' : 'lock scroll'}
+                {() => $$(locked) ? 'unlock scroll' : 'lock scroll'}
             </button>
         </div>
     )
@@ -44,7 +44,7 @@ export function App2() {
     return (
         <div style={fakeScrollableStyle}>
             <button style={fixedCenterStyle} onClick={toggleLocked}>
-                {locked ? 'unlock scroll' : 'lock scroll'}
+                {() => $$(locked) ? 'unlock scroll' : 'lock scroll'}
             </button>
         </div>
     )

@@ -1,13 +1,39 @@
 {
-    "name": "use-woby",
-    "repository": "https://github.com/wongchichong/use-woby.git",
+    "name": "@woby/use",
+    "repository": "https://github.com/wobyjs/use.git",
     "description": "use-woby",
     "version": "0.0.22",
+    "publishConfig": {
+        "access": "public"
+    },
     "main": "./dist/index.cjs.js",
     "module": "./dist/index.es.js",
     "types": "./dist/types/index.d.ts",
     "sass": "./dist/styles.scss",
     "sideEffects": false,
+    "keywords": [
+        "ui",
+        "framework",
+        "reactive",
+        "react"
+    ],
+    "dependencies": {
+        "nanoid": "^5.0.9",
+        "typescript": "5.7.3"
+    },
+    "devDependencies": {
+        "cross-env": "^7.0.3",
+        "glob": "^11.0.1",
+        "jasmine-browser-runner": "^2.5.0",
+        "jasmine-core": "^5.6.0",
+        "rollup-plugin-node-polyfills": "^0.2.1",
+        "rxjs": "^7.8.1",
+        "vite": "^6.1.0",
+        "vite-plugin-tsconfig": "^1.0.5"
+    },
+    "peerDependencies": {
+        "woby": "workspace:../woby"
+    },
     "scripts": {
         "git": "git add . && git commit -m \"Bump version\" && git push",
         "bump": "pnpm version patch",
@@ -31,29 +57,5 @@
         "build:tsc": "rimraf dist && tsc -p tsconfig.build.json",
         "clean": "rimraf ./dist/",
         "prepublishOnly1": "pnpm run clean && pnpm run build"
-    },
-    "keywords": [
-        "ui",
-        "framework",
-        "reactive",
-        "react"
-    ],
-    "dependencies": {
-        "nanoid": "^5.0.9",
-        "typescript": "5.7.3"
-    },
-    "devDependencies": {
-        "cross-env": "^7.0.3",
-        "glob": "^11.0.1",
-        "jasmine-browser-runner": "^2.5.0",
-        "jasmine-core": "^5.6.0",
-        "rollup-plugin-node-polyfills": "^0.2.1",
-        "rxjs": "^7.8.1",
-        "vite": "^6.1.0",
-        "vite-plugin-tsconfig": "^1.0.5",
-        "woby-jasmine": "workspace:../woby-jasmine"
-    },
-    "peerDependencies": {
-        "woby": "workspace:../woby"
     }
 }

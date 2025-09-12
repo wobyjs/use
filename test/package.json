@@ -1,0 +1,22 @@
+{
+    "name": "use-woby-tests",
+    "version": "1.0.0",
+    "description": "Tests for use-woby library",
+    "scripts": {
+        "build": "vite build",
+        "preview": "vite preview",
+        "test": "vite --force --mode dev --host",
+        "test:prod": "vite --force --mode production --host"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@woby/use": "workspace:../",
+        "verifies": "workspace:../../verifies",
+        "woby": "workspace:../../woby"
+    },
+    "devDependencies": {
+        "typescript": "^5.7.3",
+        "vite": "^6.1.0"
+    }
+}

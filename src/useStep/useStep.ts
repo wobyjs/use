@@ -1,4 +1,5 @@
-import { $, $$, Observable, ObservableReadonly, useMemo } from 'woby'
+import { $, $$, useMemo, type Observable, type ObservableReadonly, type ObservableMaybe } from 'woby'
+import { use } from '../use'
 
 interface Helpers {
     goToNextStep: () => void
@@ -9,11 +10,38 @@ interface Helpers {
     setStep: (step: Observable<number> | number) => void
 }
 
-export function useStep(maxStep: Observable<number>): [Observable<number>, Helpers] {
-    const ms = $$(maxStep)
+/**
+ * A hook for managing step navigation.
+ * 
+ * This hook uses use to ensure the step state is always
+ * represented as an observable, providing a consistent interface for
+ * reactive step management.
+ * 
+ * @param maxStep - The maximum step number (can be an observable or plain number)
+ * @returns A tuple containing:
+ *   - currentStep: An observable number representing the current step
+ *   - helpers: An object containing utility functions for step navigation
+ * 
+ * @example
+ * ```tsx
+ * const [currentStep, { goToNextStep, goToPrevStep, canGoToNextStep, canGoToPrevStep }] = useStep(3)
+ * 
+ * return (
+ *   <div>
+ *     <p>Current step: {currentStep}</p>
+ *     <button onClick={goToPrevStep} disabled={() => !$$(canGoToPrevStep)}>Previous</button>
+ *     <button onClick={goToNextStep} disabled={() => !$$(canGoToNextStep)}>Next</button>
+ *   </div>
+ * )
+ * ```
+ * 
+ * @see {@link https://github.com/vobyjs/woby|Woby documentation} for more information about observables
+ */
+export function useStep(maxStep: ObservableMaybe<number>): [Observable<number>, Helpers] {
+    const maxStep$ = use(maxStep)
     const currentStep = $(1)
 
-    const canGoToNextStep = useMemo(() => currentStep() + 1 <= ms)
+    const canGoToNextStep = useMemo(() => currentStep() + 1 <= $$(maxStep$))
 
     const canGoToPrevStep = useMemo(() => currentStep() - 1 >= 1)
 
@@ -21,7 +49,7 @@ export function useStep(maxStep: Observable<number>): [Observable<number>, Helpe
         // Allow value to be a function so we have the same API as useState
         const newStep = step instanceof Function ? step(currentStep()) : step
 
-        if (newStep >= 1 && newStep <= ms) {
+        if (newStep >= 1 && newStep <= $$(maxStep$)) {
             currentStep(newStep)
             return
         }
@@ -30,13 +58,13 @@ export function useStep(maxStep: Observable<number>): [Observable<number>, Helpe
     })
 
     const goToNextStep = (() => {
-        if (canGoToNextStep) {
+        if ($$(canGoToNextStep)) {
             currentStep(step => step + 1)
         }
     })
 
     const goToPrevStep = (() => {
-        if (canGoToPrevStep) {
+        if ($$(canGoToPrevStep)) {
             currentStep(step => step - 1)
         }
     })
@@ -57,5 +85,3 @@ export function useStep(maxStep: Observable<number>): [Observable<number>, Helpe
         },
     ]
 }
-
-

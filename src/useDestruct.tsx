@@ -80,7 +80,7 @@ export const useDestruct = <TInput extends {} | []>(o: ObservableMaybe<TInput> |
         // So, the type should reflect that.
         acc[key as any] = useMemo(() => {
             const ooo = isObservable(o) ? $$(o) : o
-            const ok = ooo?.[key]
+            const ok = ooo?.[key as keyof typeof ooo]
 
             return isObservable(ok) ? $$(ok) : ok
         }) as ObservableReadonly<TInput[typeof key]>
