@@ -18,7 +18,7 @@ export default defineConfig({
         emptyOutDir: true,
         lib: {
             entry: './index.html',
-            name: 'test',
+            name: '@woby/use/test',
             fileName: 'test',
         },
     },
