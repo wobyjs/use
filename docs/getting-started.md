@@ -2,22 +2,22 @@
 
 ## Installation
 
-To install use-woby in your project:
+To install @woby/use in your project:
 
 ```bash
-npm install use-woby
+npm install @woby/use
 ```
 
 or with yarn:
 
 ```bash
-yarn add use-woby
+yarn add @woby/use
 ```
 
 or with pnpm:
 
 ```bash
-pnpm add use-woby
+pnpm add @woby/use
 ```
 
 ## Basic Usage
@@ -63,7 +63,7 @@ All hooks come with full TypeScript support and type definitions included.
 
 ## Reactive Patterns
 
-use-woby is built on top of Voby's reactive system. Here are the key patterns:
+@woby/use is built on top of Voby's reactive system. Here are the key patterns:
 
 1. **Direct Observable Passing**: For simple display of observable values, use `{observable}`
 

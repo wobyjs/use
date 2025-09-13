@@ -55,7 +55,7 @@ function wrapMarkdownContent(title, content) {
 <html>
 <head>
     <meta charset="utf-8">
-    <title>${title} - use-woby</title>
+    <title>${title} - @woby/use</title>
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>

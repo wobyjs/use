@@ -1,6 +1,6 @@
 # Hooks
 
-This directory contains documentation for individual hooks in the use-woby library.
+This directory contains documentation for individual hooks in the @woby/use library.
 
 ## Available Hooks
 

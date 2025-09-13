@@ -1,6 +1,6 @@
-import { act, renderHook } from 'woby-jasmine'
+import { act, renderHook } from '@woby/jasmine'
 
-import {useMap } from './useMap'
+import { useMap } from './useMap'
 
 describe('useMap()', () => {
   it('should be ok when initiated with a map', () => {
@@ -59,7 +59,7 @@ describe('useMap()', () => {
     act(() => actions.setAll([[1, 'edited']]))
 
     expect(result.current[0][1]).toBe('edited')
-    expect(Object.keys(result.current[0]).length).toBe(1)  
+    expect(Object.keys(result.current[0]).length).toBe(1)
   })
 
   it('should remove existing value', () => {

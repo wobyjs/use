@@ -1,4 +1,4 @@
-import { renderHook, test, jest } from 'woby-jasmine'
+import { renderHook, test, jest } from '@woby/jasmine'
 import { $ } from 'woby'
 import { useInterval } from './useInterval'
 

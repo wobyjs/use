@@ -8,7 +8,7 @@ importers:
 
   .:
     dependencies:
-      use-woby:
+      @woby/use:
         specifier: workspace:../
         version: link:..
       verifies:

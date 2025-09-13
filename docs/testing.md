@@ -1,6 +1,6 @@
 # Testing with verifies
 
-This project now uses the `verifies` testing framework instead of `woby-jasmine`.
+This project now uses the `verifies` testing framework instead of `@woby/jasmine`.
 
 ## Overview
 

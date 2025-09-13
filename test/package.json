@@ -1,7 +1,7 @@
 {
-    "name": "use-woby-tests",
+    "name": "@woby/use-tests",
     "version": "1.0.0",
-    "description": "Tests for use-woby library",
+    "description": "Tests for @woby/use library",
     "scripts": {
         "build": "vite build",
         "preview": "vite preview",

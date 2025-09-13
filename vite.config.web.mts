@@ -8,7 +8,7 @@ const config = defineConfig({
         minify: false,
         lib: {
             entry: ["./index.html"],
-            name: "use-woby",
+            name: "@woby/use",
             formats: [/*'cjs', */'es', 'umd'],
             fileName: (format: string, entryName: string) => `${entryName}.${format}.js`
         },

@@ -1,4 +1,4 @@
-import { act, renderHook } from 'woby-jasmine'
+import { act, renderHook } from '@woby/jasmine'
 
 import { useWindowSize } from './useWindowSize'
 

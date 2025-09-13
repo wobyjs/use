@@ -103,7 +103,7 @@ export function useCountdown(countdownOption: UseCountdownType | CountdownOption
 
     if ('seconds' in countdownOption) {
         console.warn(
-            '[useCountdown:DEPRECATED] new interface is already available (see https://use.com/react-hook/use-countdown), the old version will retire on use-woby@3.',
+            '[useCountdown:DEPRECATED] new interface is already available (see https://use.com/react-hook/use-countdown), the old version will retire on @woby/use@3.',
         )
 
         isDeprecated = true

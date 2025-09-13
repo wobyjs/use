@@ -55,7 +55,7 @@ export function useDarkMode(defaultValue?: boolean): UseDarkModeOutput {
         ? (defaultValue$() ? 'dark' : 'light')
         : (isDarkOS() ? 'dark' : 'light')
 
-    const darkmode = useLocalStorage<DarkMode>('use-woby-dark-mode', initialMode)
+    const darkmode = useLocalStorage<DarkMode>('@woby/use-dark-mode', initialMode)
     const isDarkMode = $<boolean>(isDarkOS())
 
     // Update darkMode if os prefers changes

@@ -1,7 +1,7 @@
 {
     "name": "@woby/use",
     "repository": "https://github.com/wobyjs/use.git",
-    "description": "use-woby",
+    "description": "@woby/use",
     "version": "0.0.24",
     "publishConfig": {
         "access": "public"

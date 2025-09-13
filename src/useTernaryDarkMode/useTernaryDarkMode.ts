@@ -14,7 +14,7 @@ interface UseTernaryDarkModeOutput {
 
 export function useTernaryDarkMode(): UseTernaryDarkModeOutput {
     const isDarkOS = useMediaQuery(COLOR_SCHEME_QUERY)
-    const ternaryDarkMode = useLocalStorage<TernaryDarkMode>('use-woby-ternary-dark-mode', 'system')
+    const ternaryDarkMode = useLocalStorage<TernaryDarkMode>('@woby/use-ternary-dark-mode', 'system')
     const isDarkMode = $<boolean>(isDarkOS())
 
     // Update darkMode if os prefers changes

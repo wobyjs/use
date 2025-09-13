@@ -126,8 +126,8 @@ Check out our [full documentation](./docs) for detailed information about each h
 
 ```bash
 # Clone the repository
-git clone https://github.com/wongchichong/use
-cd use-woby
+git clone https://github.com/wobyjs/use
+cd @woby/use
 
 # Install dependencies
 pnpm install

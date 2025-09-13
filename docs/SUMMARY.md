@@ -80,7 +80,7 @@ This documentation is organized into the following sections:
 ## Repository Structure
 
 ```
-use-woby/
+@woby/use/
 ├── demo/           # Example implementations
 ├── dist/           # Built files
 ├── docs/           # Documentation

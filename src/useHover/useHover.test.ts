@@ -1,4 +1,4 @@
-import { act, renderHook, fireEvent } from 'woby-jasmine'
+import { act, renderHook, fireEvent } from '@woby/jasmine'
 
 import { useHover } from './useHover'
 

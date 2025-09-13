@@ -1,4 +1,4 @@
-import { renderHook, act } from "woby-jasmine"
+import { renderHook, act } from "@woby/jasmine"
 
 import { useSet } from './useSet'
 

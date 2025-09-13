@@ -1,4 +1,4 @@
-import { renderHook, test } from 'woby-jasmine'
+import { renderHook, test } from '@woby/jasmine'
 
 import { useReadLocalStorage } from './useReadLocalStorage'
 
