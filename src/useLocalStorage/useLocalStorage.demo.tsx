@@ -1,38 +1,26 @@
 import { $, $$ } from 'woby'
 import { useLocalStorage } from './useLocalStorage'
 
-// Usage
 export default function Component() {
-    const darkTheme = useLocalStorage('darkTheme', true)
+    // Basic usage
+    const basicValue = useLocalStorage('basic-key', 'default')
 
-    const toggleTheme = () => {
-        darkTheme((prevValue: boolean) => !prevValue)
+    // With removeOnNull option
+    const removableValue = useLocalStorage('removable-key', 'default', { removeOnNull: true })
+
+    // With readonly option
+    const readonlyValue = useLocalStorage('readonly-key', 'default', { readonly: true })
+
+    const handleRemove = () => {
+        removableValue(null) // This should remove the item from localStorage
     }
 
     return (
         <div>
-            <button onClick={() => `The current theme is ${$$(darkTheme) ? 'dark' : 'light'} `}>
-                Theme Toggle Button
-            </button>
-
-            <h3>Example with existing observable</h3>
-            <LocalStorageWithObservable />
-        </div >
-    )
-}
-
-function LocalStorageWithObservable() {
-    const existingObservable = $(false)
-    const storedValue = useLocalStorage('testKey', existingObservable)
-
-    const toggleValue = () => {
-        storedValue((prevValue: boolean) => !prevValue)
-    }
-
-    return (
-        <div>
-            <p>Stored value: {() => $$(storedValue) ? 'ON' : 'OFF'}</p>
-            <button onClick={toggleValue}>Toggle Value</button>
+            <p>Basic value: {basicValue}</p>
+            <p>Removable value: {removableValue}</p>
+            <p>Readonly value: {readonlyValue}</p>
+            <button onClick={handleRemove}>Remove Removable Value</button>
         </div>
     )
 }

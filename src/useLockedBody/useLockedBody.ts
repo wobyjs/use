@@ -1,5 +1,5 @@
 import { useEffect, $, type ObservableMaybe } from 'woby'
-import { use } from '../use'
+import { use } from '../use/use'
 
 /**
  * A hook for locking the body scroll.

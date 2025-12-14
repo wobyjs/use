@@ -1,5 +1,5 @@
-import { $$, type Observable, type ObservableMaybe } from 'woby'
-import { use } from '../use'
+import { $$, type ObservableMaybe } from 'woby'
+import { use } from '../use/use'
 
 /**
  * A hook for managing numerical state with increment/decrement functions.
@@ -32,7 +32,7 @@ import { use } from '../use'
  * )
  * ```
  * 
- * @see {@link https://github.com/vobyjs/woby|Woby documentation} for more information about observables
+ * @see {@link https://github.com/wobyjs/woby|Woby documentation} for more information about observables
  */
 export function useCounter(initialValue?: ObservableMaybe<number>, clone?: boolean) {
     const count = use(initialValue, $$(initialValue) ?? 0, clone ? { clone } : undefined)

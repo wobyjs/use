@@ -1,6 +1,6 @@
-import { $$, useEffect, type Observable, type ObservableMaybe } from 'woby'
-import { use } from '../use'
+import { $, $$, useEffect, type Observable, type ObservableMaybe, type ObservableReadonly } from 'woby'
 import { useEventListener } from '../useEventListener/useEventListener'
+import { wrap } from '../utils'
 
 declare module '../useEventListener/useEventListener' {
     interface ExtendedEventMap {
@@ -20,25 +20,40 @@ export const sessionStorageDic: Record<string, Observable> = {}
  * @template T - The type of the stored value
  * @param key - The sessionStorage key to use
  * @param initialValue - The initial value to use if no value is found in sessionStorage
+ * @param options - Configuration options
+ * @param options.removeOnNull - If true, setting the value to null will remove the item from sessionStorage
+ * @param options.readonly - If true, returns a readonly observable that can only read from sessionStorage
  * @returns An observable containing the stored value
  * 
  * @example
  * ```tsx
  * const storedValue = useSessionStorage('my-key', 'default-value')
  * 
+ * // With options
+ * const readonlyValue = useSessionStorage('my-key', 'default-value', { readonly: true })
+ * const removableValue = useSessionStorage('my-key', 'default-value', { removeOnNull: true })
+ * 
  * return (
  *   <div>
  *     <p>Stored value: {storedValue}</p>
  *     <button onClick={() => storedValue('new-value')}>Update Value</button>
+ *     <button onClick={() => removableValue(null)}>Remove Value</button>
  *   </div>
  * )
  * ```
  * 
- * @see {@link https://github.com/vobyjs/woby|Woby documentation} for more information about observables
+ * @see {@link https://github.com/wobyjs/woby|Woby documentation} for more information about observables
  */
-export function useSessionStorage<T>(key: string, initialValue?: ObservableMaybe<T>): Observable<T> {
-    if (sessionStorageDic[key])
+export function useSessionStorage<T>(
+    key: string,
+    initialValue?: ObservableMaybe<T>,
+    options?: { removeOnNull?: boolean, readonly?: boolean }
+): Observable<T> | ObservableReadonly<T> {
+    const { removeOnNull = false, readonly = false } = options || {}
+
+    if (sessionStorageDic[key] && !readonly) {
         return sessionStorageDic[key] as any
+    }
 
     // Get from session storage then
     // parse stored json or return initialValue
@@ -50,16 +65,37 @@ export function useSessionStorage<T>(key: string, initialValue?: ObservableMaybe
 
         try {
             const item = window.sessionStorage.getItem(key)
-            return item ? (parseJSON(item) as T) : $$(initialValue)
+            return item ? (wrap(item) as T) : $$(initialValue)
         } catch (error) {
             console.warn(`Error reading sessionStorage key “${key}”:`, error)
             return $$(initialValue)
         }
     }
 
+    if (readonly) {
+        // For readonly, we create a new observable each time but sync with storage changes
+        const storedValue = $(readValue())
+
+        const handleStorageChange = ((event: StorageEvent | CustomEvent) => {
+            if ((event as StorageEvent)?.key && (event as StorageEvent).key !== key) {
+                return
+            }
+            storedValue(readValue())
+        })
+
+        // this only works for other documents, not the current one
+        useEventListener(window, 'storage', handleStorageChange)
+
+        // this is a custom event, triggered in writeValueToSessionStorage
+        // See: useSessionStorage()
+        useEventListener(window, 'session-storage', handleStorageChange)
+
+        return storedValue
+    }
+
     // State to store our value
     // Pass initial state function to useState so logic is only executed once
-    const storedValue = use(readValue())
+    const storedValue = $(readValue())
 
     // Return a wrapped version of useState's setter function that ...
     // ... persists the new value to sessionStorage.
@@ -72,10 +108,18 @@ export function useSessionStorage<T>(key: string, initialValue?: ObservableMaybe
         }
 
         try {
-            const newValue = storedValue()
+            const newValue = $$(storedValue)
 
-            // Save to session storage
-            window.sessionStorage.setItem(key, JSON.stringify(newValue))
+            // Check if we should remove the item when null
+            if (removeOnNull && newValue === null) {
+                window.sessionStorage.removeItem(key)
+            } else {
+                if (wrap(newValue) === wrap(readValue()))
+                    return
+
+                // Save to session storage
+                window.sessionStorage.setItem(key, wrap(newValue))
+            }
 
             // We dispatch a custom event so every useSessionStorage hook are notified
             window.dispatchEvent(new Event('session-storage'))
@@ -88,25 +132,22 @@ export function useSessionStorage<T>(key: string, initialValue?: ObservableMaybe
         if ((event as StorageEvent)?.key && (event as StorageEvent).key !== key) {
             return
         }
+
+        const newValue = $$(storedValue)
+
+        if (wrap(newValue) === wrap(readValue()))
+            return
+
         storedValue(readValue())
     })
 
     // this only works for other documents, not the current one
     useEventListener(window, 'storage', handleStorageChange)
 
-    // this is a custom event, triggered in writeValueTosessionStorage
+    // this is a custom event, triggered in writeValueToSessionStorage
     // See: useSessionStorage()
     useEventListener(window, 'session-storage', handleStorageChange)
 
+    sessionStorageDic[key] = storedValue as any
     return storedValue
-}
-
-// A wrapper for "JSON.parse()"" to support "undefined" value
-function parseJSON<T>(value: string | null): T | undefined {
-    try {
-        return value === 'undefined' ? undefined : JSON.parse(value ?? '')
-    } catch {
-        console.log('parsing error on', { value })
-        return undefined
-    }
 }

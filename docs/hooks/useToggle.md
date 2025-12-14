@@ -1,6 +1,6 @@
 # useToggle
 
-A hook for toggling between two values, commonly used for boolean states.
+A hook for toggling between two values.
 
 ## Usage
 
@@ -12,7 +12,7 @@ function Toggle() {
   
   return (
     <div>
-      <p>Value: {value ? 'ON' : 'OFF'}</p>
+      <p>Value: {() => value() ? 'ON' : 'OFF'}</p>
       <button onClick={toggle}>Toggle</button>
     </div>
   );
@@ -23,18 +23,18 @@ function Toggle() {
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| initialValue | boolean | false | The initial toggle value |
-| nextValue | any | - | Optional next value to toggle to |
+| defaultValue | ObservableMaybe&lt;T&gt; | undefined | The initial value (can be an observable or plain value) |
+| nextValue | T | undefined | Optional. The value to toggle to when the current value equals defaultValue |
+| clone | boolean | false | Optional. If true, creates a new observable even if the input is already an observable |
 
 ## Return Value
 
-Returns an array with the following elements:
+Returns a tuple with the following elements:
 
 | Index | Type | Description |
 |-------|------|-------------|
-| 0 | any | The current value |
-| 1 | function | Toggles between values |
-| 2 | function | Sets value directly |
+| 0 | Observable&lt;T&gt; | The current value as an observable |
+| 1 | function | Toggles between the two values |
 
 ## Examples
 
@@ -48,7 +48,7 @@ function LightSwitch() {
   
   return (
     <div>
-      <p>Light is {isOn ? 'ON' : 'OFF'}</p>
+      <p>Light is {() => isOn() ? 'ON' : 'OFF'}</p>
       <button onClick={toggle}>Flip Switch</button>
     </div>
   );
@@ -67,24 +67,6 @@ function ThemeToggle() {
     <div>
       <p>Current theme: {theme}</p>
       <button onClick={toggleTheme}>Toggle Theme</button>
-    </div>
-  );
-}
-```
-
-### Direct Value Setting
-
-```javascript
-import { useToggle } from '@woby/use';
-
-function StatusIndicator() {
-  const [status, toggle, setStatus] = useToggle('active', 'inactive');
-  
-  return (
-    <div>
-      <p>Status: {status}</p>
-      <button onClick={toggle}>Toggle</button>
-      <button onClick={() => setStatus('pending')}>Set to Pending</button>
     </div>
   );
 }

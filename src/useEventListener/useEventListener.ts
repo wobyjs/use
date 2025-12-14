@@ -42,7 +42,7 @@ const handlers = new Map<any, Map<string, any>>()
  * ```
  * 
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener|addEventListener documentation}
- * @see {@link https://github.com/vobyjs/woby|Woby documentation} for more information about observables
+ * @see {@link https://github.com/wobyjs/woby|Woby documentation} for more information about observables
  */
 // Improved useEventListener function with dynamic typing for any object with `onXXX` event handlers
 export function useEventListener<
@@ -53,11 +53,53 @@ export function useEventListener<
     eventName: K,
     handler: (event: EventMap<T>[K]) => void,
     options?: boolean | AddEventListenerOptions
+): void
+export function useEventListener<
+    T extends Window,
+    U extends keyof WindowEventMap
+>(
+    element: ObservableMaybe<T | undefined>,
+    eventName: U,
+    handler: (event: WindowEventMap[U]) => void,
+    options?: boolean | AddEventListenerOptions
+): void
+export function useEventListener<
+    T extends Document,
+    U extends keyof DocumentEventMap
+>(
+    element: ObservableMaybe<T | undefined>,
+    eventName: U,
+    handler: (event: DocumentEventMap[U]) => void,
+    options?: boolean | AddEventListenerOptions
+): void
+export function useEventListener<
+    T extends HTMLElement,
+    U extends keyof HTMLElementEventMap
+>(
+    element: ObservableMaybe<T | undefined>,
+    eventName: U,
+    handler: (event: HTMLElementEventMap[U]) => void,
+    options?: boolean | AddEventListenerOptions
+): void
+export function useEventListener<
+    T extends Element,
+    U extends string
+>(
+    element: ObservableMaybe<T | undefined>,
+    eventName: U,
+    handler: (event: Event) => void,
+    options?: boolean | AddEventListenerOptions
+): void
+export function useEventListener(
+    element: ObservableMaybe<any>,
+    eventName: string,
+    handler: (event: any) => void,
+    options?: boolean | AddEventListenerOptions
 ) {
     // Save the handler in a ref
 
     return useEffect(() => {
-        const targetElement: T | Window = $$(element) ?? window
+        const targetElement: any = $$(element) ?? window
 
         if (!(targetElement && targetElement.addEventListener)) return undefined
 

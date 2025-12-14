@@ -1,5 +1,5 @@
-import { useEffect, $, $$, store, ObservableMaybe, useMemo } from 'woby'
-import { use } from '../use'
+import { useEffect, $, $$, store, ObservableMaybe } from 'woby'
+import { use } from '../use/use'
 
 interface State<T> {
     data?: T
@@ -45,7 +45,7 @@ type Cache<T> = { [url: string]: T }
  * ```
  * 
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API|Fetch API documentation}
- * @see {@link https://github.com/vobyjs/woby|Woby documentation} for more information about observables and stores
+ * @see {@link https://github.com/wobyjs/woby|Woby documentation} for more information about observables and stores
  */
 export function useFetch<T = unknown>(url?: ObservableMaybe<string>, options?: RequestInit): State<T> {
     const cache = $<Cache<T>>({})

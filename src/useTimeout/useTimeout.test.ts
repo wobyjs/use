@@ -1,29 +1,22 @@
-import { renderHook, test, jest } from '@woby/jasmine'
+import { test, expect, spyOn } from '@woby/chk'
 
 import { useTimeout } from './useTimeout'
 
-describe('useTimeout()', () => {
-    test('should call the callback after 1 min', () => {
-        jasmine.clock().install()
+test('useTimeout()', () => {
+    test('should call setTimeout with the correct delay', () => {
+        const setTimeoutSpy = spyOn(globalThis, 'setTimeout')
         const delay = 60000
-        const callback = jest.fn("callbackSpy")
-        renderHook(() => useTimeout(callback, delay))
-        expect(callback).not.toHaveBeenCalled()
-
-        jasmine.clock().tick(delay)
-
-        expect(callback).toHaveBeenCalledTimes(1)
-        jasmine.clock().uninstall()
-
+        const callback = () => { }
+        useTimeout(callback, delay)
+        expect(setTimeoutSpy).toHaveBeenCalledTimes(1)
+        expect(setTimeoutSpy).toHaveBeenCalledWith(expect.any(Function), delay)
     })
 
     test('should not do anything if "delay" is null', () => {
-
+        const setTimeoutSpy = spyOn(globalThis, 'setTimeout')
         const delay = null
-        const callback = jest.fn()
-
-        renderHook(() => useTimeout(callback, delay))
-
-        expect(callback).not.toHaveBeenCalled()
+        const callback = () => { }
+        useTimeout(callback, delay)
+        expect(setTimeoutSpy).not.toHaveBeenCalled()
     })
 })

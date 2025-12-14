@@ -74,5 +74,5 @@ const MediaContainer = () => {
 ## See Also
 
 - [useWindowSize](useWindowSize.md)
-- [Woby documentation](https://github.com/vobyjs/woby) for more information about observables
+- [Woby documentation](https://github.com/wobyjs/woby) for more information about observables
 - [Window resize event documentation](https://developer.mozilla.org/en-US/docs/Web/API/Window/resize_event)

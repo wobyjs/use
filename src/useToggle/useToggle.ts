@@ -1,5 +1,5 @@
 import { $$, type Observable, type ObservableMaybe } from 'woby'
-import { use } from '../use'
+import { use } from '../use/use'
 
 /**
  * A hook for toggling between two values.
@@ -30,7 +30,7 @@ import { use } from '../use'
  * )
  * ```
  * 
- * @see {@link https://github.com/vobyjs/woby|Woby documentation} for more information about observables
+ * @see {@link https://github.com/wobyjs/woby|Woby documentation} for more information about observables
  */
 export function useToggle<T>(
     defaultValue: ObservableMaybe<T>,
@@ -39,13 +39,13 @@ export function useToggle<T>(
 ): [Observable<T>, () => void] {
     const value = use(defaultValue, $$(defaultValue), clone ? { clone } : undefined)
 
-    const toggle = (() => {
+    const toggle = () => {
         if (nextValue !== undefined) {
             value(current => current === $$(defaultValue) ? nextValue : $$(defaultValue))
         } else {
             value(x => !x as any)
         }
-    })
+    }
 
     return [value, toggle]
 }

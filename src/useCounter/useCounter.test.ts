@@ -1,12 +1,12 @@
-import { test, expect } from 'verifies'
-
+import { test, expect } from '@woby/chk'
+import { $$ } from 'woby'
 import { useCounter } from './useCounter'
 
 test('useCounter()', () => {
     test('should use counter', () => {
         const result = useCounter()
 
-        expect(result.count()).toBe(0)
+        expect($$(result.count)).toBe(0)
         expect(typeof result.increment).toBe('function')
         expect(typeof result.decrement).toBe('function')
         expect(typeof result.reset).toBe('function')
@@ -18,7 +18,7 @@ test('useCounter()', () => {
 
         result.increment()
 
-        expect(result.count()).toBe(1)
+        expect($$(result.count)).toBe(1)
     })
 
     test('should decrement counter', () => {
@@ -26,13 +26,13 @@ test('useCounter()', () => {
 
         result.decrement()
 
-        expect(result.count()).toBe(-1)
+        expect($$(result.count)).toBe(-1)
     })
 
     test('should default value works', () => {
         const result = useCounter(3)
 
-        expect(result.count()).toBe(3)
+        expect($$(result.count)).toBe(3)
     })
 
     test('should reset counter', () => {
@@ -40,7 +40,7 @@ test('useCounter()', () => {
 
         result.decrement()
 
-        expect(result.count()).toBe(2)
+        expect($$(result.count)).toBe(2)
     })
 
     test('should set counter', () => {
@@ -48,7 +48,7 @@ test('useCounter()', () => {
 
         result.count(5)
 
-        expect(result.count()).toBe(5)
+        expect($$(result.count)).toBe(5)
     })
 
     test('should set counter with prev value', () => {
@@ -56,6 +56,6 @@ test('useCounter()', () => {
 
         result.count(x => x + 2)
 
-        expect(result.count()).toBe(7)
+        expect($$(result.count)).toBe(7)
     })
 })

@@ -74,5 +74,5 @@ const DebugPanel = () => {
 ## See Also
 
 - [useLocation hook](useLocation.md)
-- [Woby documentation](https://github.com/vobyjs/woby) for more information about observables
+- [Woby documentation](https://github.com/wobyjs/woby) for more information about observables
 - [Window.location documentation](https://developer.mozilla.org/en-US/docs/Web/API/Window/location)

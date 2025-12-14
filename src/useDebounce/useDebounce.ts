@@ -1,5 +1,6 @@
-import { useEffect, $$, type Observable, type ObservableMaybe } from 'woby'
-import { use } from '../use'
+import { useEffect, $$, type Observable, type ObservableMaybe, $ } from 'woby'
+import { use } from '../use/use'
+import { useChanged } from '../useChanged/useChanged'
 
 /**
  * A hook that debounces a value by delaying its updates.
@@ -23,17 +24,27 @@ import { use } from '../use'
  * }, [$$(debouncedValue)])
  * ```
  * 
- * @see {@link https://github.com/vobyjs/woby|Woby documentation} for more information about observables
+ * @see {@link https://github.com/wobyjs/woby|Woby documentation} for more information about observables
  */
 export function useDebounce<T>(value: ObservableMaybe<T>, delay?: ObservableMaybe<number>): Observable<T> {
-    const debouncedValue = use(value)
+    const debouncedValue = $<T>()
+    let timer = setTimeout(() => debouncedValue($$(value)), $$(delay) || 500)
+
+    const { diff } = useChanged(debouncedValue)
+    const offTimer = () => {
+        if (timer)
+            clearTimeout(timer)
+    }
 
     useEffect(() => {
-        const timer = setTimeout(() => debouncedValue($$(value)), $$(delay) || 500)
+        if (!diff()) return offTimer
 
-        return () => {
+        if (timer)
             clearTimeout(timer)
-        }
+
+        timer = setTimeout(() => debouncedValue($$(value)), $$(delay) || 500)
+
+        return offTimer
     })
 
     return debouncedValue

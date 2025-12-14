@@ -27,7 +27,7 @@ import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect/useIsomo
  * }, [])
  * ```
  * 
- * @see {@link https://github.com/vobyjs/woby|Woby documentation} for more information about observables
+ * @see {@link https://github.com/wobyjs/woby|Woby documentation} for more information about observables
  * @see {@link useIsomorphicLayoutEffect} for the underlying effect implementation
  */
 export function useEventCallback<Args extends unknown[], R>(fn: (...args: Args) => R,) {

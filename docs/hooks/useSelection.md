@@ -88,4 +88,4 @@ The Selection API is supported in all modern browsers. The hook will work in any
 ## See Also
 
 - [Selection API documentation](https://developer.mozilla.org/en-US/docs/Web/API/Selection)
-- [Woby documentation](https://github.com/vobyjs/woby) for more information about observables
+- [Woby documentation](https://github.com/wobyjs/woby) for more information about observables

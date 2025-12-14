@@ -1,5 +1,7 @@
 # API Reference
 
+This document provides a comprehensive reference for all hooks, components, and utilities available in the `@woby/use` library. Each entry includes usage examples and parameter descriptions to help you integrate these tools into your applications effectively.
+
 ## Core Hooks
 
 ### use
@@ -12,18 +14,18 @@ const observable = use(value: ObservableMaybe<T> | T, shouldClone?: boolean, def
 
 ### useBoolean
 
-Tracks state of a boolean value.
+Manages boolean state with utility functions.
 
 ```typescript
-const { value, toggle, setTrue, setFalse } = useBoolean(initialValue?: boolean | Observable<boolean>);
+const { value, setTrue, setFalse, toggle } = useBoolean(defaultValue?: ObservableMaybe<boolean>);
 ```
 
 ### useCounter
 
-Tracks numerical state with increment/decrement functions.
+Manages numerical state with increment/decrement functions.
 
 ```typescript
-const { count, increment, decrement, reset } = useCounter(initialValue?: number | Observable<number>);
+const { count, increment, decrement, reset, setCount } = useCounter(initialValue?: ObservableMaybe<number>, clone?: boolean);
 ```
 
 ### useToggle
@@ -31,9 +33,7 @@ const { count, increment, decrement, reset } = useCounter(initialValue?: number 
 Toggles between two values.
 
 ```typescript
-const [value, toggle] = useToggle(initialValue?: boolean | Observable<boolean>);
-// or
-const [value, toggle] = useToggle(initialValue: any, nextValue: any);
+const [value, toggle] = useToggle<T>(defaultValue: ObservableMaybe<T>, nextValue?: T, clone?: boolean);
 ```
 
 ### useLocalStorage
@@ -41,20 +41,30 @@ const [value, toggle] = useToggle(initialValue: any, nextValue: any);
 Manages localStorage values.
 
 ```typescript
-const [value, setValue, removeValue] = useLocalStorage(key: string, initialValue: any);
+const value = useLocalStorage<T>(key: string, initialValue?: ObservableMaybe<T>, options?: { removeOnNull?: boolean, readonly?: boolean });
 ```
+
+**Options:**
+- `removeOnNull`: If true, setting the value to null will remove the item from localStorage
+- `readonly`: If true, returns a readonly observable that can only read from localStorage
 
 ### useSessionStorage
 
 Manages sessionStorage values.
 
 ```typescript
-const [value, setValue, removeValue] = useSessionStorage(key: string, initialValue: any);
+const value = useSessionStorage<T>(key: string, initialValue?: ObservableMaybe<T>, options?: { removeOnNull?: boolean, readonly?: boolean });
 ```
 
-### useReadLocalStorage
+**Options:**
+- `removeOnNull`: If true, setting the value to null will remove the item from sessionStorage
+- `readonly`: If true, returns a readonly observable that can only read from sessionStorage
+
+### useReadLocalStorage (Deprecated)
 
 Reads localStorage values.
+
+**Deprecated:** Use `useLocalStorage(key, initialValue, { readonly: true })` instead.
 
 ```typescript
 const value = useReadLocalStorage<T>(key: string);
@@ -72,10 +82,10 @@ const { width, height } = useWindowSize();
 
 ### useMap
 
-Tracks state of a Map.
+Tracks state of a Map-like object.
 
 ```typescript
-const [map, set, remove, clear, initialize] = useMap(initialValue?: Iterable<[any, any]>);
+const [map, { set, setAll, remove, reset, entries }] = useMap<T extends MapOrEntries>(initialState?: T);
 ```
 
 ### useSet
@@ -83,7 +93,7 @@ const [map, set, remove, clear, initialize] = useMap(initialValue?: Iterable<[an
 Tracks state of a Set.
 
 ```typescript
-const [set, add, remove, clear, initialize] = useSet(initialValue?: Iterable<any>);
+const [set, { add, remove, clear, reset, entries }] = useSet<T>(initialState?: SetOrEntries<T>);
 ```
 
 ### useArray
@@ -172,10 +182,10 @@ const debouncedValue = useDebounce(value: any, delay: number);
 
 ### useTimeout
 
-Sets up a timeout that runs a callback.
+A simple alias for the native `setTimeout` function.
 
 ```typescript
-const [isReady, clear, start] = useTimeout(callback: Function, delay: number);
+const timeoutId = useTimeout(callback: () => void, delay: number);
 ```
 
 ### useInterval
@@ -188,10 +198,10 @@ const [start, stop] = useInterval(callback: Function, delay: number | Observable
 
 ### useEffectOnce
 
-Runs an effect only once.
+Runs an effect only once during the component's lifecycle.
 
 ```typescript
-useEffectOnce(effect: EffectCallback);
+useEffectOnce(effect: Parameters<typeof useEffect>[0]);
 ```
 
 ### useUpdateEffect
@@ -204,10 +214,10 @@ useUpdateEffect(effect: EffectCallback, deps?: DependencyList);
 
 ### useIsomorphicLayoutEffect
 
-useLayoutEffect in browser, useEffect on server.
+Currently an alias for useEffect.
 
 ```typescript
-useIsomorphicLayoutEffect(effect: EffectCallback, deps?: DependencyList);
+const useIsomorphicLayoutEffect: typeof useEffect = useEffect;
 ```
 
 ## Browser Hooks
@@ -427,6 +437,22 @@ Executes a given function with try-catch-finally logic.
 const [result, error] = useTry(fn: Function, final?: Function);
 ```
 
+### useChanged
+
+Tracks changes to a value and provides utilities to detect when it changes.
+
+```typescript
+const { value, previousValue, changed, diff } = useChanged<T>(val: ObservableMaybe<T>);
+```
+
+### useWith
+
+Allows you to use an observable value with a callback function that is called whenever the value changes.
+
+```typescript
+useWith<T>(obj: ObservableMaybe<T>, func: (o: Unobservant<T>) => void);
+```
+
 ## Components
 
 ### Array
@@ -490,4 +516,3 @@ Provides reactive access to the visual viewport size and properties.
 ```typescript
 const viewport = useViewportSize();
 // viewport contains: width, height, offsetLeft, offsetTop, pageLeft, pageTop, scale
-```

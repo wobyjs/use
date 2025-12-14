@@ -18,7 +18,7 @@
             "esnext"
         ],
         "module": "es2020",
-        "moduleResolution": "node",
+        "moduleResolution": "bundler",
         "newLine": "lf",
         "noEmitOnError": false,
         "noFallthroughCasesInSwitch": true,
@@ -50,6 +50,7 @@
         "node_modules/*",
         "**/*.test.ts*",
         "**/*.spec.ts*",
+        "**/*.xtest.ts",
         "vite.*.*ts",
         "demo",
         "dist",

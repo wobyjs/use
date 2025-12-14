@@ -63,4 +63,4 @@ The hook is built on top of useEffect and uses the useIsFirstRender hook to dete
 
 - [useEffect](https://reactjs.org/docs/hooks-effect.html)
 - [useIsFirstRender](useIsFirstRender.md)
-- [Woby documentation](https://github.com/vobyjs/woby) for more information about effects
+- [Woby documentation](https://github.com/wobyjs/woby) for more information about effects

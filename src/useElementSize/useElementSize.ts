@@ -31,7 +31,7 @@ interface Size {
  * ```
  * 
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver|ResizeObserver documentation}
- * @see {@link https://github.com/vobyjs/woby|Woby documentation} for more information about observables
+ * @see {@link https://github.com/wobyjs/woby|Woby documentation} for more information about observables
  */
 export function useElementSize<T extends HTMLElement = HTMLDivElement>(): [Observable<T>, Observable<Size>] {
     const ref = $<T | null>(null)

@@ -1,59 +1,52 @@
-import { act, renderHook, test } from '@woby/jasmine'
+import { test, expect } from '@woby/chk'
+import { $$ } from 'woby'
 
 import { useToggle } from './useToggle'
 
-describe('use toggle()', () => {
+test('use toggle()', () => {
     test('should use toggle be ok', () => {
-        const { result } = renderHook(() => useToggle())
-        const [value, toggle] = result.current
+        const [value, toggle] = useToggle(false)
 
-        expect(value()).toBe(false)
-        expect(typeof toggle).toBe('function')
-        // expect(typeof setValue).toBe('function')
+        expect($$(value)).toBe(false)
+        expect(toggle).toBeTypeOf('function')
+        // expect(typeof setValue).toBeTypeOf('function')
     })
 
     test('should default value works', () => {
-        const { result } = renderHook(() => useToggle(true))
-        const [value] = result.current
+        const [value] = useToggle(true)
 
-        expect(value()).toBe(true)
+        expect($$(value)).toBe(true)
     })
 
     test('setValue should mutate the value', () => {
-        const { result } = renderHook(() => useToggle())
-        const [value,] = result.current
+        const [value,] = useToggle(false)
 
-        expect(result.current[0]()).toBe(false)
+        expect($$(value)).toBe(false)
 
-        act(() => {
-            value(true)
-        })
+        // Since we don't have act, we'll call the function directly
+        value(true)
 
-        expect(result.current[0]()).toBe(true)
+        expect($$(value)).toBe(true)
 
-        act(() => {
-            value(prev => !prev)
-        })
+        // Toggle back to false
+        value(prev => !prev)
 
-        expect(result.current[0]()).toBe(false)
+        expect($$(value)).toBe(false)
     })
 
     test('toggle should mutate the value', () => {
-        const { result } = renderHook(() => useToggle())
-        const [, toggle] = result.current
+        const [value, toggle] = useToggle(false)
 
-        expect(result.current[0]()).toBe(false)
+        expect($$(value)).toBe(false)
 
-        act(() => {
-            toggle()
-        })
+        // Call toggle directly
+        toggle()
 
-        expect(result.current[0]()).toBe(true)
+        expect($$(value)).toBe(true)
 
-        act(() => {
-            toggle()
-        })
+        // Toggle back to false
+        toggle()
 
-        expect(result.current[0]()).toBe(false)
+        expect($$(value)).toBe(false)
     })
 })

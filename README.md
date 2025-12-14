@@ -47,78 +47,78 @@ function MyComponent() {
 ## Available Hooks
 
 ### Core
-- `use` - Convert values to observables with optional cloning
+- [`use`](./docs/hooks/use.md) - Convert values to observables with optional cloning
 
 ### State Management
-- `useBoolean` - Tracks state of a boolean value
-- `useCounter` - Tracks numerical state with increment/decrement functions
-- `useToggle` - Toggles between two values
-- `useMap` - Tracks state of a Map
-- `useSet` - Tracks state of a Set
-- `useStep` - Manages step navigation
-- `useCountdown` - Manages countdown timers
+- [`useBoolean`](./docs/hooks/useBoolean.md) - Tracks state of a boolean value
+- [`useCounter`](./docs/hooks/useCounter.md) - Tracks numerical state with increment/decrement functions
+- [`useToggle`](./docs/hooks/useToggle.md) - Toggles between two values
+- [`useMap`](./docs/hooks/useMap.md) - Tracks state of a Map
+- [`useSet`](./docs/hooks/useSet.md) - Tracks state of a Set
+- [`useStep`](./docs/hooks/useStep.md) - Manages step navigation
+- [`useCountdown`](./docs/hooks/useCountdown.md) - Manages countdown timers
 
 ### Browser Utilities
-- `useLocalStorage` - Manages localStorage values
-- `useSessionStorage` - Manages sessionStorage values
-- `useReadLocalStorage` - Reads localStorage values
-- `useWindowSize` - Tracks window size changes
-- `useAspect` - Calculates window aspect ratio
-- `useViewportSize` - Accesses visual viewport properties
-- `useDarkMode` - Tracks and toggles dark mode state
-- `useTernaryDarkMode` - Advanced dark mode management
-- `useMediaQuery` - Tracks media query matches
-- `useCopyToClipboard` - Copies text to clipboard
-- `useDocumentTitle` - Sets the document title
-- `useLockedBody` - Locks body scrolling
-- `useElementSize` - Tracks element size
-- `useIntersectionObserver` - Observes element intersections
-- `useImageOnLoad` - Handles image loading
-- `useScreen` - Accesses screen information
-- `useGpsLocation` - Accesses GPS location
-- `useLocation` - Accesses browser location
-- `useScreenOrientation` - Accesses screen orientation
-- `useSelection` - Accesses text selection
+- [`useLocalStorage`](./docs/hooks/useLocalStorage.md) - Manages localStorage values
+- [`useSessionStorage`](./docs/hooks/useSessionStorage.md) - Manages sessionStorage values
+- [`useReadLocalStorage`](./docs/hooks/useReadLocalStorage.md) - Reads localStorage values
+- [`useWindowSize`](./docs/hooks/useWindowSize.md) - Tracks window size changes
+- [`useAspect`](./docs/hooks/useAspect.md) - Calculates window aspect ratio
+- [`useViewportSize`](./docs/hooks/useViewportSize.md) - Accesses visual viewport properties
+- [`useDarkMode`](./docs/hooks/useDarkMode.md) - Tracks and toggles dark mode state
+- [`useTernaryDarkMode`](./docs/hooks/useTernaryDarkMode.md) - Advanced dark mode management
+- [`useMediaQuery`](./docs/hooks/useMediaQuery.md) - Tracks media query matches
+- [`useCopyToClipboard`](./docs/hooks/useCopyToClipboard.md) - Copies text to clipboard
+- [`useDocumentTitle`](./docs/hooks/useDocumentTitle.md) - Sets the document title
+- [`useLockedBody`](./docs/hooks/useLockedBody.md) - Locks body scrolling
+- [`useElementSize`](./docs/hooks/useElementSize.md) - Tracks element size
+- [`useIntersectionObserver`](./docs/hooks/useIntersectionObserver.md) - Observes element intersections
+- [`useImageOnLoad`](./docs/hooks/useImageOnLoad.md) - Handles image loading
+- [`useScreen`](./docs/hooks/useScreen.md) - Accesses screen information
+- [`useGpsLocation`](./docs/hooks/useGpsLocation.md) - Accesses GPS location
+- [`useLocation`](./docs/hooks/useLocation.md) - Accesses browser location
+- [`useScreenOrientation`](./docs/hooks/useScreenOrientation.md) - Accesses screen orientation
+- [`useSelection`](./docs/hooks/useSelection.md) - Accesses text selection
 
 ### Events
-- `useEventListener` - Subscribes to events
-- `useClickAnyWhere` - Subscribes a callback to clicks anywhere on the page
-- `useClickAway` - Detects clicks outside an element
-- `useOnClickOutside` - Detects clicks outside an element
+- [`useEventListener`](./docs/hooks/useEventListener.md) - Subscribes to events
+- [`useClickAnyWhere`](./docs/hooks/useClickAnyWhere.md) - Subscribes a callback to clicks anywhere on the page
+- [`useClickAway`](./docs/hooks/useClickAway.md) - Detects clicks outside an element
+- [`useOnClickOutside`](./docs/hooks/useOnClickOutside.md) - Detects clicks outside an element
 
 ### Effects
-- `useDebounce` - Debounces a value or function
-- `useTimeout` - Sets up a timeout that runs a callback
-- `useInterval` - Sets up an interval that runs a callback
-- `useIsomorphicLayoutEffect` - useLayoutEffect in browser, useEffect in server
-- `useEffectOnce` - Runs an effect only once
-- `useUpdateEffect` - Runs an effect on updates only
+- [`useDebounce`](./docs/hooks/useDebounce.md) - Debounces a value or function
+- [`useTimeout`](./docs/hooks/useTimeout.md) - Sets up a timeout that runs a callback
+- [`useInterval`](./docs/hooks/useInterval.md) - Sets up an interval that runs a callback
+- [`useIsomorphicLayoutEffect`](./docs/hooks/useIsomorphicLayoutEffect.md) - useLayoutEffect in browser, useEffect in server
+- [`useEffectOnce`](./docs/hooks/useEffectOnce.md) - Runs an effect only once
+- [`useUpdateEffect`](./docs/hooks/useUpdateEffect.md) - Runs an effect on updates only
 
 ### Utility
-- `useFetch` - Fetches data from a URL
-- `useScript` - Loads external scripts
-- `useHover` - Tracks hover state of an element
-- `useDestruct` - Destructures objects and arrays
-- `useEventCallback` - Creates stable event callbacks
-- `useId` - Generates unique IDs
-- `useInvert` - Inverts boolean values
-- `usePause` - Creates timed delays
-- `useTimer` - Creates timers
-- `useTry` - Executes functions with error handling
+- [`useFetch`](./docs/hooks/useFetch.md) - Fetches data from a URL
+- [`useScript`](./docs/hooks/useScript.md) - Loads external scripts
+- [`useHover`](./docs/hooks/useHover.md) - Tracks hover state of an element
+- [`useDestruct`](./docs/hooks/useDestruct.md) - Destructures objects and arrays
+- [`useEventCallback`](./docs/hooks/useEventCallback.md) - Creates stable event callbacks
+- [`useId`](./docs/hooks/useId.md) - Generates unique IDs
+- [`useInvert`](./docs/hooks/useInvert.md) - Inverts boolean values
+- [`usePause`](./docs/hooks/usePause.md) - Creates timed delays
+- [`useTimer`](./docs/hooks/useTimer.md) - Creates timers
+- [`useTry`](./docs/hooks/useTry.md) - Executes functions with error handling
 
 ### Environment
-- `useSsr` - Handles server-side rendering
-- `useIsClient` - Checks if running on client
-- `useIsFirstRender` - Checks if it's the first render
-- `useIsMounted` - Checks if component is mounted
+- [`useSsr`](./docs/hooks/useSsr.md) - Handles server-side rendering
+- [`useIsClient`](./docs/hooks/useIsClient.md) - Checks if running on client
+- [`useIsFirstRender`](./docs/hooks/useIsFirstRender.md) - Checks if it's the first render
+- [`useIsMounted`](./docs/hooks/useIsMounted.md) - Checks if component is mounted
 
 ## Documentation
 
-Check out our [full documentation](./docs) for detailed information about each hook:
+Check out our [full documentation](./docs/README.md) for detailed information about each hook:
 
 - [Getting Started Guide](./docs/getting-started.md)
 - [API Reference](./docs/api-reference.md)
-- [Hook Documentation](./docs/hooks/)
+- [Hook Documentation](./docs/hooks/README.md)
 - [Examples](./docs/examples.md)
 - [Contributing Guide](./docs/contributing.md)
 
@@ -165,5 +165,5 @@ MIT
 
 ## Related Projects
 
-- [Voby](https://github.com/vobyjs/woby) - A reactive JavaScript framework
+- [Voby](https://github.com/wobyjs/woby) - A reactive JavaScript framework
 - [React](https://reactjs.org/) - A JavaScript library for building user interfaces

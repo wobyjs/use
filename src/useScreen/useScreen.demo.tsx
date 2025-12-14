@@ -1,3 +1,4 @@
+import { $$ } from 'woby'
 import { useScreen } from './useScreen'
 
 export default function Component() {
@@ -7,7 +8,7 @@ export default function Component() {
         <div>
             The current window dimensions are:{' '}
             <code>
-                {JSON.stringify({ width: screen?.width, height: screen?.height })}
+                {JSON.stringify({ width: $$(screen)?.width, height: $$(screen)?.height })}
             </code>
         </div>
     )

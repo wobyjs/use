@@ -80,4 +80,4 @@ The Screen Orientation API is supported in most modern browsers, but may not be 
 ## See Also
 
 - [Screen Orientation API documentation](https://developer.mozilla.org/en-US/docs/Web/API/ScreenOrientation)
-- [Woby documentation](https://github.com/vobyjs/woby) for more information about observables
+- [Woby documentation](https://github.com/wobyjs/woby) for more information about observables

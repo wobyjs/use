@@ -35,7 +35,7 @@ type CopyFn = (text: string) => Promise<boolean> // Return success
  * ```
  * 
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Clipboard|Clipboard API documentation}
- * @see {@link https://github.com/vobyjs/woby|Woby documentation} for more information about observables
+ * @see {@link https://github.com/wobyjs/woby|Woby documentation} for more information about observables
  */
 export function useCopyToClipboard(): [CopiedValue, CopyFn] {
     const copiedText = $<string>(null)

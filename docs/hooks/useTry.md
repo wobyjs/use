@@ -74,4 +74,4 @@ While JavaScript provides native try-catch functionality, this hook offers a mor
 ## See Also
 
 - [Error handling in JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Control_flow_and_error_handling)
-- [Woby documentation](https://github.com/vobyjs/woby) for more information about observables
+- [Woby documentation](https://github.com/wobyjs/woby) for more information about observables

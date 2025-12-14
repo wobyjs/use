@@ -1,6 +1,6 @@
 # useIsomorphicLayoutEffect
 
-A hook that uses useLayoutEffect in browser and useEffect on server.
+A hook that is currently an alias for useEffect.
 
 ## Usage
 
@@ -9,7 +9,7 @@ import { useIsomorphicLayoutEffect } from '@woby/use';
 
 function Component() {
   useIsomorphicLayoutEffect(() => {
-    console.log('This runs at the appropriate time based on environment');
+    console.log('This runs as a useEffect');
   }, []);
 
   return <div>Component content</div>;
@@ -35,7 +35,7 @@ This hook does not return a value.
 import { $ } from 'woby';
 import { useIsomorphicLayoutEffect } from '@woby/use';
 
-function LayoutEffectComponent() {
+function EffectComponent() {
   const elementRef = $();
 
   useIsomorphicLayoutEffect(() => {
@@ -46,36 +46,14 @@ function LayoutEffectComponent() {
 
   return (
     <div ref={elementRef}>
-      <p>This component uses isomorphic layout effect</p>
+      <p>This component uses useEffect</p>
     </div>
   );
 }
 ```
 
-### DOM Measurements
+## Notes
 
-```javascript
-import { $ } from 'woby';
-import { useIsomorphicLayoutEffect } from '@woby/use';
-
-function MeasuredComponent() {
-  const elementRef = $();
-  const dimensions = $({ width: 0, height: 0 });
-
-  useIsomorphicLayoutEffect(() => {
-    if ($$(elementRef)) {
-      dimensions({
-        width: $$(elementRef).offsetWidth,
-        height: $$(elementRef).offsetHeight
-      });
-    }
-  }, [$$(elementRef)]);
-
-  return (
-    <div ref={elementRef} style={{ padding: '20px', border: '1px solid #000' }}>
-      <p>Width: {() => $$(dimensions).width}px</p>
-      <p>Height: {() => $$(dimensions).height}px</p>
-    </div>
-  );
-}
-```
+- Currently this is just an alias for useEffect
+- The implementation may change in the future to provide true isomorphic behavior
+- For now, it functions identically to useEffect

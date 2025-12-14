@@ -1,40 +1,33 @@
-import { act, renderHook, jest, test } from '@woby/jasmine'
-
+import { test, expect, spyOn } from '@woby/chk'
+import { $$ } from 'woby'
 import { useCopyToClipboard } from './useCopyToClipboard'
-describe('useClipboard()', () => {
-    const originalClipboard = globalThis.navigator.clipboard.writeText
+
+test('useClipboard()', () => {
     const mockData = 'Test value'
 
-    beforeEach(() => {
-        const mockClipboard = {
-            writeText: jest.fn(),
-        }
-        // @ts-ignore mock clipboard
-        globalThis.navigator.clipboard.writeText = jest.fn()
-    })
-
-    afterEach(() => {
-        jest.resetAllMocks()
-        // @ts-ignore mock clipboard
-        globalThis.navigator.clipboard.writeText = originalClipboard
-    })
-
     test('should use clipboard', () => {
-        const { result } = renderHook(() => useCopyToClipboard())
+        // Since we don't have renderHook, we'll test the function directly
+        const [value, copyToClipboard] = useCopyToClipboard()
 
-        expect(result.current[0]()).toBe(null)
-        expect(typeof result.current[1]).toBe('function')
+        expect($$(value)).toBe(null)
+        expect(copyToClipboard).toBeTypeOf('function')
     })
 
-    test('should copy to the clipboard and the state', async () => {
-        const { result } = renderHook(() => useCopyToClipboard())
+    test('should copy to the clipboard and the state', async ({ expect }) => {
+        // Create a proper mock with correct context
+        const mockWriteText = (...args) => Promise.resolve()
+        const writeTextSpy = spyOn(navigator.clipboard, 'writeText').mockImplementation(mockWriteText)
 
-        await act(async () => {
-            await result.current[1](mockData)
-        })
+        // Test the function directly
+        const [value, copyToClipboard] = useCopyToClipboard()
 
-        expect(navigator.clipboard.writeText).toHaveBeenCalledTimes(1)
-        expect(navigator.clipboard.writeText).toHaveBeenCalledWith(mockData)
-        expect(result.current[0]()).toBe(mockData)
+        const result = await copyToClipboard(mockData)
+
+        expect(result).toBe(true)
+        expect(writeTextSpy).toHaveBeenCalledTimes(1)
+        expect(writeTextSpy).toHaveBeenCalledWith(mockData)
+        expect($$(value)).toBe(mockData)
     })
+
+
 })

@@ -22,10 +22,10 @@ const handleResize = () => {
  * to the screen orientation API methods.
  * 
  * @returns An object containing:
- *   - angle: An observable number representing the current screen angle in degrees
- *   - type: An observable string representing the current orientation type
- *   - dispatchEvent: Function to dispatch orientation change events
- *   - unlock: Function to unlock screen orientation
+ *   d angle: An observable number representing the current screen angle in degrees
+ *   d type: An observable string representing the current orientation type
+ *   d dispatchEvent: Function to dispatch orientation change events
+ *   d unlock: Function to unlock screen orientation
  * 
  * @example
  * ```tsx
@@ -39,8 +39,8 @@ const handleResize = () => {
  * )
  * ```
  * 
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/ScreenOrientation|Screen Orientation API documentation}
- * @see {@link https://github.com/vobyjs/woby|Woby documentation} for more information about observables
+ * @see {@link https://developer.mozilla.org/endUS/docs/Web/API/ScreenOrientation|Screen Orientation API documentation}
+ * @see {@link https://github.com/wobyjs/woby|Woby documentation} for more information about observables
  */
 export const useScreenOrientation = () => {
     useEventListener(window.screen.orientation, 'change', handleResize)

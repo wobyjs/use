@@ -1,6 +1,6 @@
 # useMap
 
-A hook that tracks state of a Map.
+A hook that tracks state of a Map-like object.
 
 ## Usage
 
@@ -8,14 +8,14 @@ A hook that tracks state of a Map.
 import { useMap } from '@woby/use';
 
 function Component() {
-  const [map, { set, remove, clear }] = useMap();
+  const [map, { set, remove, reset }] = useMap();
 
   return (
     <div>
       <button onClick={() => set('key1', 'value1')}>Set Key1</button>
       <button onClick={() => remove('key1')}>Remove Key1</button>
-      <button onClick={clear}>Clear Map</button>
-      <p>Map size: {() => $$(map).size}</p>
+      <button onClick={reset}>Clear Map</button>
+      <p>Map entries: {() => JSON.stringify($$(map))}</p>
     </div>
   );
 }
@@ -25,7 +25,7 @@ function Component() {
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| initialValue | Iterable<[any, any]> | - | Optional initial value for the map |
+| initialState | MapOrEntries | {} | Optional initial value for the map (can be a Map, array of entries, or object) |
 
 ## Return Value
 
@@ -33,14 +33,15 @@ Returns an array with the following elements:
 
 | Index | Type | Description |
 |-------|------|-------------|
-| 0 | Observable<Map> | An observable Map |
+| 0 | Observable&lt;Object&gt; | An observable object representing the map |
 | 1 | Object | An object containing utility functions |
 
 The utility object contains:
 - `set`: Function to set a key-value pair
+- `setAll`: Function to set multiple key-value pairs
 - `remove`: Function to remove a key
-- `clear`: Function to clear the map
-- `initialize`: Function to initialize the map with new values
+- `reset`: Function to clear the map
+- `entries`: Function to get entries as an array
 
 ## Examples
 
@@ -50,20 +51,21 @@ The utility object contains:
 import { useMap } from '@woby/use';
 
 function MapExample() {
-  const [map, { set, remove, clear }] = useMap([
-    ['key1', 'value1'],
-    ['key2', 'value2']
-  ]);
+  const [map, { set, remove, reset, setAll }] = useMap({
+    'key1': 'value1',
+    'key2': 'value2'
+  });
 
   return (
     <div>
       <button onClick={() => set('key3', 'value3')}>Add Key3</button>
       <button onClick={() => remove('key1')}>Remove Key1</button>
-      <button onClick={clear}>Clear Map</button>
+      <button onClick={reset}>Clear Map</button>
+      <button onClick={() => setAll({ 'newKey': 'newValue' })}>Replace All</button>
       
       <ul>
-        {() => Array.from($$(map)).map(([key, value]) => (
-          <li key={key}>{key}: {value}</li>
+        {() => Object.entries($$(map)).map(([key, value]) => (
+          <li key={key}>{key}: {String(value)}</li>
         ))}
       </ul>
     </div>
@@ -90,7 +92,7 @@ function UserPreferences() {
       <button onClick={() => set('notifications', false)}>Disable Notifications</button>
       
       <ul>
-        {() => Array.from($$(preferences)).map(([key, value]) => (
+        {() => Object.entries($$(preferences)).map(([key, value]) => (
           <li key={key}>
             {key}: {String(value)}
             <button onClick={() => remove(key)}>Remove</button>

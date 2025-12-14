@@ -6,7 +6,8 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "./dist/index.cjs.js",
+  "type": "module",
+  "main": "./dist/index.es.js",
   "module": "./dist/index.es.js",
   "types": "./dist/types/index.d.ts",
   "sass": "./dist/styles.scss",
@@ -22,28 +23,28 @@
     "typescript": "5.7.3"
   },
   "devDependencies": {
+    "@woby/chk": "workspace:../chk",
+    "@woby/vite-plugin-test": "workspace:../vite-plugin-test",
     "cross-env": "^7.0.3",
-    "glob": "^11.0.1",
-    "jasmine-browser-runner": "^2.5.0",
-    "jasmine-core": "^5.6.0",
-    "rollup-plugin-node-polyfills": "^0.2.1",
-    "rxjs": "^7.8.1",
     "vite": "^6.1.0",
-    "vite-plugin-tsconfig": "^1.0.5"
+    "vite-plugin-tsconfig": "^2.0.0"
   },
   "peerDependencies": {
     "woby": "workspace:../woby"
   },
   "scripts": {
-    "git": "git add . && git commit -m \"Bump version\" && git push",
+    "git": " git-changelog -a -o CHANGELOG.md && git-commit-m",
     "bump": "pnpm version patch",
-    "npmjs": "pnpm publish",
-    "release": "run-s -c git bump npmjs",
-    "build:test": "cross-env NODE_ENV=test && vite build --config vite.config.test.ts",
-    "watch:test": "cross-env NODE_ENV=test && vite --config=vite.config.test.ts --force --host --mode dev",
-    "watch:prod": "cross-env NODE_ENV=production && vite --config=vite.config.test.ts --force --host --mode production",
-    "test": "npm run test:build && jasmine-browser-runner runSpecs",
-    "test:serve": "npm run test:build && jasmine-browser-runner",
+    "push": "git push && git push --tags",
+    "npmjs": "pnpm publish --access public",
+    "commit": "pnpm git && pnpm bump && pnpm push",
+    "release": "run-s -c commit npmjs",
+    "build:test": "cross-env NODE_ENV=test && vite build --config vite.config.test.mts",
+    "build:test:watch": "cross-env NODE_ENV=test && vite build --config vite.config.test.mts --watch",
+    "watch:test": "cross-env NODE_ENV=test && vite --config=vite.config.test.mts --force --host --mode dev",
+    "watch:prod": "cross-env NODE_ENV=production && vite --config=vite.config.test.mts --force --host --mode production",
+    "test": "pnpm run build:test && chk",
+    "test:watch": "pnpm run build:test && chk-watch",
     "build:web": "vite build --config=vite.config.web.mts --force --mode production",
     "web": "vite preview --config=vite.config.web.mts --host",
     "dev": "vite --config=vite.config.web.mts --force --mode dev --host",
@@ -57,16 +58,7 @@
     "build:tsc": "rimraf dist && tsc -p tsconfig.build.json",
     "clean": "rimraf ./dist/",
     "prepublishOnly1": "pnpm run clean && pnpm run build",
-    "commit": "cz",
-    "changelog": "git-cliff -o CHANGELOG.md",
     "release:automatic": "semantic-release --extends ../semantic-release.config.js",
     "commit:help": "echo 'Usage: pnpm run commit' && echo 'This will start the commitizen wizard to create a conventional commit.' && echo 'Follow the prompts to enter commit type, scope, and message.'"
-  },
-  "pnpm": {
-    "overrides": {
-      "woby": "workspace:../woby",
-      "@woby/styled": "workspace:../styled",
-      "@woby/use": "workspace:../use"
-    }
   }
 }

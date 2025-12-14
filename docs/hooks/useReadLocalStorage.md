@@ -1,5 +1,7 @@
 # useReadLocalStorage
 
+**DEPRECATED** - Use `useLocalStorage(key, initialValue, { readonly: true })` instead.
+
 A hook for reading localStorage values.
 
 ## Import
@@ -56,7 +58,20 @@ function useReadLocalStorage<T>(key: string): Observable<T | null>
 
 ## Notes
 
+- **This hook is deprecated.** Use `useLocalStorage(key, initialValue, { readonly: true })` instead.
 - This hook is designed for reading values from localStorage only
 - For reading and writing localStorage values, use [useLocalStorage](useLocalStorage.md) instead
 - The hook automatically updates when the localStorage value changes
 - Returns `null` if the key doesn't exist or if there's an error parsing the value
+
+## Migration Guide
+
+Replace deprecated usage:
+
+```tsx
+// Deprecated
+const value = useReadLocalStorage('my-key');
+
+// Preferred
+const value = useLocalStorage('my-key', null, { readonly: true });
+```

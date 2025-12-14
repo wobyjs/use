@@ -47,7 +47,7 @@ interface CountdownControllers {
  *   - helpers: An object containing controller functions (start, stop, reset)
  * 
  * @see {@link https://use.com/react-hook/use-countdown|useCountdown documentation}
- * @see {@link https://github.com/vobyjs/woby|Woby documentation} for more information about observables
+ * @see {@link https://github.com/wobyjs/woby|Woby documentation} for more information about observables
  */
 export function useCountdown(countdownOption: UseCountdownType,): [Observable<number>, CountdownHelpers]
 
@@ -86,7 +86,7 @@ export function useCountdown(countdownOption: UseCountdownType,): [Observable<nu
  * ```
  * 
  * @see {@link https://use.com/react-hook/use-countdown|useCountdown documentation}
- * @see {@link https://github.com/vobyjs/woby|Woby documentation} for more information about observables
+ * @see {@link https://github.com/wobyjs/woby|Woby documentation} for more information about observables
  */
 export function useCountdown(countdownOption: CountdownOption,): [Observable<number>, CountdownControllers]
 

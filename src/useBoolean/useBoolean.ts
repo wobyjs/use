@@ -1,5 +1,5 @@
 import { $$, type Observable, type ObservableMaybe, type JSX } from 'woby'
-import { use } from '../use'
+import { use } from '../use/use'
 
 /**
  * A hook for managing boolean state with utility functions.
@@ -31,10 +31,10 @@ import { use } from '../use'
  * )
  * ```
  * 
- * @see {@link https://github.com/vobyjs/woby|Woby documentation} for more information about observables
+ * @see {@link https://github.com/wobyjs/woby|Woby documentation} for more information about observables
  */
-export function useBoolean(defaultValue?: ObservableMaybe<boolean>, clone?: boolean) {
-    const value = use(defaultValue, $$(defaultValue), { clone })
+export function useBoolean(defaultValue: ObservableMaybe<boolean> = false) {
+    const value = use(defaultValue, $$(defaultValue))
 
     const setTrue = (() => value(true))
     const setFalse = (() => value(false))

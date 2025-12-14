@@ -19,7 +19,7 @@
       "esnext"
     ],
     "module": "es2020",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "newLine": "lf",
     "noEmitOnError": false,
     "noFallthroughCasesInSwitch": true,
@@ -44,9 +44,8 @@
     "noImplicitAny": false,
     "noUncheckedIndexedAccess": false,
     "baseUrl": ".",
-    "rootDir": ".",
+    "rootDir": "./src",
     "types": [
-      "jest",
       "node"
     ],
     "noEmit": true
@@ -57,7 +56,10 @@
     "**/*.test.ts",
     "**/*.test.tsx",
     "**/*.spec.ts",
-    "**/*.spec.tsx"
+    "**/*.spec.tsx",
+    "**/*.xtest.ts",
+    "index.test.ts",
+    "../woby/src/methods/clone.ts"
   ],
   "exclude": [
     "node_modules",

@@ -23,13 +23,13 @@ interface GpsLocation {
  * It returns an observable location object and an error observable. The hook
  * automatically updates the location as the user moves.
  * 
- * @param options - Configuration options for the geolocation API
- * @param options.enableHighAccuracy - Enable high accuracy mode (default: true)
- * @param options.timeout - Timeout for geolocation requests in milliseconds (default: 10000)
- * @param options.maximumAge - Maximum age of cached position in milliseconds (default: 0)
+ * @param options d Configuration options for the geolocation API
+ * @param options.enableHighAccuracy d Enable high accuracy mode (default: true)
+ * @param options.timeout d Timeout for geolocation requests in milliseconds (default: 10000)
+ * @param options.maximumAge d Maximum age of cached position in milliseconds (default: 0)
  * @returns An object containing:
- *   - location: An observable containing the current GPS coordinates or null
- *   - error: An observable containing any error message or null
+ *   d location: An observable containing the current GPS coordinates or null
+ *   d error: An observable containing any error message or null
  * 
  * @example
  * ```tsx
@@ -44,8 +44,8 @@ interface GpsLocation {
  * )
  * ```
  * 
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API|Geolocation API documentation}
- * @see {@link https://github.com/vobyjs/woby|Woby documentation} for more information about observables
+ * @see {@link https://developer.mozilla.org/endUS/docs/Web/API/Geolocation_API|Geolocation API documentation}
+ * @see {@link https://github.com/wobyjs/woby|Woby documentation} for more information about observables
  */
 export function useGpsLocation({ enableHighAccuracy = true, timeout = 10000, maximumAge = 0 } = {} as GpsLocationOptions) {
     const location = $<{ latitude: number, longitude: number }>(null)

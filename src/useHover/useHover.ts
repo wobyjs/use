@@ -1,5 +1,5 @@
 import { useEffect, $, $$, type Observable, type ObservableMaybe } from 'woby'
-import { use } from '../use'
+import { use } from '../use/use'
 
 /**
  * A hook for tracking hover state of an element.
@@ -24,7 +24,7 @@ import { use } from '../use'
  * )
  * ```
  * 
- * @see {@link https://github.com/vobyjs/woby|Woby documentation} for more information about observables
+ * @see {@link https://github.com/wobyjs/woby|Woby documentation} for more information about observables
  */
 export function useHover<T extends HTMLElement>(elementRef: ObservableMaybe<T>): Observable<boolean> {
     const value = $(false)

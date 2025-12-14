@@ -144,5 +144,5 @@ The DefaultArray component provides a simplified interface with default context 
 
 ## See Also
 
-- [Woby Context documentation](https://github.com/vobyjs/woby)
-- [useContext hook](https://github.com/vobyjs/woby)
+- [Woby Context documentation](https://github.com/wobyjs/woby)
+- [useContext hook](https://github.com/wobyjs/woby)

@@ -1,8 +1,7 @@
-import { $, $$, Observable } from 'woby'
+import { $, $$, Observable, Observant } from 'woby'
 
 import { useEventListener } from '../useEventListener/useEventListener'
 import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect/useIsomorphicLayoutEffect'
-import { Observant } from '../Object'
 
 /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/VisualViewport/width) */
 const width = $(0)

@@ -1,6 +1,6 @@
 # useBoolean
 
-A hook specifically designed for managing boolean state with additional utility functions.
+A hook for managing boolean state with utility functions.
 
 ## Usage
 
@@ -8,14 +8,14 @@ A hook specifically designed for managing boolean state with additional utility 
 import { useBoolean } from '@woby/use';
 
 function BooleanToggle() {
-  const [value, toggle, setValue] = useBoolean(false);
+  const { value, toggle, setTrue, setFalse } = useBoolean(false);
   
   return (
     <div>
-      <p>Value: {value ? 'TRUE' : 'FALSE'}</p>
+      <p>Value: {() => value() ? 'TRUE' : 'FALSE'}</p>
       <button onClick={toggle}>Toggle</button>
-      <button onClick={() => setValue(true)}>Set True</button>
-      <button onClick={() => setValue(false)}>Set False</button>
+      <button onClick={setTrue}>Set True</button>
+      <button onClick={setFalse}>Set False</button>
     </div>
   );
 }
@@ -25,17 +25,18 @@ function BooleanToggle() {
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| initialValue | boolean | false | The initial boolean value |
+| defaultValue | ObservableMaybe&lt;boolean&gt; | false | The initial boolean value (can be an observable or plain boolean) |
 
 ## Return Value
 
-Returns an array with the following elements:
+Returns an object with the following properties:
 
-| Index | Type | Description |
-|-------|------|-------------|
-| 0 | boolean | The current boolean value |
-| 1 | function | Toggles the boolean value |
-| 2 | function | Sets the boolean value directly |
+| Property | Type | Description |
+|----------|------|-------------|
+| value | Observable&lt;boolean&gt; | The current boolean value as an observable |
+| toggle | function | Toggles the boolean value |
+| setTrue | function | Sets the boolean value to true |
+| setFalse | function | Sets the boolean value to false |
 
 ## Example
 
@@ -43,16 +44,16 @@ Returns an array with the following elements:
 import { useBoolean } from '@woby/use';
 
 function Modal() {
-  const [isOpen, toggle, setIsOpen] = useBoolean(false);
+  const { value, toggle, setFalse } = useBoolean(false);
   
   return (
     <div>
       <button onClick={toggle}>Open Modal</button>
       
-      {isOpen && (
+      {() => value() && (
         <div className="modal">
           <p>Modal content</p>
-          <button onClick={toggle}>Close</button>
+          <button onClick={setFalse}>Close</button>
         </div>
       )}
     </div>

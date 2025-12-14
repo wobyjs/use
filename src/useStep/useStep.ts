@@ -1,5 +1,5 @@
 import { $, $$, useMemo, type Observable, type ObservableReadonly, type ObservableMaybe } from 'woby'
-import { use } from '../use'
+import { use } from '../use/use'
 
 interface Helpers {
     goToNextStep: () => void
@@ -35,7 +35,7 @@ interface Helpers {
  * )
  * ```
  * 
- * @see {@link https://github.com/vobyjs/woby|Woby documentation} for more information about observables
+ * @see {@link https://github.com/wobyjs/woby|Woby documentation} for more information about observables
  */
 export function useStep(maxStep: ObservableMaybe<number>): [Observable<number>, Helpers] {
     const maxStep$ = use(maxStep)

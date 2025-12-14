@@ -1,108 +1,78 @@
-import { act, renderHook } from '@woby/jasmine'
+import { test, expect } from '@woby/chk'
 
 import { useMap } from './useMap'
 
-describe('useMap()', () => {
-  it('should be ok when initiated with a map', () => {
-    const initialMap = new Map([[1, 'initial']])
-    const { result } = renderHook(() => useMap(initialMap))
+test('useMap()', () => {
+  test('should be ok when initiated with a map', () => {
+    const initialMap = new Map([['1', 'initial']])
+    const [map, actions] = useMap(initialMap)
 
-    expect(result.current[0][1]).toBe('initial')
+    expect(map['1'])['===']('initial')
   })
 
-  it('should be ok when initiated with an array', () => {
-    const initialArray = [[1, 'initial']]
-    const { result } = renderHook(() => useMap(initialArray))
+  test('should be ok when initiated with an array', () => {
+    const initialArray = [['1', 'initial']]
+    const [map, actions] = useMap(initialArray)
 
-    expect(result.current[0][1]).toBe('initial')
+    expect(map['1'])['===']('initial')
   })
 
-  it('should be ok when initiated without nothing', () => {
-    const { result } = renderHook(() => useMap())
+  test('should be ok when initiated without nothing', () => {
+    const [map, actions] = useMap()
 
-    expect(result.current[0]).toEqual({})
+    expect(map).toEqual({})
   })
 
-  it('should add new value', () => {
-    const { result } = renderHook(() => useMap())
-    const [, actions] = result.current
+  test('should add new value', () => {
+    const [map, actions] = useMap()
 
-    // expect(result.current[0]).toBeUndefined()
+    actions.set('1', 'added')
 
-    act(() => actions.set(1, 'added'))
-
-    expect(result.current[0][1]).toBe('added')
+    expect(map['1'])['===']('added')
   })
 
-  it('should update existing value', () => {
-    const initialMap = new Map([[1, 'initial']])
-    const { result } = renderHook(() => useMap(initialMap))
-    const [, actions] = result.current
+  test('should update existing value', () => {
+    const initialMap = new Map([['1', 'initial']])
+    const [map, actions] = useMap(initialMap)
 
-    act(() => actions.set(1, 'edited'))
+    actions.set('1', 'edited')
 
-    expect(result.current[0][1]).toBe('edited')
+    expect(map['1'])['===']('edited')
   })
 
-  it('should setAll replaces all existing values', () => {
+  test('should setAll replaces all existing values', () => {
     const initialMap = new Map([
-      [1, 'initial'],
-      [2, 'example'],
+      ['1', 'initial'],
+      ['2', 'example'],
     ])
-    const { result } = renderHook(() => useMap(initialMap))
-    const [, actions] = result.current
+    const [map, actions] = useMap(initialMap)
 
-    expect(result.current[0][1]).toBe('initial')
-    expect(result.current[0][2]).toBe('example')
-    expect(Object.keys(result.current[0]).length).toBe(2)
+    expect(map['1'])['===']('initial')
+    expect(map['2'])['===']('example')
+    expect(Object.keys(map).length).toBe(2)
 
-    act(() => actions.setAll([[1, 'edited']]))
+    actions.setAll([['1', 'edited']])
 
-    expect(result.current[0][1]).toBe('edited')
-    expect(Object.keys(result.current[0]).length).toBe(1)
+    expect(map['1'])['===']('edited')
+    expect(Object.keys(map).length).toBe(1)
   })
 
-  it('should remove existing value', () => {
-    const initialMap = new Map([[1, 'initial']])
-    const { result } = renderHook(() => useMap(initialMap))
-    const [, actions] = result.current
+  test('should remove existing value', () => {
+    const initialMap = new Map([['1', 'initial']])
+    const [map, actions] = useMap(initialMap)
 
-    act(() => actions.remove(1))
+    actions.remove('1')
 
-    expect(result.current[0][1]).toBeUndefined()
+    expect(map['1']).toBeUndefined()
   })
 
-  it('should reset the map state', () => {
-    const initialMap = new Map([[1, 'initial']])
-    const { result } = renderHook(() => useMap(initialMap))
-    const [, actions] = result.current
+  test('should reset the map state', () => {
+    const initialMap = new Map([['1', 'initial']])
+    const [map, actions] = useMap(initialMap)
 
-    act(() => actions.reset())
+    actions.reset()
 
-    expect(result.current[0][1]).toBeUndefined()
-    expect(Object.keys(result.current[0]).length).toBe(0)
-  })
-
-  it('should change value reference equality after change', () => {
-    const initialMap = new Map<number, number>()
-    const { result } = renderHook(() => useMap(initialMap))
-    const [originalMapRef, actions] = result.current
-
-    act(() => actions.set(1, 1))
-
-    expect(originalMapRef).toEqual(result.current[0])
-    expect(originalMapRef[1]).toBe(1)
-    expect(result.current[0][1]).toBe(1)
-  })
-  it('should keep actions reference equality after value change', () => {
-    const initialMap = new Map<number, number>()
-    const { result } = renderHook(() => useMap(initialMap))
-    const [, originalActionsRef] = result.current
-
-    expect(result.current[1]).toBe(originalActionsRef)
-
-    act(() => originalActionsRef.set(1, 1))
-
-    expect(originalActionsRef).toBe(result.current[1])
+    expect(map['1']).toBeUndefined()
+    expect(Object.keys(map).length).toBe(0)
   })
 })

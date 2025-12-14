@@ -2,32 +2,25 @@ import { $, $$ } from 'woby'
 import { useSessionStorage } from './useSessionStorage'
 
 export default function Component() {
-    const value = useSessionStorage('test-key', 0)
+    // Basic usage
+    const basicValue = useSessionStorage('basic-key', 'default')
 
-    return (
-        <div>
-            <p>Count: {value}</p>
-            <button onClick={() => value((x: number) => x + 1)}>Increment</button>
-            <button onClick={() => value((x: number) => x - 1)}>Decrement</button>
+    // With removeOnNull option
+    const removableValue = useSessionStorage('removable-key', 'default', { removeOnNull: true })
 
-            <h3>Example with existing observable</h3>
-            <SessionStorageWithObservable />
-        </div>
-    )
-}
+    // With readonly option
+    const readonlyValue = useSessionStorage('readonly-key', 'default', { readonly: true })
 
-function SessionStorageWithObservable() {
-    const existingObservable = $(10)
-    const storedValue = useSessionStorage('test-key-2', existingObservable)
-
-    const increment = () => {
-        storedValue((x: number) => x + 1)
+    const handleRemove = () => {
+        removableValue(null) // This should remove the item from sessionStorage
     }
 
     return (
         <div>
-            <p>Stored value: {storedValue}</p>
-            <button onClick={increment}>Increment</button>
+            <p>Basic value: {basicValue}</p>
+            <p>Removable value: {removableValue}</p>
+            <p>Readonly value: {readonlyValue}</p>
+            <button onClick={handleRemove}>Remove Removable Value</button>
         </div>
     )
 }

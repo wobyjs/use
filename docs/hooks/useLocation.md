@@ -76,4 +76,4 @@ The returned Location object contains all standard properties:
 ## See Also
 
 - [Location API documentation](https://developer.mozilla.org/en-US/docs/Web/API/Location)
-- [Woby documentation](https://github.com/vobyjs/woby) for more information about observables
+- [Woby documentation](https://github.com/wobyjs/woby) for more information about observables

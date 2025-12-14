@@ -1,4 +1,5 @@
-import { test, expect } from 'verifies'
+import { test, expect } from '@woby/chk'
+import { $$ } from 'woby'
 
 import { useStep } from './useStep'
 
@@ -6,7 +7,7 @@ test('useStep()', () => {
     test('should use step', () => {
         const result = useStep(2)
 
-        expect(result[0]()).toBe(1)
+        expect($$(result[0])).toBe(1)
         expect(typeof result[1].goToNextStep).toBe('function')
         expect(typeof result[1].goToPrevStep).toBe('function')
         expect(typeof result[1].setStep).toBe('function')
@@ -20,7 +21,7 @@ test('useStep()', () => {
 
         result[1].goToNextStep()
 
-        expect(result[0]()).toBe(2)
+        expect($$(result[0]))['==='](2)
     })
 
     test('should decrement step', () => {
@@ -29,7 +30,7 @@ test('useStep()', () => {
         result[1].setStep(2)
         result[1].goToPrevStep()
 
-        expect(result[0]()).toBe(1)
+        expect($$(result[0]))['==='](1)
     })
 
     test('should reset step', () => {
@@ -37,7 +38,7 @@ test('useStep()', () => {
 
         result[1].reset()
 
-        expect(result[0]()).toBe(1)
+        expect($$(result[0]))['==='](1)
     })
 
     test('should set step', () => {
@@ -47,7 +48,7 @@ test('useStep()', () => {
 
         result[1].setStep(newStep)
 
-        expect(result[0]()).toBe(newStep)
+        expect($$(result[0]))['==='](newStep)
     })
 
     test('should return if prev step is available', () => {
@@ -55,12 +56,12 @@ test('useStep()', () => {
 
         result[1].setStep(2)
 
-        expect(result[1].canGoToPrevStep()).toBe(true)
+        expect(result[1].canGoToPrevStep())['==='](true)
     })
 
     test('should return if next step is available', () => {
         const result = useStep(2)
 
-        expect(result[1].canGoToNextStep()).toBe(true)
+        expect(result[1].canGoToNextStep())['==='](true)
     })
 })

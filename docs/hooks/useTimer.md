@@ -111,4 +111,4 @@ Lap times are recorded with messages and can be used to track segments of time. 
 ## See Also
 
 - [Date.now() documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/now)
-- [Woby documentation](https://github.com/vobyjs/woby) for more information about observables
+- [Woby documentation](https://github.com/wobyjs/woby) for more information about observables

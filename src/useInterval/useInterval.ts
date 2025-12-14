@@ -1,5 +1,5 @@
 import { useEffect, $, $$, type ObservableMaybe } from 'woby'
-import { use } from '../use'
+import { use } from '../use/use'
 
 /**
  * A hook for setting up an interval that runs a callback function.
@@ -28,7 +28,7 @@ import { use } from '../use'
  * )
  * ```
  * 
- * @see {@link https://github.com/vobyjs/woby|Woby documentation} for more information about observables
+ * @see {@link https://github.com/wobyjs/woby|Woby documentation} for more information about observables
  */
 export function useInterval(callback: Function, delay: ObservableMaybe<number>) {
     const delayObservable = use(delay)
@@ -52,12 +52,14 @@ export function useInterval(callback: Function, delay: ObservableMaybe<number>) 
     }
 
     useEffect(() => {
-        start()
-
         return () => {
-            stop()
+            if ($$(intervalId)) {
+                clearInterval($$(intervalId) as unknown as number)
+            }
         }
     })
+
+    start()
 
     return [start, stop]
 }

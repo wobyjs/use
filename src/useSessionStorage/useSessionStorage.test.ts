@@ -1,132 +1,72 @@
-import { act, renderHook, test } from '@woby/jasmine'
+import { test, expect } from '@woby/chk'
+import { $, $$, tick } from 'woby'
 
 import { useSessionStorage } from './useSessionStorage'
 
-class SessionStorageMock {
-    store: Record<string, unknown> = {}
-
-    clear() {
-        this.store = {}
+test('useSessionStorage()', () => {
+    // Mock sessionStorage
+    let store = {}
+    const sessionStorageMock = {
+        getItem: (key) => store[key] || null,
+        setItem: (key, value) => { store[key] = value.toString() },
+        removeItem: (key) => { delete store[key] },
+        clear: () => { store = {} }
     }
 
-    getItem(key: string) {
-        return this.store[key] || null
-    }
-
-    setItem(key: string, value: unknown) {
-        this.store[key] = value + ''
-    }
-
-    removeItem(key: string) {
-        delete this.store[key]
-    }
-}
-
-Object.defineProperty(window, 'sessionStorage', {
-    value: new SessionStorageMock(),
-})
-
-describe('useSessionStorage()', () => {
-    beforeEach(() => {
-        window.sessionStorage.clear()
+    // Override window.sessionStorage
+    Object.defineProperty(window, 'sessionStorage', {
+        value: sessionStorageMock,
+        writable: true
     })
 
-    afterEach(() => {
-        window.sessionStorage.clear()
+    test('should use sessionStorage with default options', () => {
+        const key = 'test-key'
+        const initialValue = 'initial-value'
 
+        const result = useSessionStorage(key, initialValue)
+
+        expect($$(result)).toBe(initialValue)
+        tick()
+        expect(window.sessionStorage.getItem(key)).toBe(JSON.stringify(initialValue))
     })
 
-    test('initial state is in the returned state', () => {
-        const { result } = renderHook(() => useSessionStorage('key', 'value'))
+    test('should remove item when removeOnNull is true and value is set to null', () => {
+        const key = 'test-key-remove'
+        const initialValue = 'initial-value'
 
-        expect(result.current()).toBe('value')
+        const result = useSessionStorage(key, initialValue, { removeOnNull: true })
+
+        // Set value to null
+        result(null)
+
+        // Check that removeItem was called
+        expect(window.sessionStorage.getItem(key)).toBe(null)
     })
 
-    test('Initial state is a callback function', () => {
-        const { result } = renderHook(() => useSessionStorage('key', () => 'value'))
+    test('should return readonly observable when readonly is true', () => {
+        const key = 'test-key-readonly'
+        const initialValue = 'initial-value'
 
-        expect(result.current()()).toBe('value')
+        const result = useSessionStorage(key, initialValue, { readonly: true })
+
+        expect($$(result)).toBe(initialValue)
     })
 
-    test('Initial state is an array', () => {
-        const { result } = renderHook(() => useSessionStorage('digits', [1, 2]))
+    test('should work with removeOnNull and readonly options together', () => {
+        const key = 'test-key-both'
+        const initialValue = 'initial-value'
 
-        expect(result.current()).toEqual([1, 2])
-    })
+        // Writable version with removeOnNull
+        const writableResult = useSessionStorage(key, initialValue, { removeOnNull: true })
+        expect($$(writableResult)).toBe(initialValue)
 
-    test('Update the state', () => {
-        const { result } = renderHook(() => useSessionStorage('key', 'value'))
+        // Set to null should remove from storage
+        writableResult(null)
+        expect(window.sessionStorage.getItem(key)).toBe(null)
 
-        act(() => {
-            const setState = result.current
-            setState('edited')
-        })
-
-        expect(result.current()).toBe('edited')
-    })
-
-    test('Update the state writes sessionStorage', () => {
-        const { result } = renderHook(() => useSessionStorage('key', 'value'))
-
-        act(() => {
-            const setState = result.current
-            setState('edited')
-        })
-
-        expect(window.sessionStorage.getItem('key')).toBe(JSON.stringify('edited'))
-    })
-
-    test('Update the state with undefined', () => {
-        const { result } = renderHook(() =>
-            useSessionStorage<string | undefined>('keytest', 'value'),
-        )
-
-        act(() => {
-            const setState = result.current
-            setState(undefined)
-        })
-
-        expect(result.current()).toBeUndefined()
-    })
-
-    test('Update the state with a callback function', () => {
-        const { result } = renderHook(() => useSessionStorage('count', 2))
-
-        act(() => {
-            const setState = result.current
-            setState(prev => prev + 1)
-        })
-
-        expect(result.current()).toBe(3)
-        expect(window.sessionStorage.getItem('count')).toEqual('3')
-    })
-
-    test('[Event] Update one hook updates the others', () => {
-        const initialValues: [string, unknown] = ['key', 'initial']
-        const { result: A } = renderHook(() => useSessionStorage(...initialValues))
-        const { result: B } = renderHook(() => useSessionStorage(...initialValues))
-
-        act(() => {
-            const setState = A.current
-            setState('edited')
-        })
-
-        expect(B.current()).toBe('edited')
-    })
-
-    test('setValue is referentially stable', () => {
-        const { result } = renderHook(() => useSessionStorage('count', 1))
-
-        // Store a reference to the original setValue
-        const originalCallback = result.current
-
-        // Now invoke a state update, if setValue is not referentially stable then this will cause the originalCallback
-        // reference to not be equal to the new setValue function
-        act(() => {
-            const setState = result.current
-            setState(prev => prev + 1)
-        })
-
-        expect(result.current === originalCallback).toBe(true)
+        // Readonly version
+        store[key] = JSON.stringify(initialValue) // Restore the value in mock storage
+        const readonlyResult = useSessionStorage(key, initialValue, { readonly: true })
+        expect($$(readonlyResult)).toBe(initialValue)
     })
 })

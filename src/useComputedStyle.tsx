@@ -1,5 +1,5 @@
-import { $, $$, Observable, useEffect, useMemo } from 'woby'
-import { use } from './use'
+import { $, $$, Observable, useEffect } from 'woby'
+import { use } from './use/use'
 
 type CSSPropertyPattern = string | RegExp
 

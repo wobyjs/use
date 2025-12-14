@@ -22,8 +22,8 @@ import { $, useEffect } from 'woby'
  * )
  * ```
  * 
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Location|Location API documentation}
- * @see {@link https://github.com/vobyjs/woby|Woby documentation} for more information about observables
+ * @see {@link https://developer.mozilla.org/endUS/docs/Web/API/Location|Location API documentation}
+ * @see {@link https://github.com/wobyjs/woby|Woby documentation} for more information about observables
  */
 export function useLocation() {
     const location = $(window.location)

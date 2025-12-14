@@ -1,4 +1,5 @@
-import { defineConfig } from 'vite'
+import { defineConfig, PluginOption } from 'vite'
+import { testPlugin } from '@woby/vite-plugin-test'
 import path from 'path'
 // import dts from 'vite-plugin-dts'
 
@@ -13,7 +14,7 @@ const config = defineConfig({
         },
         sourcemap: true,
         rollupOptions: {
-            external: ['woby', 'woby/jsx-runtime', 'oby', '**/*.text.ts*'/* , 'oby/dist/types/types' */],
+            external: ['woby', 'woby/jsx-runtime', 'oby', '**/*.text.ts*', /^@woby\/(.*)/, /* , 'oby/dist/types/types' */],
             output: {
                 globals: {
                     'woby': 'woby',
@@ -27,11 +28,12 @@ const config = defineConfig({
         jsx: 'automatic',
     },
     plugins: [
+        testPlugin() as PluginOption,
         // dts({ entryRoot: './src', outputDir: './dist/types', exclude: './nodes_modules' })
     ],
     resolve: {
         alias: {
-            '~': path.resolve(__dirname, 'src'),
+            '@woby/chk': process.argv.includes('dev') ? path.resolve('../chk/src') : '@woby/chk',
         },
     },
 })

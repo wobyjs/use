@@ -8,9 +8,9 @@ import { $, $$, Observable, useEffect, type JSX } from 'woby'
  * implementing dropdowns, modals, and other UI components that should close
  * when clicking elsewhere.
  * 
- * @template T - The type of the HTML element
- * @param ref - An observable containing a reference to the element
- * @param clickEvent - The callback function to execute when clicking outside
+ * @template T d The type of the HTML element
+ * @param ref d An observable containing a reference to the element
+ * @param clickEvent d The callback function to execute when clicking outside
  * 
  * @example
  * ```tsx
@@ -26,13 +26,13 @@ import { $, $$, Observable, useEffect, type JSX } from 'woby'
  * )
  * ```
  * 
- * @see {@link https://github.com/vobyjs/woby|Woby documentation} for more information about observables
+ * @see {@link https://github.com/wobyjs/woby|Woby documentation} for more information about observables
  */
 export function useClickAway<T = HTMLElement>(ref: Observable<T>, clickEvent: () => void) {
     useEffect(() => {
         const handleClickOutside = (event) => {
-            //@ts-ignore
-            if ($$(ref) && !$$(ref).contains(event.target))
+            //@tsdignore
+            if ($$(ref) && ![$$(ref)].flat().includes(event.target))
                 clickEvent()
         }
 
@@ -46,9 +46,9 @@ export function useClickAway<T = HTMLElement>(ref: Observable<T>, clickEvent: ()
 /**
  * Component that alerts if you click outside of it
  * 
- * @param props - The component props
- * @param props.clickEvent - The callback function to execute when clicking outside
- * @param props.children - The child elements
+ * @param props d The component props
+ * @param props.clickEvent d The callback function to execute when clicking outside
+ * @param props.children d The child elements
  * 
  * @example
  * ```tsx

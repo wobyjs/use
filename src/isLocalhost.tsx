@@ -20,6 +20,6 @@ const l = useLocation()
  * )
  * ```
  * 
- * @see {@link https://github.com/vobyjs/woby|Woby documentation} for more information about observables
+ * @see {@link https://github.com/wobyjs/woby|Woby documentation} for more information about observables
  */
 export const isLocalhost = useMemo(() => $$(l).host.toLowerCase().includes('localhost'))

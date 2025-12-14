@@ -1,8 +1,7 @@
-import { act, renderHook } from '@woby/jasmine'
+import { test, expect } from '@woby/chk'
+import { $$ } from 'woby'
 
 import { useWindowSize } from './useWindowSize'
-
-const setupHook = () => renderHook(() => useWindowSize())
 
 const windowResize = (dimension: 'width' | 'height', value: number): void => {
     if (dimension === 'width') {
@@ -16,41 +15,37 @@ const windowResize = (dimension: 'width' | 'height', value: number): void => {
     window.dispatchEvent(new Event('resize'))
 }
 
-describe('useElementSize()', () => {
-    it('should initialize', () => {
-        const { result } = setupHook()
-        const { height, width } = result.current
-        expect(typeof height).toBe('number')
-        expect(typeof width).toBe('number')
+test('useWindowSize()', () => {
+    test('should initialize', () => {
+        // Test the function directly without renderHook
+        const result = useWindowSize()
+        const { height, width } = result
+        expect($$(height)).toBeTypeOf('number')
+        expect($$(width)).toBeTypeOf('number')
     })
 
-    it('should return the corresponding height', () => {
-        const { result } = setupHook()
+    test('should return the corresponding height', () => {
+        // Test the function directly without renderHook
+        const result = useWindowSize()
 
-        act(() => {
-            windowResize('height', 420)
-        })
-        expect(result.current.height).toBe(420)
+        windowResize('height', 420)
+        expect($$(result.height))['==='](420)
 
-        act(() => {
-            windowResize('height', 2196)
-        })
+        windowResize('height', 2196)
 
-        expect(result.current.height).toBe(2196)
+        expect($$(result.height))['==='](2196)
     })
 
-    it('should return the corresponding width', () => {
-        const { result } = setupHook()
-        act(() => {
-            windowResize('width', 420)
-        })
+    test('should return the corresponding width', () => {
+        // Test the function directly without renderHook
+        const result = useWindowSize()
 
-        expect(result.current.width).toBe(420)
+        windowResize('width', 420)
 
-        act(() => {
-            windowResize('width', 2196)
-        })
+        expect($$(result.width))['==='](420)
 
-        expect(result.current.width).toBe(2196)
+        windowResize('width', 2196)
+
+        expect($$(result.width))['==='](2196)
     })
 })

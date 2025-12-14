@@ -13,63 +13,85 @@ This documentation is organized into the following sections:
 
 ## Key Documentation Pages
 
+### State Management Hooks
 - [use](hooks/use.md) - Convert values to observables
+- [useBoolean](hooks/useBoolean.md) - Manage boolean state
 - [useCounter](hooks/useCounter.md) - Track numerical state with increment/decrement functions
 - [useToggle](hooks/useToggle.md) - Toggle between two values
-- [useBoolean](hooks/useBoolean.md) - Manage boolean state
+- [useMap](hooks/useMap.md) - Manage Map-like state
+- [useSet](hooks/useSet.md) - Manage Set state
+- [Array](hooks/Array.md) - Render arrays with context
+- [Object](hooks/Object.md) - Object utilities
+- [Ratio](hooks/Ratio.md) - Render items with selection
+
+### Browser Utilities
 - [useLocalStorage](hooks/useLocalStorage.md) - Manage localStorage values
 - [useSessionStorage](hooks/useSessionStorage.md) - Manage sessionStorage values
 - [useReadLocalStorage](hooks/useReadLocalStorage.md) - Read localStorage values
-- [useDarkMode](hooks/useDarkMode.md) - Handle dark mode preferences
 - [useWindowSize](hooks/useWindowSize.md) - Track window size changes
-- [useDebounce](hooks/useDebounce.md) - Debounce values or functions
-- [useInterval](hooks/useInterval.md) - Set up intervals
-- [useTimeout](hooks/useTimeout.md) - Set up timeouts
-- [useHover](hooks/useHover.md) - Track hover state
+- [useViewportSize](hooks/useViewportSize.md) - Access visual viewport properties
+- [useAspect](hooks/useAspect.md) - Calculate window aspect ratio
+- [useDarkMode](hooks/useDarkMode.md) - Handle dark mode preferences
+- [useTernaryDarkMode](hooks/useTernaryDarkMode.md) - Advanced dark mode management
+- [useMediaQuery](hooks/useMediaQuery.md) - Respond to media query changes
+- [useCopyToClipboard](hooks/useCopyToClipboard.md) - Copy text to clipboard
+- [useDocumentTitle](hooks/useDocumentTitle.md) - Set document title
+- [useLockedBody](hooks/useLockedBody.md) - Lock body scrolling
+- [useScreen](hooks/useScreen.md) - Access screen information
+- [useScreenOrientation](hooks/useScreenOrientation.md) - Access screen orientation
+- [useLocation](hooks/useLocation.md) - Access browser location
+- [useGpsLocation](hooks/useGpsLocation.md) - Access GPS location
+
+### Event Hooks
+- [useEventListener](hooks/useEventListener.md) - Subscribe to events
 - [useClickAnyWhere](hooks/useClickAnyWhere.md) - Handle clicks anywhere
 - [useClickAway](hooks/useClickAway.md) - Handle clicks outside elements
 - [useOnClickOutside](hooks/useOnClickOutside.md) - Handle clicks outside elements
-- [useEventListener](hooks/useEventListener.md) - Subscribe to events
-- [useDocumentTitle](hooks/useDocumentTitle.md) - Set document title
-- [useCopyToClipboard](hooks/useCopyToClipboard.md) - Copy text to clipboard
-- [useFetch](hooks/useFetch.md) - Fetch data from URLs
-- [useScript](hooks/useScript.md) - Load external scripts
-- [useMap](hooks/useMap.md) - Manage Map state
-- [useSet](hooks/useSet.md) - Manage Set state
-- [useStep](hooks/useStep.md) - Manage step navigation
+- [useHover](hooks/useHover.md) - Track hover state
+
+### Effect Hooks
+- [useDebounce](hooks/useDebounce.md) - Debounce values or functions
+- [useTimeout](hooks/useTimeout.md) - Set up timeouts
+- [useInterval](hooks/useInterval.md) - Set up intervals
+- [useEffectOnce](hooks/useEffectOnce.md) - Run effect only once
+- [useUpdateEffect](hooks/useUpdateEffect.md) - Run effect on updates
+- [useIsomorphicLayoutEffect](hooks/useIsomorphicLayoutEffect.md) - Isomorphic layout effect
+
+### Timer Hooks
 - [useCountdown](hooks/useCountdown.md) - Manage countdown timers
-- [useTernaryDarkMode](hooks/useTernaryDarkMode.md) - Advanced dark mode management
-- [useLockedBody](hooks/useLockedBody.md) - Lock body scrolling
+- [useTimer](hooks/useTimer.md) - Create timers
+- [usePause](hooks/usePause.md) - Create timed delays
+- [Timeout](hooks/Timeout.md) - Delay rendering
+
+### Navigation & Routing
+- [useStep](hooks/useStep.md) - Manage step navigation
+
+### UI & DOM Hooks
 - [useElementSize](hooks/useElementSize.md) - Track element size
 - [useIntersectionObserver](hooks/useIntersectionObserver.md) - Observe element intersections
 - [useImageOnLoad](hooks/useImageOnLoad.md) - Handle image loading
-- [useScreen](hooks/useScreen.md) - Access screen information
+- [useSelection](hooks/useSelection.md) - Access text selection
+- [useComputedStyle](hooks/useComputedStyle.md) - Access computed styles
+
+### Network Hooks
+- [useFetch](hooks/useFetch.md) - Fetch data from URLs
+- [useScript](hooks/useScript.md) - Load external scripts
+
+### SSR & Environment Hooks
 - [useSsr](hooks/useSsr.md) - Handle server-side rendering
 - [useIsClient](hooks/useIsClient.md) - Check if running on client
 - [useIsFirstRender](hooks/useIsFirstRender.md) - Check first render
 - [useIsMounted](hooks/useIsMounted.md) - Check if component is mounted
+
+### Utility Hooks
 - [useEventCallback](hooks/useEventCallback.md) - Create event callbacks
-- [useEffectOnce](hooks/useEffectOnce.md) - Run effect only once
-- [useUpdateEffect](hooks/useUpdateEffect.md) - Run effect on updates
-- [useIsomorphicLayoutEffect](hooks/useIsomorphicLayoutEffect.md) - Isomorphic layout effect
-- [useDestruct](hooks/useDestruct.md) - Destructure objects and arrays
-- [useGpsLocation](hooks/useGpsLocation.md) - Access GPS location
 - [useId](hooks/useId.md) - Generate unique IDs
+- [useDestruct](hooks/useDestruct.md) - Destructure objects and arrays
 - [useInvert](hooks/useInvert.md) - Invert boolean values
-- [useLocation](hooks/useLocation.md) - Access browser location
-- [usePause](hooks/usePause.md) - Create timed delays
-- [useScreenOrientation](hooks/useScreenOrientation.md) - Access screen orientation
-- [useSelection](hooks/useSelection.md) - Access text selection
-- [useTimer](hooks/useTimer.md) - Create timers
 - [useTry](hooks/useTry.md) - Execute functions with error handling
-- [useComputedStyle](hooks/useComputedStyle.md) - Access computed styles
-- [Array](hooks/Array.md) - Render arrays with context
-- [Object](hooks/Object.md) - Object utilities
-- [Ratio](hooks/Ratio.md) - Render items with selection
-- [Timeout](hooks/Timeout.md) - Delay rendering
 - [isLocalhost](hooks/isLocalhost.md) - Check if running on localhost
-- [useAspect](hooks/useAspect.md) - Calculate window aspect ratio
-- [useViewportSize](hooks/useViewportSize.md) - Access visual viewport properties
+- [useChanged](hooks/useChanged.md) - Track value changes
+- [useWith](hooks/useWith.md) - Use observable values with callbacks
 
 ## Development Resources
 

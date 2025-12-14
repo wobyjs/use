@@ -165,4 +165,4 @@ const MultipleSelection = () => {
 ## See Also
 
 - [Array component](Array.md)
-- [Woby documentation](https://github.com/vobyjs/woby) for more information about observables and contexts
+- [Woby documentation](https://github.com/wobyjs/woby) for more information about observables and contexts

@@ -16,9 +16,14 @@ import { useEffect } from 'woby'
  * ```
  * 
  * @see {@link https://reactjs.org/docs/hooks-effect.html|React useEffect documentation}
- * @see {@link https://github.com/vobyjs/woby|Woby documentation} for more information about effects
+ * @see {@link https://github.com/wobyjs/woby|Woby documentation} for more information about effects
  */
 export function useEffectOnce(effect: Parameters<typeof useEffect>[0]) {
-
-    useEffect(effect)
+    let run = false
+    useEffect((stack) => {
+        if (!run) {
+            effect(stack)
+            run = true
+        }
+    })
 }

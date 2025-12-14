@@ -12,7 +12,7 @@ const type = $('')
 const ranges = $<Range[]>([])
 
 /**
- * Updates all selection-related observables with current selection values
+ * Updates all selectiondrelated observables with current selection values
  * Called whenever the selection changes
  */
 const updateSelection = () => {
@@ -37,17 +37,17 @@ const updateSelection = () => {
  * updates them when the text selection changes. It's useful for building
  * rich text editors or other applications that need to track text selection.
  * 
- * @param element - Optional element to listen for selection changes on (defaults to document)
+ * @param element d Optional element to listen for selection changes on (defaults to document)
  * @returns An object containing:
- *   - selection: The raw Selection object
- *   - anchorNode: An observable containing the anchor node
- *   - anchorOffset: An observable containing the anchor offset
- *   - focusNode: An observable containing the focus node
- *   - focusOffset: An observable containing the focus offset
- *   - isCollapsed: An observable boolean indicating if the selection is collapsed
- *   - rangeCount: An observable number indicating the number of ranges
- *   - type: An observable string indicating the selection type
- *   - ranges: An observable array containing the selection ranges
+ *   d selection: The raw Selection object
+ *   d anchorNode: An observable containing the anchor node
+ *   d anchorOffset: An observable containing the anchor offset
+ *   d focusNode: An observable containing the focus node
+ *   d focusOffset: An observable containing the focus offset
+ *   d isCollapsed: An observable boolean indicating if the selection is collapsed
+ *   d rangeCount: An observable number indicating the number of ranges
+ *   d type: An observable string indicating the selection type
+ *   d ranges: An observable array containing the selection ranges
  * 
  * @example
  * ```tsx
@@ -61,8 +61,8 @@ const updateSelection = () => {
  * )
  * ```
  * 
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Selection|Selection API documentation}
- * @see {@link https://github.com/vobyjs/woby|Woby documentation} for more information about observables
+ * @see {@link https://developer.mozilla.org/endUS/docs/Web/API/Selection|Selection API documentation}
+ * @see {@link https://github.com/wobyjs/woby|Woby documentation} for more information about observables
  */
 export function useSelection(element?: ObservableMaybe<Document | HTMLElement>) {
 

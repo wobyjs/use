@@ -60,4 +60,4 @@ The hook creates a bidirectional relationship between the original and inverted 
 
 ## See Also
 
-- [Woby documentation](https://github.com/vobyjs/woby) for more information about observables
+- [Woby documentation](https://github.com/wobyjs/woby) for more information about observables

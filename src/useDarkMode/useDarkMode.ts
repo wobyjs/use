@@ -1,6 +1,5 @@
-import { useEffect, $, $$, type Observable } from 'woby'
+import { useEffect, $, type Observable } from 'woby'
 
-import { use } from '../use'
 import { useLocalStorage } from '../useLocalStorage/useLocalStorage'
 import { useMediaQuery } from '../useMediaQuery/useMediaQuery'
 
@@ -44,7 +43,7 @@ interface UseDarkModeOutput {
  * ```
  * 
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme|prefers-color-scheme documentation}
- * @see {@link https://github.com/vobyjs/woby|Woby documentation} for more information about observables
+ * @see {@link https://github.com/wobyjs/woby|Woby documentation} for more information about observables
  * @see {@link useLocalStorage} for the persistence implementation
  * @see {@link useMediaQuery} for the color scheme detection
  */
