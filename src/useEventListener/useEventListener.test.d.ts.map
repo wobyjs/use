@@ -1,0 +1,1 @@
+{"version":3,"file":"useEventListener.test.d.ts","sourceRoot":"","sources":["useEventListener.test.ts"],"names":[],"mappings":"AAKA,OAAO,CAAC,MAAM,CAAC;IACX,UAAU,cAAc;QACpB,YAAY,EAAE,WAAW,CAAA;KAC5B;IAED,UAAU,mBAAmB;QACzB,YAAY,EAAE,WAAW,CAAA;KAC5B;IAED,UAAU,gBAAgB;QACtB,YAAY,EAAE,WAAW,CAAA;KAC5B;CACJ"}

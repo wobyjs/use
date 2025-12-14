@@ -1,0 +1,1 @@
+{"version":3,"file":"useImageOnLoad.d.ts","sourceRoot":"","sources":["useImageOnLoad.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,aAAa,EAAc,kBAAkB,EAAE,MAAM,MAAM,CAAA;AAEpE,UAAU,UAAU;IAChB,SAAS,EAAE,aAAa,CAAA;IACxB,QAAQ,EAAE,aAAa,CAAA;CAC1B;AAED,UAAU,eAAe;IACrB,iBAAiB,EAAE,MAAM,IAAI,CAAA;IAC7B,GAAG,EAAE,kBAAkB,CAAC,UAAU,CAAC,CAAA;CACtC;AAED,wBAAgB,cAAc,IAAI,eAAe,CAuBhD"}

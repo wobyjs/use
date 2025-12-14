@@ -1,61 +1,72 @@
 {
-    "name": "@woby/use",
-    "repository": "https://github.com/wobyjs/use.git",
-    "description": "@woby/use",
-    "version": "0.0.26",
-    "publishConfig": {
-        "access": "public"
-    },
-    "main": "./dist/index.cjs.js",
-    "module": "./dist/index.es.js",
-    "types": "./dist/types/index.d.ts",
-    "sass": "./dist/styles.scss",
-    "sideEffects": false,
-    "keywords": [
-        "ui",
-        "framework",
-        "reactive",
-        "react"
-    ],
-    "dependencies": {
-        "nanoid": "^5.0.9",
-        "typescript": "5.7.3"
-    },
-    "devDependencies": {
-        "cross-env": "^7.0.3",
-        "glob": "^11.0.1",
-        "jasmine-browser-runner": "^2.5.0",
-        "jasmine-core": "^5.6.0",
-        "rollup-plugin-node-polyfills": "^0.2.1",
-        "rxjs": "^7.8.1",
-        "vite": "^6.1.0",
-        "vite-plugin-tsconfig": "^1.0.5"
-    },
-    "peerDependencies": {
-        "woby": "workspace:../woby"
-    },
-    "scripts": {
-        "git": "git add . && git commit -m \"Bump version\" && git push",
-        "bump": "pnpm version patch",
-        "npmjs": "pnpm publish",
-        "release": "run-s -c git bump npmjs",
-        "build:test": "cross-env NODE_ENV=test && vite build --config vite.config.test.ts",
-        "watch:test": "cross-env NODE_ENV=test && vite --config=vite.config.test.ts --force --host --mode dev",
-        "watch:prod": "cross-env NODE_ENV=production && vite --config=vite.config.test.ts --force --host --mode production",
-        "test": "npm run test:build && jasmine-browser-runner runSpecs",
-        "test:serve": "npm run test:build && jasmine-browser-runner",
-        "build:web": "vite build --config=vite.config.web.mts --force --mode production",
-        "web": "vite preview --config=vite.config.web.mts --host",
-        "dev": "vite --config=vite.config.web.mts --force --mode dev --host",
-        "prod": "vite --force",
-        "declaration": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --declarationMap",
-        "declaration:watch": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly  --declarationMap--watch",
-        "build:only": "vite build",
-        "watch:only": "vite build --watch",
-        "watch": "run-s watch:only declaration:watch",
-        "build": "run-s build:only declaration",
-        "build:tsc": "rimraf dist && tsc -p tsconfig.build.json",
-        "clean": "rimraf ./dist/",
-        "prepublishOnly1": "pnpm run clean && pnpm run build"
+  "name": "@woby/use",
+  "repository": "https://github.com/wobyjs/use.git",
+  "description": "@woby/use",
+  "version": "0.0.26",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.es.js",
+  "types": "./dist/types/index.d.ts",
+  "sass": "./dist/styles.scss",
+  "sideEffects": false,
+  "keywords": [
+    "ui",
+    "framework",
+    "reactive",
+    "react"
+  ],
+  "dependencies": {
+    "nanoid": "^5.0.9",
+    "typescript": "5.7.3"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "glob": "^11.0.1",
+    "jasmine-browser-runner": "^2.5.0",
+    "jasmine-core": "^5.6.0",
+    "rollup-plugin-node-polyfills": "^0.2.1",
+    "rxjs": "^7.8.1",
+    "vite": "^6.1.0",
+    "vite-plugin-tsconfig": "^1.0.5"
+  },
+  "peerDependencies": {
+    "woby": "workspace:../woby"
+  },
+  "scripts": {
+    "git": "git add . && git commit -m \"Bump version\" && git push",
+    "bump": "pnpm version patch",
+    "npmjs": "pnpm publish",
+    "release": "run-s -c git bump npmjs",
+    "build:test": "cross-env NODE_ENV=test && vite build --config vite.config.test.ts",
+    "watch:test": "cross-env NODE_ENV=test && vite --config=vite.config.test.ts --force --host --mode dev",
+    "watch:prod": "cross-env NODE_ENV=production && vite --config=vite.config.test.ts --force --host --mode production",
+    "test": "npm run test:build && jasmine-browser-runner runSpecs",
+    "test:serve": "npm run test:build && jasmine-browser-runner",
+    "build:web": "vite build --config=vite.config.web.mts --force --mode production",
+    "web": "vite preview --config=vite.config.web.mts --host",
+    "dev": "vite --config=vite.config.web.mts --force --mode dev --host",
+    "prod": "vite --force",
+    "declaration": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --declarationMap",
+    "declaration:watch": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly  --declarationMap--watch",
+    "build:only": "vite build",
+    "watch:only": "vite build --watch",
+    "watch": "run-s watch:only declaration:watch",
+    "build": "run-s build:only declaration",
+    "build:tsc": "rimraf dist && tsc -p tsconfig.build.json",
+    "clean": "rimraf ./dist/",
+    "prepublishOnly1": "pnpm run clean && pnpm run build",
+    "commit": "cz",
+    "changelog": "git-cliff -o CHANGELOG.md",
+    "release:automatic": "semantic-release --extends ../semantic-release.config.js",
+    "commit:help": "echo 'Usage: pnpm run commit' && echo 'This will start the commitizen wizard to create a conventional commit.' && echo 'Follow the prompts to enter commit type, scope, and message.'"
+  },
+  "pnpm": {
+    "overrides": {
+      "woby": "workspace:../woby",
+      "@woby/styled": "workspace:../styled",
+      "@woby/use": "workspace:../use"
     }
+  }
 }
