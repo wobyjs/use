@@ -31,7 +31,7 @@ import { $, $$, Observable, useEffect, type JSX } from 'woby'
 export function useClickAway<T = HTMLElement>(ref: Observable<T>, clickEvent: () => void) {
     useEffect(() => {
         const handleClickOutside = (event) => {
-            //@tsdignore
+            //@ts-ignore
             if ($$(ref) && ![$$(ref)].flat().includes(event.target))
                 clickEvent()
         }

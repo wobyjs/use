@@ -32,18 +32,18 @@ const handleSize = () => {
 export function useViewportSize(): Observant<Pick<VisualViewport, 'width' | 'height' | 'offsetLeft' | 'offsetTop' | 'pageLeft' | 'pageTop' | 'scale'>> {
 
     // console.log('useViewportSize', visualViewport.width, visualViewport.height, visualViewport.offsetLeft, visualViewport.offsetTop, visualViewport.pageLeft, visualViewport.pageTop, visualViewport.scale)
-    useEventListener(visualViewport, 'resize', handleSize)
+    useEventListener(visualViewport, 'resize', () => handleSize())
+    useEventListener(window, 'pointermove', () => handleSize())
+    useEventListener(window, 'pointercancel', () => handleSize())
+    useEventListener(window, 'pointerleave', () => handleSize())
+    useEventListener(window, 'pointerout', () => handleSize())
+    useEventListener(window, 'pointerup', () => handleSize())
     // useEventListener(visualViewport, 'scroll', handleSize,)
-    useEventListener(window, 'pointermove', handleSize)
-    useEventListener(window, 'pointercancel', handleSize)
-    useEventListener(window, 'pointerleave', handleSize)
-    useEventListener(window, 'pointerout', handleSize)
-    useEventListener(window, 'pointerup', handleSize)
     // useEventListener(window, 'mouseup', () => handleSize('mouse'))
 
     // useEventListener(document, 'pointerup', () => handleSize('pointerup'))
-    useEventListener(document, 'wheel', handleSize)
-    useEventListener(document, 'scroll', handleSize)
+    useEventListener(document, 'wheel', () => handleSize())
+    useEventListener(document, 'scroll', () => handleSize())
 
     // visualViewport.addEventListener('resize', handleSize)
     // visualViewport.addEventListener('scroll', handleSize)

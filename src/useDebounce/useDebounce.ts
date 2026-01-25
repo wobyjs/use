@@ -1,5 +1,4 @@
 import { useEffect, $$, type Observable, type ObservableMaybe, $ } from 'woby'
-import { use } from '../use/use'
 import { useChanged } from '../useChanged/useChanged'
 
 /**

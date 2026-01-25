@@ -1,4 +1,4 @@
-//@tsdignore
+//@ts-ignore
 import { jsx, jsxDEV } from 'woby'
 
 // Reexport Observant and Unobservant from woby
