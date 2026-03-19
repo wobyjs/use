@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "Tests for @woby/use library",
     "scripts": {
-        "build": "vite build",
+        "build": "vite build && pnpm bump",
         "preview": "vite preview",
         "test": "vite --force --mode dev --host",
         "test:prod": "vite --force --mode production --host"

@@ -1,0 +1,31 @@
+{
+    "extends": "./tsconfig.build.json",
+    "compilerOptions": {
+        "lib": [
+            "dom",
+            "esnext"
+        ],
+        "outDir": "./dist/browser/",
+        "declarationDir": "./dist/browser/types/",
+        "noEmit": false,
+        "emitDeclarationOnly": true,
+        "declaration": true,
+        "declarationMap": true
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules/*",
+        "**/*.test.ts*",
+        "**/*.spec.ts*",
+        "**/*.xtest.ts",
+        "vite.*.*ts",
+        "demo",
+        "dist",
+        "**/*.demo.ts*",
+        "**/tests.ts",
+        "**/test.tsx",
+        "test"
+    ]
+}

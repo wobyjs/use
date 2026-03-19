@@ -2,16 +2,44 @@
   "name": "@woby/use",
   "repository": "https://github.com/wobyjs/use.git",
   "description": "@woby/use",
-  "version": "0.0.26",
+  "version": "0.0.30",
   "publishConfig": {
     "access": "public"
   },
   "type": "module",
-  "main": "./dist/index.es.js",
-  "module": "./dist/index.es.js",
-  "types": "./dist/types/index.d.ts",
+  "main": "./dist/ssr/index.ssr.cjs.js",
+  "module": "./dist/browser/index.browser.es.js",
+  "types": "./dist/browser/types/index.d.ts",
   "sass": "./dist/styles.scss",
   "sideEffects": false,
+  "exports": {
+    ".": {
+      "browser": {
+        "types": "./dist/browser/types/index.d.ts",
+        "import": "./dist/browser/index.browser.es.js",
+        "require": "./dist/browser/index.browser.umd.js"
+      },
+      "ssr": {
+        "types": "./dist/ssr/types/index.ssr.d.ts",
+        "import": "./dist/ssr/index.ssr.es.js",
+        "require": "./dist/ssr/index.ssr.cjs.js"
+      },
+      "default": {
+        "types": "./dist/ssr/types/index.ssr.d.ts",
+        "default": "./dist/ssr/index.ssr.cjs.js"
+      }
+    },
+    "./browser": {
+      "types": "./dist/browser/types/index.d.ts",
+      "import": "./dist/browser/index.browser.es.js",
+      "require": "./dist/browser/index.browser.umd.js"
+    },
+    "./ssr": {
+      "types": "./dist/ssr/types/index.ssr.d.ts",
+      "import": "./dist/ssr/index.ssr.es.js",
+      "require": "./dist/ssr/index.ssr.cjs.js"
+    }
+  },
   "keywords": [
     "ui",
     "framework",
@@ -33,8 +61,7 @@
     "woby": "workspace:../woby"
   },
   "scripts": {
-    "git": " git-changelog -a -o CHANGELOG.md && git-commit-m",
-    "bump": "pnpm version patch",
+    "bump": "pnpm version patch --no-git-tag-version",
     "push": "git push && git push --tags",
     "npmjs": "pnpm publish --access public",
     "commit": "pnpm git && pnpm bump && pnpm push",
@@ -50,11 +77,17 @@
     "dev": "vite --config=vite.config.web.mts --force --mode dev --host",
     "prod": "vite --force",
     "declaration": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --declarationMap",
-    "declaration:watch": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly  --declarationMap--watch",
+    "declaration:watch": "tsc -p tsconfig.build.json --declaration --emitDeclarationOnly --declarationMap--watch",
     "build:only": "vite build",
     "watch:only": "vite build --watch",
     "watch": "run-s watch:only declaration:watch",
-    "build": "run-s build:only declaration",
+    "build": "run-s build:clean build:browser build:ssr build:types",
+    "build:browser": "vite build --config vite.config.browser.mts",
+    "build:ssr": "vite build --config vite.config.ssr.mts",
+    "build:types": "run-p build:types:browser build:types:ssr",
+    "build:types:browser": "tsc -p tsconfig.browser.json",
+    "build:types:ssr": "tsc -p tsconfig.ssr.json",
+    "build:clean": "rimraf dist",
     "build:tsc": "rimraf dist && tsc -p tsconfig.build.json",
     "clean": "rimraf ./dist/",
     "prepublishOnly1": "pnpm run clean && pnpm run build",
