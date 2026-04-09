@@ -32,7 +32,8 @@ export function useClickAway<T = HTMLElement>(ref: Observable<T>, clickEvent: ()
     useEffect(() => {
         const handleClickOutside = (event) => {
             //@ts-ignore
-            if ($$(ref) && ![$$(ref)].flat().includes(event.target))
+            const refs = [$$(ref)].flat().filter(Boolean) as HTMLElement[]
+            if (refs.length && !refs.some(el => el.contains(event.target)))
                 clickEvent()
         }
 

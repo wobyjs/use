@@ -21,12 +21,12 @@
       },
       "ssr": {
         "types": "./dist/ssr/types/index.ssr.d.ts",
-        "import": "./dist/ssr/index.ssr.es.js",
-        "require": "./dist/ssr/index.ssr.cjs.js"
+        "import": "./dist/ssr/index.ssr.js",
+        "require": "./dist/ssr/index.ssr.cjs"
       },
       "default": {
         "types": "./dist/ssr/types/index.ssr.d.ts",
-        "default": "./dist/ssr/index.ssr.cjs.js"
+        "default": "./dist/ssr/index.ssr.cjs"
       }
     },
     "./browser": {
@@ -36,8 +36,8 @@
     },
     "./ssr": {
       "types": "./dist/ssr/types/index.ssr.d.ts",
-      "import": "./dist/ssr/index.ssr.es.js",
-      "require": "./dist/ssr/index.ssr.cjs.js"
+      "import": "./dist/ssr/index.ssr.js",
+      "require": "./dist/ssr/index.ssr.cjs"
     }
   },
   "keywords": [
