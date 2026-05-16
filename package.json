@@ -2,7 +2,7 @@
   "name": "@woby/use",
   "repository": "https://github.com/wobyjs/use.git",
   "description": "@woby/use",
-  "version": "0.0.30",
+  "version": "0.0.31",
   "publishConfig": {
     "access": "public"
   },
@@ -51,7 +51,7 @@
     "typescript": "5.7.3"
   },
   "devDependencies": {
-    "@woby/chk": "workspace:../chk",
+    "@woby/chk": "link:..\\chk",
     "@woby/vite-plugin-test": "workspace:../vite-plugin-test",
     "cross-env": "^7.0.3",
     "vite": "^6.1.0",
