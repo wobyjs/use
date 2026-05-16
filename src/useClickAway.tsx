@@ -30,10 +30,11 @@ import { $, $$, Observable, useEffect, type JSX } from 'woby'
  */
 export function useClickAway<T = HTMLElement>(ref: Observable<T>, clickEvent: () => void) {
     useEffect(() => {
-        const handleClickOutside = (event) => {
-            //@ts-ignore
+        const handleClickOutside = (event: MouseEvent) => {
             const refs = [$$(ref)].flat().filter(Boolean) as HTMLElement[]
-            if (refs.length && !refs.some(el => el.contains(event.target)))
+            // Use composedPath()[0] to get the actual target inside shadow DOM
+            const actualTarget = event.composedPath?.()?.[0] as Node | undefined ?? event.target
+            if (refs.length && !refs.some(el => el.contains(actualTarget as Node)))
                 clickEvent()
         }
 

@@ -1,6 +1,5 @@
 import { render } from 'woby'
 import { Checks } from '@woby/chk'
-import '@woby/chk/index.css'
 
 declare global {
     interface Window {
