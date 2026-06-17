@@ -27,11 +27,15 @@ export function useDocumentTitle(title: ObservableMaybe<string>) {
     const titleObservable = use(title)
 
     useEffect(() => {
-        window.document.title = $$(titleObservable)
+        if (typeof window !== 'undefined' && window.document) {
+            window.document.title = $$(titleObservable)
+        }
     })
 
     // 1st time
-    window.document.title = $$(titleObservable)
+    if (typeof window !== 'undefined' && window.document) {
+        window.document.title = $$(titleObservable)
+    }
 
     return titleObservable
 }
