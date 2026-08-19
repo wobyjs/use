@@ -1,6 +1,6 @@
 import { $, $$, useEffect, type Observable, type ObservableMaybe, type ObservableReadonly } from 'woby'
 import { useEventListener } from '../useEventListener/useEventListener'
-import { wrap } from '../utils'
+import { serialize, unwrap } from '../utils'
 
 declare module '../useEventListener/useEventListener' {
     interface ExtendedEventMap {
@@ -65,7 +65,7 @@ export function useSessionStorage<T>(
 
         try {
             const item = window.sessionStorage.getItem(key)
-            return item ? (wrap(item) as T) : $$(initialValue)
+            return item !== null ? unwrap<T>(item) : $$(initialValue)
         } catch (error) {
             console.warn(`Error reading sessionStorage key “${key}”:`, error)
             return $$(initialValue)
@@ -114,11 +114,13 @@ export function useSessionStorage<T>(
             if (removeOnNull && newValue === null) {
                 window.sessionStorage.removeItem(key)
             } else {
-                if (wrap(newValue) === wrap(readValue()))
+                const raw = serialize(newValue)
+
+                if (window.sessionStorage.getItem(key) === raw)
                     return
 
                 // Save to session storage
-                window.sessionStorage.setItem(key, wrap(newValue))
+                window.sessionStorage.setItem(key, raw)
             }
 
             // We dispatch a custom event so every useSessionStorage hook are notified
@@ -135,7 +137,7 @@ export function useSessionStorage<T>(
 
         const newValue = $$(storedValue)
 
-        if (wrap(newValue) === wrap(readValue()))
+        if (serialize(newValue) === serialize(readValue()))
             return
 
         storedValue(readValue())

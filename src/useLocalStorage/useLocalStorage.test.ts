@@ -1,5 +1,5 @@
 import { test, expect } from '@woby/chk'
-import { $, $$ } from 'woby'
+import { $, $$, tick } from 'woby'
 
 import { useLocalStorage } from './useLocalStorage'
 
@@ -26,6 +26,7 @@ test('useLocalStorage()', () => {
         const result = useLocalStorage(key, initialValue)
 
         expect($$(result)).toBe(initialValue)
+        tick() //let useEffect persist the initial value
         expect(window.localStorage.getItem(key)).toBe(JSON.stringify(initialValue))
     })
 
