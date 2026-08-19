@@ -156,10 +156,14 @@ useClickAway(ref: Observable<T>, clickEvent: Function);
 
 ### useOnClickOutside
 
-Detects clicks outside an element.
+Detects clicks outside an element. Shadow-DOM aware.
 
 ```typescript
-useOnClickOutside(ref: RefObject<HTMLElement>, handler: Function);
+useOnClickOutside<T extends HTMLElement>(
+    ref: Observable<T>,
+    handler: (event: MouseEvent) => void,
+    mouseEvent: 'mousedown' | 'mouseup' = 'mousedown',
+): void;
 ```
 
 ### useHover

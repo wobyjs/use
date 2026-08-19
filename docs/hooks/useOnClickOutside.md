@@ -2,6 +2,9 @@
 
 A hook that detects clicks outside an element.
 
+Works across shadow boundaries: the element may live inside a shadow root, at any
+nesting depth, and clicks within it are still recognised as "inside".
+
 ## Usage
 
 ```javascript
@@ -27,12 +30,34 @@ function Component() {
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| ref | Observable<T> \| T | - | A reference to the HTML element |
-| handler | Function | - | The function to call when clicking outside |
+| ref | `Observable<T>` | - | An observable holding the HTML element |
+| handler | `(event: MouseEvent) => void` | - | The function to call when clicking outside |
+| mouseEvent | `'mousedown' \| 'mouseup'` | `'mousedown'` | Which mouse event to listen for |
 
 ## Return Value
 
 This hook does not return a value.
+
+## Shadow DOM
+
+The listener is attached to `window`, so an event originating inside a shadow root
+has already been retargeted by the time it arrives -- `event.target` is the
+outermost host element, not the node that was clicked. The hook therefore tests
+membership with `event.composedPath()`, which is the pre-retargeting path and
+crosses shadow boundaries, rather than `el.contains(event.target)`.
+
+In plain light DOM the two are equivalent, so this costs nothing for
+non-shadow usage.
+
+## Caveats
+
+`useEventListener` registers at most one listener per `(target, eventName)` pair
+for the whole page, and does not release the pair on cleanup. Because this hook
+listens on `window`, only the **first** `useOnClickOutside` call using a given
+`mouseEvent` takes effect; later calls are silently ignored, and once the first
+owner unmounts the pair cannot be claimed again. If two components need
+outside-click dismissal at the same time, give them different `mouseEvent`
+values or share a single hook instance.
 
 ## Examples
 

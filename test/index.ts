@@ -13,6 +13,7 @@ import '../src/useCounter/useCounter.test'
 import '../src/useBoolean/useBoolean.spec'
 import '../src/useStep/useStep.test'
 import '../src/useCountdown/useCountdown.test'
+import '../src/useOnClickOutside/useOnClickOutside.test'
 
 // Initialize the global verifies instance if it's not already
 if (!window.checks) {
