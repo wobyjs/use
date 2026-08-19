@@ -4,7 +4,7 @@ export { assign, make } from 'woby'
 
 export const isObject = (obj: {}) => {
 	if (obj == undefined) return false
-	if (obj.constructor.name == "Object") {
+	if (obj.constructor?.name == "Object") {
 		return true
 	}
 	else {

@@ -13,6 +13,8 @@ const config = defineConfig({
         },
         sourcemap: true,
         outDir: './dist/browser',
+        // dist is cleaned once by build:clean; keep types emitted by build:types
+        emptyOutDir: false,
         rollupOptions: {
             external: ['woby', 'woby/jsx-runtime', 'oby', '**/*.text.ts*', /^@woby\/(.*)/],
             output: {

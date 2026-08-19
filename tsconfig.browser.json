@@ -1,7 +1,6 @@
 {
     "extends": "./tsconfig.build.json",
     "compilerOptions": {
-    "ignoreDeprecations": "6.0",
         "lib": [
             "dom",
             "esnext"

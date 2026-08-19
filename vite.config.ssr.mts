@@ -13,6 +13,8 @@ const config = defineConfig({
         },
         sourcemap: true,
         outDir: './dist/ssr',
+        // dist is cleaned once by build:clean; keep types emitted by build:types
+        emptyOutDir: false,
         ssr: true,
         rollupOptions: {
             external: [

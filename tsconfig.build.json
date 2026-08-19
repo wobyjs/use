@@ -7,9 +7,8 @@
         "alwaysStrict": true,
         "declaration": true,
         "disableSizeLimit": true,
-        "esModuleInterop": false,
+        "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
-        "ignoreDeprecations": "6.0",
         "inlineSourceMap": false,
         "inlineSources": false,
         "jsx": "react-jsx",
@@ -44,7 +43,6 @@
         "useUnknownInCatchVariables": true,
         "noImplicitAny": false,
         "noUncheckedIndexedAccess": false,
-        "baseUrl": ".",
         "rootDir": "./src"
     },
     "exclude": [

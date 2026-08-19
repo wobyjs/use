@@ -1,7 +1,6 @@
 // GENERATED via 'vite-plugin-tsconfig' - this should be automatically created and deleted inside the build process. 
 {
   "compilerOptions": {
-    "ignoreDeprecations": "6.0",
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
     "allowUnreachableCode": false,

@@ -25,8 +25,8 @@
         "require": "./dist/ssr/index.ssr.cjs"
       },
       "default": {
-        "types": "./dist/ssr/types/index.ssr.d.ts",
-        "default": "./dist/ssr/index.ssr.cjs"
+        "types": "./dist/browser/types/index.d.ts",
+        "default": "./dist/browser/index.browser.es.js"
       }
     },
     "./browser": {
@@ -47,15 +47,16 @@
     "react"
   ],
   "dependencies": {
-    "nanoid": "^5.1.11",
-    "typescript": "6.0.3"
+    "nanoid": "^6.0.0",
+    "typescript": "7.0.2"
   },
   "devDependencies": {
     "@woby/chk": "workspace:^",
     "@woby/vite-plugin-test": "workspace:^",
     "cross-env": "^10.1.0",
+    "npm-run-all": "^4.1.5",
     "rimraf": "^6.1.3",
-    "vite": "^8.0.14",
+    "vite": "^8.1.4",
     "vite-plugin-tsconfig": "^2.0.0"
   },
   "peerDependencies": {
@@ -67,12 +68,14 @@
     "npmjs": "pnpm publish --access public",
     "commit": "pnpm git && pnpm bump && pnpm push",
     "release": "run-s -c commit npmjs",
-    "build:test": "cross-env NODE_ENV=test && vite build --config vite.config.test.mts",
-    "build:test:watch": "cross-env NODE_ENV=test && vite build --config vite.config.test.mts --watch",
-    "watch:test": "cross-env NODE_ENV=test && vite --config=vite.config.test.mts --force --host --mode dev",
-    "watch:prod": "cross-env NODE_ENV=production && vite --config=vite.config.test.mts --force --host --mode production",
-    "test": "pnpm run build:test && chk",
-    "test:watch": "pnpm run build:test && chk-watch",
+    "build:test": "cross-env NODE_ENV=test vite build --config vite.config.test.mts",
+    "build:test:watch": "cross-env NODE_ENV=test vite build --config vite.config.test.mts --watch",
+    "watch:test": "cross-env NODE_ENV=test vite --config=vite.config.test.mts --force --host --mode dev",
+    "watch:prod": "cross-env NODE_ENV=production vite --config=vite.config.test.mts --force --host --mode production",
+    "chk": "chk",
+    "test": "run-s build:test chk",
+    "chk:watch": "chk-watch",
+    "test:watch": "run-s build:test chk:watch",
     "build:web": "vite build --config=vite.config.web.mts --force --mode production",
     "web": "vite preview --config=vite.config.web.mts --host",
     "dev": "vite --config=vite.config.web.mts --force --mode dev --host",
@@ -82,7 +85,7 @@
     "build:only": "vite build",
     "watch:only": "vite build --watch",
     "watch": "run-s watch:only declaration:watch",
-    "build": "run-s build:clean build:browser build:ssr build:types",
+    "build": "run-s build:clean build:types build:browser build:ssr",
     "build:browser": "vite build --config vite.config.browser.mts",
     "build:ssr": "vite build --config vite.config.ssr.mts",
     "build:types": "run-p build:types:browser build:types:ssr",
